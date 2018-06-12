@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="学而时习之 - jackyting825">
 <meta property="og:description" content="摘要:   Shell是一个命令行解释器,它为用户提供了一个向Linux内核   发送请求以便运行程序的界面系统级程序.用户可以用Shell来启动,挂起,   停止甚至是编写一些程序.   Shell还是一个功能相当强大的编程语言.易编写,意调试,灵活性较强.   Shell是解释执行的语言,在Shell中可以直接调用Linux系统命令. 1.脚本的执行方式1. echo 输出命令     ech">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-27T00:17:08.999Z">
+<meta property="og:updated_time" content="2018-06-10T14:14:54.024Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell基础">
 <meta name="twitter:description" content="摘要:   Shell是一个命令行解释器,它为用户提供了一个向Linux内核   发送请求以便运行程序的界面系统级程序.用户可以用Shell来启动,挂起,   停止甚至是编写一些程序.   Shell还是一个功能相当强大的编程语言.易编写,意调试,灵活性较强.   Shell是解释执行的语言,在Shell中可以直接调用Linux系统命令. 1.脚本的执行方式1. echo 输出命令     ech">
@@ -141,11 +141,139 @@
 
   注:因为别名的执行顺序是高于$PATH下的命令的,
   所以一般情况下请勿将别名设为与其他原始命令相同的命令.
+</code></pre><h4 id="3-Shell编程之Bash变量"><a href="#3-Shell编程之Bash变量" class="headerlink" title="3.Shell编程之Bash变量"></a>3.Shell编程之Bash变量</h4><p>  Shell中,所有变量默认都是字符串类型</p>
+<ol>
+<li><p>用户自定义变量  变量名=变量值(等号2边不能有空格)</p>
+<p>用户自己定义的变量,变量名和值可随意更改</p>
+<p>name=”zhangsan”</p>
+<p>echo $name #显示name的值</p>
+<p>1.1 变量叠加</p>
+<p> name=”$name”isaname</p>
+<p>1.2  删除变量(释放变量的内存地址) unset 变量名</p>
+</li>
+<li><p>环境变量</p>
+<p>环境变量是全局变量,用户可更改值,不能更改名称</p>
+</li>
+<li><p>位置参数变量</p>
+<p>$n :n为数字,$0代表命令本身.$1-$9代表第1-第9个参数,10以上的参数需要用大括号包含,如${10}</p>
+<p>例:vim sum.sh</p>
+<p> `#!/bin/bash</p>
+<p>   num1=$1</p>
+<p>   num2=$2</p>
+<p>   sum=$(($num1+$num2))</p>
+<p>   #变量sum的和是num1+num2</p>
+<p>   echo $sum`</p>
+<p>   执行;./sum.sh 10 20  #./sum.sh是$0,10是$1,20是$2</p>
+<p>   结果:30</p>
+<p>$<em> : 这个变量代表命令行中中所有的参数,$</em> 把所有的参数看成一个整体</p>
+<p>$@ : 这个变量也代表命令行中所有的参数,不过$@ 是把每个参数区分对待</p>
+<p>@# : 这个变量代表命令行中所有参数的个数</p>
+<p>例:vim /demo.sh</p>
+<p>`#!/bin/bash</p>
+<p>echo “参数是: $* “</p>
+<p>echo “参数也是: $@ “</p>
+<p>echo “参数个数是: $#”`</p>
+<p>执行;./demo.sh 11 22 33</p>
+<p>结果:参数是: 11 22 33 参数也是: 11 22 33 参数个数是: 3</p>
+<p>$* 和 $@ 区别</p>
+<p>vim ./demo.sh</p>
+<p>#!/bin/bash</p>
+<p>`for i in “$*”</p>
+<p>#$* 把所有的参数看成一个整体,所以执行循环1次</p>
+<p> do</p>
+<p>   echo “参数是: $i”</p>
+<p> done</p>
+<p>for y in “$@”</p>
+<p>#$@ 是把每个参数区分对待,所有有几个参数就循环几次</p>
+<p> do</p>
+<p>   echo “参数是: $y”</p>
+<p> done<br>`</p>
+</li>
+<li><p>预定义变量</p>
+<p>$? : 最后依次执行的命令的返回结果,如果返回是0,代表上一个命令执行成功,如果返回是非0,代表上一个命令执行失败</p>
+<p>$$ : 返回当前进程的PID号</p>
+<p>$! : 后台运行的最后一个进程的进程号(PID)</p>
+</li>
+<li><p>接收键盘输入:read 命令</p>
+<p>read [选项] [变量名]</p>
+<p>选项</p>
+<p> -p “提示信息”:在等待read输入时,输出提示信息</p>
+<p> -t 秒数: read命令会一直等待用户输入,输入次选项可以指定用户等待时间</p>
+<p> -n 字符数: read命令只接受指定的字符数,就会执行</p>
+<p> -s : 隐藏输入的数据,适用于输入密码等情况</p>
+</li>
+</ol>
+<h4 id="4-Shell编程之运算符"><a href="#4-Shell编程之运算符" class="headerlink" title="4.Shell编程之运算符"></a>4.Shell编程之运算符</h4><pre><code>1. declare命令
+
+  declare声明变量类型
+
+  declare [+/-] [选项] 变量名
+
+    选项:用-给变量设定类型属性,用+取消变量的类型属性
+
+  常见选项类型
+
+    -a 将变量声明为数组类型
+
+    -i 将变量声明为整形
+
+    -x 将变量声明为环境变量
+
+    -r 将变量声明为只读变量(设置为只读属性后,不能对变量进行删除,修改,取消属性的操作)
+
+    -p 查看显示指定变量的被声明的类型
+
+2. 数值运算的方法
+
+  方法1:
+
+  [root@localhost~]# aa=11
+
+  [root@localhost~]# bb=22
+
+  [root@localhost~]# declare -i cc=$aa+$bb
+
+  方法2:
+
+    expr或者let数值运算工具
+
+    [root@localhost~]# aa=11
+
+    [root@localhost~]# bb=22
+
+    [root@localhost~]# dd=$(expr $aa + $bb)
+
+    #dd的值是aa和bb的和,注意:&quot;+&quot;号两侧必须有空格
+
+  方法3:
+
+    &quot;$(())&quot;或&quot;$[运算式]&quot;
+
+    [root@localhost~]# aa=11
+
+    [root@localhost~]# bb=22
+
+    [root@localhost~]# cc=$(($aa + $bb))
+
+    [root@localhost~]# gg=$[$aa + $bb]
+
+3. 变量测试(只是针对Shell,其他常用不适用.一般不常用,对脚本进行优化的时候才使用)
+</code></pre><h4 id="5-Shell编程之环境变量配置文件"><a href="#5-Shell编程之环境变量配置文件" class="headerlink" title="5.Shell编程之环境变量配置文件"></a>5.Shell编程之环境变量配置文件</h4><pre><code>`/etc/profile
+
+/etc/profile.d/*.sh
+
+/etc/bashrc
+
+~/.bashrc
+
+~/.bash_profile`
+
+/etc目录下的是系统环境变量文件,~目录下的是当前用户的环境变量配置文件
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjho2romp0001dr34t27j99tx" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjibq46oq000dl24wlfx54nsd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
@@ -155,6 +283,15 @@
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/06/12/MySQL设置用户远程登录/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          MySQL设置用户远程登录
+        
+      </div>
+    </a>
   
   
     <a href="/2018/05/20/Linux常用压缩解压缩/" id="article-nav-older" class="article-nav-link-wrap">
@@ -188,7 +325,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 10px;">MySQL</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a>
     </div>
   </div>
 
@@ -197,7 +334,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
   </div>
 
@@ -210,6 +347,14 @@
       <ul>
         
           <li>
+            <a href="/2018/06/12/java实现图片的灰度化处理/">java实现图片的灰度化处理</a>
+          </li>
+        
+          <li>
+            <a href="/2018/06/12/MySQL设置用户远程登录/">MySQL设置用户远程登录</a>
+          </li>
+        
+          <li>
             <a href="/2018/05/20/Shell基础/">Shell基础</a>
           </li>
         
@@ -219,14 +364,6 @@
         
           <li>
             <a href="/2018/05/13/linux下nginx部署配置多站点/">linux下nginx部署配置多站点</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/13/Linux下安装maven/">Linux下安装maven</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/13/JDK/">linux离线安装oracle JDK</a>
           </li>
         
       </ul>

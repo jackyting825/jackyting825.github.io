@@ -5,20 +5,20 @@
   
 
   
-  <title>Linux下离线安装nodejs | 学而时习之 - jackyting825</title>
+  <title>MySQL设置用户远程登录 | 学而时习之 - jackyting825</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
-<meta name="keywords" content="linux,nodejs">
+  <meta name="description" content="摘要:在Linux(debian)下,通过apt install mysql-server后,输入root账户密码后, 默认是不允许远程登录的.可以用过以下几种方式来设置允许能够远程登录 1.改mysql库下的user表的数据 mysql -u root –p mysql&amp;gt;use mysql; mysql&amp;gt;update user set host = &amp;apos;%&amp;apos; whe">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下离线安装nodejs">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/index.html">
+<meta property="og:title" content="MySQL设置用户远程登录">
+<meta property="og:url" content="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta property="og:description" content="摘要:在Linux(debian)下,通过apt install mysql-server后,输入root账户密码后, 默认是不允许远程登录的.可以用过以下几种方式来设置允许能够远程登录 1.改mysql库下的user表的数据 mysql -u root –p mysql&amp;gt;use mysql; mysql&amp;gt;update user set host = &amp;apos;%&amp;apos; whe">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-05-20T09:05:13.928Z">
+<meta property="og:updated_time" content="2018-06-12T13:21:29.737Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下离线安装nodejs">
-<meta name="twitter:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta name="twitter:title" content="MySQL设置用户远程登录">
+<meta name="twitter:description" content="摘要:在Linux(debian)下,通过apt install mysql-server后,输入root账户密码后, 默认是不允许远程登录的.可以用过以下几种方式来设置允许能够远程登录 1.改mysql库下的user表的数据 mysql -u root –p mysql&amp;gt;use mysql; mysql&amp;gt;update user set host = &amp;apos;%&amp;apos; whe">
   
     <link rel="alternate" href="/atom.xml" title="学而时习之 - jackyting825" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux下安装nodejs" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-MySQL设置用户远程登录" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/12/Linux下安装nodejs/" class="article-date">
-  <time datetime="2018-05-12T10:36:16.000Z" itemprop="datePublished">2018-05-12</time>
+    <a href="/2018/06/12/MySQL设置用户远程登录/" class="article-date">
+  <time datetime="2018-06-12T02:59:34.000Z" itemprop="datePublished">2018-06-12</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Linux下离线安装nodejs
+      MySQL设置用户远程登录
     </h1>
   
 
@@ -91,26 +91,33 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="Linux下离线安装nodejs步骤"><a href="#Linux下离线安装nodejs步骤" class="headerlink" title="Linux下离线安装nodejs步骤:"></a>Linux下离线安装nodejs步骤:</h5><hr>
-<p>1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定</p>
-<p><code>sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/</code></p>
-<p>2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置)</p>
-<p><code>export NODE_HOME=/opt/node</code></p>
-<p><code>export PATH=$PATH:$NODE_HOME/bin</code></p>
-<p><code>export NODE_PATH=$NODE_HOME/lib/node_modules</code></p>
-<p>3.使配置生效,执行source命令</p>
-<p><code>source ~/.bashrc</code></p>
-<p>4.执行如下命令校验配置是否生效</p>
-<p><code>node -v</code></p>
-<p><code>npm -v</code></p>
+        <pre><code>摘要:在Linux(debian)下,通过apt install mysql-server后,输入root账户密码后,
+默认是不允许远程登录的.可以用过以下几种方式来设置允许能够远程登录
+</code></pre><p>1.改mysql库下的user表的数据</p>
+<pre><code>mysql -u root –p
+mysql&gt;use mysql;
+mysql&gt;update user set host = &apos;%&apos; where user = &apos;root&apos;;
+mysql&gt;select host, user from user;
+</code></pre><p>2.通过授权的方式,这种方式可以对不同的用户设置不同的访问权限</p>
+<pre><code>#例如: 在MySQL服务器主机上执行,允许root使用123456从任何主机连接到mysql服务器
 
+mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &apos;root&apos;@&apos;%&apos; IDENTIFIED BY &apos;123456&apos; WITH GRANT OPTION;
+
+mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
+
+#例如:允许用户test从ip为120.77.163.89的主机连接到mysql服务器，并使用123456作为密码
+
+mysql&gt;GRANT ALL PRIVILEGES ON *.* TO &apos;test&apos;@’120.77.163.89’ IDENTIFIED BY &apos;654321&apos; WITH GRANT OPTION;
+
+mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/" data-id="cjibq46nw0003l24wagbin187" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjibq46ob0005l24wd31cxjxv" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
 
     </footer>
   </div>
@@ -118,15 +125,20 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/05/13/MySQL字段值默认不区分大小写问题/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2018/06/12/java实现图片的灰度化处理/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Newer</strong>
       <div class="article-nav-title">
         
-          MySQL字段值默认不区分大小写问题
+          java实现图片的灰度化处理
         
       </div>
     </a>
   
+  
+    <a href="/2018/05/20/Shell基础/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Shell基础</div>
+    </a>
   
 </nav>
 
