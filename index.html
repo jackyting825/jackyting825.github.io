@@ -70,6 +70,65 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-vscode配置前端vue开发环境" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/06/19/vscode配置前端vue开发环境/" class="article-date">
+  <time datetime="2018-06-19T02:42:39.000Z" itemprop="datePublished">2018-06-19</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>摘要:
+  使用vscode配置前端vue开发环境
+</code></pre><p>1.安装好vscode后,安装常用的几个插件</p>
+<pre><code>Auto Close Tag : 自动闭合标签插件
+
+Beautify : 格式化js,json,css,sass,html等文件
+
+ESLint : 使用eslint规范对代码进行处理
+
+file-icons : 文件图标,便利区分不同类型的文件
+
+Monokai Theme : 一款类似sublime text主流的主题设置,使界面美观,享受美好的编码心情
+
+Path Intellisense : 自动提示文件路径插件
+
+Prettier : 因为vscode默认的格式化是不能通过eslint校验规范的,需要改为此插件
+
+Vetur : vscode的vue工具插件
+</code></pre><p>2.安装好上述插件后,对其进行配置设置</p>
+<pre><code>在文件-&gt;首选项-&gt;设置-&gt;用户设置里面写入以下配置
+</code></pre>  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"workbench.startupEditor"</span>: <span class="string">"newUntitledFile"</span>,</span><br><span class="line">  <span class="attr">"extensions.ignoreRecommendations"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workbench.iconTheme"</span>: <span class="string">"file-icons"</span>,</span><br><span class="line">  <span class="attr">"workbench.colorTheme"</span>: <span class="string">"Monokai"</span>,</span><br><span class="line">  <span class="attr">"vetur.format.defaultFormatter.js"</span>: <span class="string">"vscode-typescript"</span>,</span><br><span class="line">  <span class="attr">"extensions.autoUpdate"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"update.channel"</span>: <span class="string">"none"</span>,</span><br><span class="line">  <span class="attr">"eslint.autoFixOnSave"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"files.autoSave"</span>: <span class="string">"off"</span>,</span><br><span class="line">  <span class="attr">"eslint.validate"</span>: [</span><br><span class="line">      <span class="string">"javascript"</span>,</span><br><span class="line">      <span class="string">"javascriptreact"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="attr">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">          <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="attr">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">          <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">"vue"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"eslint.options"</span>: &#123;</span><br><span class="line">      <span class="attr">"plugins"</span>: [</span><br><span class="line">          <span class="string">"html"</span></span><br><span class="line">      ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"editor.tabSize"</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">"prettier.eslintIntegration"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"vetur.format.defaultFormatter"</span>: &#123;</span><br><span class="line">      <span class="attr">"html"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"postcss"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"scss"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"less"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"js"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"ts"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"stylus"</span>: <span class="string">"stylus-supremacy"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjil41m88000gmpcl39k9neeo" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-java实现图片的灰度化处理" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/06/12/java实现图片的灰度化处理/" class="article-date">
@@ -115,7 +174,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjibq46oh0008l24w6xn1207e" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjil41m84000cmpcl8zlznl47" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -172,7 +231,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjibq46ob0005l24wd31cxjxv" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjil41m82000bmpcleqd2o50y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -384,11 +443,70 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
 ~/.bash_profile`
 
 /etc目录下的是系统环境变量文件,~目录下的是当前用户的环境变量配置文件
-</code></pre>
+</code></pre><h4 id="6-Shell编程之正则表达式"><a href="#6-Shell编程之正则表达式" class="headerlink" title="6.Shell编程之正则表达式"></a>6.Shell编程之正则表达式</h4><pre><code>正则表达式主要是用于描述字符排列和匹配模式d额一种语法规则，
+主要用于字符串的模式分割,匹配,查找及替换操作
+</code></pre><p>  1.正则表达式与通配符</p>
+<pre><code>通配符：
+  *：匹配任意内容
+  ?：匹配任意一个内容
+  []：匹配括号中的一个字符.
+</code></pre><p>  正则表达式用来在文件中匹配符合条件的字符串,正则是包含匹配.<br>  grep,awk,sed等命令可以支持正则表达式.</p>
+<p>  通配符用来匹配符合条件的文件名,通配符是完全匹配.<br>  ls,find,cp这些命令不支持正则表达式,所以只能使用shell的通配符匹配.</p>
+<h4 id="基础正则表达式"><a href="#基础正则表达式" class="headerlink" title="基础正则表达式:"></a>基础正则表达式:</h4><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td style="text-align:center">前一个字符匹配0次或者任意多次</td>
+</tr>
+<tr>
+<td>.</td>
+<td style="text-align:center">匹配除了换行符以外的任意一个字符</td>
+</tr>
+<tr>
+<td>^</td>
+<td style="text-align:center">匹配行首.例如:^hello匹配以hello开头的行</td>
+</tr>
+<tr>
+<td>$</td>
+<td style="text-align:center">匹配行尾.例如:hello$匹配以hello结尾的行</td>
+</tr>
+<tr>
+<td>[]</td>
+<td style="text-align:center">匹配中括号中指定的任意一个字符,只匹配一个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td style="text-align:center">匹配除中括号中的字符以外的任意一个字符,例:[^0-9]表示匹配任意一位非数字字符</td>
+</tr>
+<tr>
+<td>\</td>
+<td style="text-align:center">转义符,用于将特殊符号的含义取消</td>
+</tr>
+<tr>
+<td>\{n\}</td>
+<td style="text-align:center">表示其前面的字符恰好出现n次.例:[0-9]\{4\}匹配4位数字</td>
+</tr>
+<tr>
+<td>\{n,\}</td>
+<td style="text-align:center">表示其前面出现的字符不小于n次,例:[0-9]\{2,\}表示2位及以上的数字</td>
+</tr>
+<tr>
+<td>\{n,m\}</td>
+<td style="text-align:center">表示其前面出现的字符至少出现n次,最多出现m次,例:[a-z]\{2,4\}匹配2到4位的小写字母</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjibq46oq000dl24wlfx54nsd" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjil41m810009mpcls87fugb6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
@@ -463,7 +581,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjibq46of0007l24w8sdddrsp" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjil41m7y0005mpclhnjrykyu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -568,7 +686,7 @@ location ^~ /forum/ {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjibq46ow000fl24w4rsgs6uu" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjil41m86000empclfd0qmqn9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
@@ -619,7 +737,7 @@ export PATH=${M2_HOME}/bin:$PATH
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjibq46ne0001l24wt8g9brt4" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjil41m7v0003mpclmcw9tyh3" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -684,7 +802,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjibq46n20000l24wyrydpchk" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjil41m7n0000mpcl9ih7vzuc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/">jdk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -740,7 +858,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux增加使用文件代替swap分区分方法/" data-id="cjibq46o20004l24wqzbwjpau" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/Linux增加使用文件代替swap分区分方法/" data-id="cjil41m7x0004mpcl9eywi8zm" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swap/">swap</a></li></ul>
@@ -791,7 +909,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/MySQL字段值默认不区分大小写问题/" data-id="cjibq46ol000bl24w9bq583gc" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/MySQL字段值默认不区分大小写问题/" data-id="cjil41m800007mpcl5lch2a9b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -803,57 +921,12 @@ unset _JAVA_OPTIONS
 
 
   
-    <article id="post-Linux下安装nodejs" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/12/Linux下安装nodejs/" class="article-date">
-  <time datetime="2018-05-12T10:36:16.000Z" itemprop="datePublished">2018-05-12</time>
-</a>
+
+
+  <nav id="page-nav">
     
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/12/Linux下安装nodejs/">Linux下离线安装nodejs</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h5 id="Linux下离线安装nodejs步骤"><a href="#Linux下离线安装nodejs步骤" class="headerlink" title="Linux下离线安装nodejs步骤:"></a>Linux下离线安装nodejs步骤:</h5><hr>
-<p>1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定</p>
-<p><code>sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/</code></p>
-<p>2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置)</p>
-<p><code>export NODE_HOME=/opt/node</code></p>
-<p><code>export PATH=$PATH:$NODE_HOME/bin</code></p>
-<p><code>export NODE_PATH=$NODE_HOME/lib/node_modules</code></p>
-<p>3.使配置生效,执行source命令</p>
-<p><code>source ~/.bashrc</code></p>
-<p>4.执行如下命令校验配置是否生效</p>
-<p><code>node -v</code></p>
-<p><code>npm -v</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/" data-id="cjibq46nw0003l24wagbin187" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
+  </nav>
 
 </section>
         
@@ -866,7 +939,7 @@ unset _JAVA_OPTIONS
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
     </div>
   </div>
 
@@ -876,7 +949,7 @@ unset _JAVA_OPTIONS
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
     </div>
   </div>
 
@@ -898,6 +971,10 @@ unset _JAVA_OPTIONS
       <ul>
         
           <li>
+            <a href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
+          </li>
+        
+          <li>
             <a href="/2018/06/12/java实现图片的灰度化处理/">java实现图片的灰度化处理</a>
           </li>
         
@@ -911,10 +988,6 @@ unset _JAVA_OPTIONS
         
           <li>
             <a href="/2018/05/20/Linux常用压缩解压缩/">Linux常用压缩解压缩</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/13/linux下nginx部署配置多站点/">linux下nginx部署配置多站点</a>
           </li>
         
       </ul>

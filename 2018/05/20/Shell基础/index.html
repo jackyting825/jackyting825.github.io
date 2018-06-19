@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="学而时习之 - jackyting825">
 <meta property="og:description" content="摘要:   Shell是一个命令行解释器,它为用户提供了一个向Linux内核   发送请求以便运行程序的界面系统级程序.用户可以用Shell来启动,挂起,   停止甚至是编写一些程序.   Shell还是一个功能相当强大的编程语言.易编写,意调试,灵活性较强.   Shell是解释执行的语言,在Shell中可以直接调用Linux系统命令. 1.脚本的执行方式1. echo 输出命令     ech">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-10T14:14:54.024Z">
+<meta property="og:updated_time" content="2018-06-19T02:40:55.652Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Shell基础">
 <meta name="twitter:description" content="摘要:   Shell是一个命令行解释器,它为用户提供了一个向Linux内核   发送请求以便运行程序的界面系统级程序.用户可以用Shell来启动,挂起,   停止甚至是编写一些程序.   Shell还是一个功能相当强大的编程语言.易编写,意调试,灵活性较强.   Shell是解释执行的语言,在Shell中可以直接调用Linux系统命令. 1.脚本的执行方式1. echo 输出命令     ech">
@@ -269,11 +269,70 @@
 ~/.bash_profile`
 
 /etc目录下的是系统环境变量文件,~目录下的是当前用户的环境变量配置文件
-</code></pre>
+</code></pre><h4 id="6-Shell编程之正则表达式"><a href="#6-Shell编程之正则表达式" class="headerlink" title="6.Shell编程之正则表达式"></a>6.Shell编程之正则表达式</h4><pre><code>正则表达式主要是用于描述字符排列和匹配模式d额一种语法规则，
+主要用于字符串的模式分割,匹配,查找及替换操作
+</code></pre><p>  1.正则表达式与通配符</p>
+<pre><code>通配符：
+  *：匹配任意内容
+  ?：匹配任意一个内容
+  []：匹配括号中的一个字符.
+</code></pre><p>  正则表达式用来在文件中匹配符合条件的字符串,正则是包含匹配.<br>  grep,awk,sed等命令可以支持正则表达式.</p>
+<p>  通配符用来匹配符合条件的文件名,通配符是完全匹配.<br>  ls,find,cp这些命令不支持正则表达式,所以只能使用shell的通配符匹配.</p>
+<h4 id="基础正则表达式"><a href="#基础正则表达式" class="headerlink" title="基础正则表达式:"></a>基础正则表达式:</h4><table>
+<thead>
+<tr>
+<th>元字符</th>
+<th style="text-align:center">作用</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>*</td>
+<td style="text-align:center">前一个字符匹配0次或者任意多次</td>
+</tr>
+<tr>
+<td>.</td>
+<td style="text-align:center">匹配除了换行符以外的任意一个字符</td>
+</tr>
+<tr>
+<td>^</td>
+<td style="text-align:center">匹配行首.例如:^hello匹配以hello开头的行</td>
+</tr>
+<tr>
+<td>$</td>
+<td style="text-align:center">匹配行尾.例如:hello$匹配以hello结尾的行</td>
+</tr>
+<tr>
+<td>[]</td>
+<td style="text-align:center">匹配中括号中指定的任意一个字符,只匹配一个字符</td>
+</tr>
+<tr>
+<td>[^]</td>
+<td style="text-align:center">匹配除中括号中的字符以外的任意一个字符,例:[^0-9]表示匹配任意一位非数字字符</td>
+</tr>
+<tr>
+<td>\</td>
+<td style="text-align:center">转义符,用于将特殊符号的含义取消</td>
+</tr>
+<tr>
+<td>\{n\}</td>
+<td style="text-align:center">表示其前面的字符恰好出现n次.例:[0-9]\{4\}匹配4位数字</td>
+</tr>
+<tr>
+<td>\{n,\}</td>
+<td style="text-align:center">表示其前面出现的字符不小于n次,例:[0-9]\{2,\}表示2位及以上的数字</td>
+</tr>
+<tr>
+<td>\{n,m\}</td>
+<td style="text-align:center">表示其前面出现的字符至少出现n次,最多出现m次,例:[a-z]\{2,4\}匹配2到4位的小写字母</td>
+</tr>
+</tbody>
+</table>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjibq46oq000dl24wlfx54nsd" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjil41m810009mpcls87fugb6" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
@@ -315,7 +374,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
     </div>
   </div>
 
@@ -325,7 +384,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
     </div>
   </div>
 
@@ -347,6 +406,10 @@
       <ul>
         
           <li>
+            <a href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
+          </li>
+        
+          <li>
             <a href="/2018/06/12/java实现图片的灰度化处理/">java实现图片的灰度化处理</a>
           </li>
         
@@ -360,10 +423,6 @@
         
           <li>
             <a href="/2018/05/20/Linux常用压缩解压缩/">Linux常用压缩解压缩</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/13/linux下nginx部署配置多站点/">linux下nginx部署配置多站点</a>
           </li>
         
       </ul>
