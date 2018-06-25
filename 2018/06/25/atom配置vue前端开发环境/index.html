@@ -5,20 +5,23 @@
   
 
   
-  <title>linux离线安装oracle JDK | 学而时习之 - jackyting825</title>
+  <title>atom配置vue前端开发环境 | 学而时习之 - jackyting825</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
-<meta name="keywords" content="linux,java,jdk">
+  <meta name="description" content="摘要:   使用atom配置前端vue开发环境 1.安装好atom后,安装常用的几个插件 prettier-atom : 格式化代码插件  atom-axios : vue-axios提示插件  autoclose-html : 自定补全闭合html标签插件  file-icons : 文件图标,便利区分不同类型的文件  autocomplete-paths : 自动提示补全文件路径插件  lan">
+<meta name="keywords" content="atom">
 <meta property="og:type" content="article">
-<meta property="og:title" content="linux离线安装oracle JDK">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/13/JDK/index.html">
+<meta property="og:title" content="atom配置vue前端开发环境">
+<meta property="og:url" content="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
+<meta property="og:description" content="摘要:   使用atom配置前端vue开发环境 1.安装好atom后,安装常用的几个插件 prettier-atom : 格式化代码插件  atom-axios : vue-axios提示插件  autoclose-html : 自定补全闭合html标签插件  file-icons : 文件图标,便利区分不同类型的文件  autocomplete-paths : 自动提示补全文件路径插件  lan">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
+<meta property="og:image" content="http://jackyting825.github.io/images/eslint.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/prettier.png">
+<meta property="og:updated_time" content="2018-06-25T02:21:05.015Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux离线安装oracle JDK">
-<meta name="twitter:description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
+<meta name="twitter:title" content="atom配置vue前端开发环境">
+<meta name="twitter:description" content="摘要:   使用atom配置前端vue开发环境 1.安装好atom后,安装常用的几个插件 prettier-atom : 格式化代码插件  atom-axios : vue-axios提示插件  autoclose-html : 自定补全闭合html标签插件  file-icons : 文件图标,便利区分不同类型的文件  autocomplete-paths : 自动提示补全文件路径插件  lan">
+<meta name="twitter:image" content="http://jackyting825.github.io/images/eslint.png">
   
     <link rel="alternate" href="/atom.xml" title="学而时习之 - jackyting825" type="application/atom+xml">
   
@@ -69,10 +72,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="linux离线安装oracle JDK-JDK" class="article article-type-linux离线安装oracle JDK" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-atom配置vue前端开发环境" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/13/JDK/" class="article-date">
-  <time datetime="2018-05-13T03:02:48.000Z" itemprop="datePublished">2018-05-13</time>
+    <a href="/2018/06/25/atom配置vue前端开发环境/" class="article-date">
+  <time datetime="2018-06-25T01:48:27.000Z" itemprop="datePublished">2018-06-25</time>
 </a>
     
   </div>
@@ -83,7 +86,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      linux离线安装oracle JDK
+      atom配置vue前端开发环境
     </h1>
   
 
@@ -92,40 +95,47 @@
     <div class="article-entry" itemprop="articleBody">
       
         <pre><code>摘要:
-  本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用
-</code></pre><p>如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装:</p>
-<p><code>sudo apt update #更新</code></p>
-<p><code>sudo apt install oracle-java8 #安装</code></p>
-<p> 下面重点介绍离线安装官网下载安装包的方式:</p>
-<p> 1.oracle官网下载Linux对应的tar.gz安装包</p>
-<p> 2.进入到存放安装包的目录下,执行以下命令将安装包的内容解压到在指定目录(/usr/local/java/文件夹自己事先建好)</p>
-<p> <code>sudo tar zxvf ./xxxx.tar.gz  -C /usr/local/java</code></p>
-<p>3.查看第二步是否成功,如果有/usr/local/java/下有jdk对应的目录结构,则表示成功</p>
-<p><code>ls -anl /usr/local/java/</code></p>
-<p>4.配置环境变量(此处配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出</p>
-<pre><code>export JAVA_HOME=/usr/local/java/java-8u5_xxx
+  使用atom配置前端vue开发环境
+</code></pre><p>1.安装好atom后,安装常用的几个插件</p>
+<pre><code>prettier-atom : 格式化代码插件
 
-export JRE_HOME=${JAVA_HOME}/jre   
+atom-axios : vue-axios提示插件
 
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib   
+autoclose-html : 自定补全闭合html标签插件
 
-export PATH=${JAVA_HOME}/bin:$PATH
+file-icons : 文件图标,便利区分不同类型的文件
 
-unset _JAVA_OPTIONS
-</code></pre><p>5.执行以下命令使刚刚的配置生效</p>
-<p><code>source ~/.bashrc</code></p>
-<p>6.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的java版本信息</p>
-<p><code>java -version</code></p>
+autocomplete-paths : 自动提示补全文件路径插件
+
+language-vue : atom支持vue的插件
+
+language-vue-component : 高亮显示vue组件插件
+
+vue2-autocomplete : vue2.0+提示插件
+
+linter-eslint : eslint规则校验插件
+
+px2rem-plus : px转rem插件
+
+minimap : 在编辑器右边出现预览源代码(类似sublime text3右侧预览导航效果)的插件
+
+下面是支持markdown的插件:
+
+markdown-toc : 对markdown文档生成目录的插件
+
+markdown-table-editor : markdown文档表格编辑插件
+</code></pre><p>2.安装好对应的插件后,大部分情况能够使用,但是vue项目需要支持eslint校验的话,需要对linter-eslint设置下面的 Lint-HTML-Files进行勾选</p>
+<p><img src="/images/eslint.png" alt=""></p>
+<p>3.默认的prettier格式化的规则是不符合eslint的,比如会对每行尾部增加分号,单引号变变为双引号,需要修改其配置为下:</p>
+<p><img src="/images/prettier.png" alt=""></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjitmym0q0000ikclmffo8ztw" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjitmym140009ikcl4836q339" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/">jdk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atom/">atom</a></li></ul>
 
     </footer>
   </div>
@@ -133,19 +143,10 @@ unset _JAVA_OPTIONS
     
 <nav id="article-nav">
   
-    <a href="/2018/05/13/Linux下安装maven/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Linux下安装maven
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/13/Linux增加使用文件代替swap分区分方法/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/06/19/vscode配置前端vue开发环境/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Linux增加使用文件代替swap分区分方法</div>
+      <div class="article-nav-title">vscode配置前端vue开发环境</div>
     </a>
   
 </nav>

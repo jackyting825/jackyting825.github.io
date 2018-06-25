@@ -15,7 +15,7 @@
 <meta property="og:site_name" content="学而时习之 - jackyting825">
 <meta property="og:description" content="摘要:   使用vscode配置前端vue开发环境 1.安装好vscode后,安装常用的几个插件 Auto Close Tag : 自动闭合标签插件  Beautify : 格式化js,json,css,sass,html等文件  ESLint : 使用eslint规范对代码进行处理  file-icons : 文件图标,便利区分不同类型的文件  Monokai Theme : 一款类似subli">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-19T03:09:26.310Z">
+<meta property="og:updated_time" content="2018-06-25T02:11:05.905Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="vscode配置前端vue开发环境">
 <meta name="twitter:description" content="摘要:   使用vscode配置前端vue开发环境 1.安装好vscode后,安装常用的几个插件 Auto Close Tag : 自动闭合标签插件  Beautify : 格式化js,json,css,sass,html等文件  ESLint : 使用eslint规范对代码进行处理  file-icons : 文件图标,便利区分不同类型的文件  Monokai Theme : 一款类似subli">
@@ -109,6 +109,12 @@ Path Intellisense : 自动提示文件路径插件
 Prettier : 因为vscode默认的格式化是不能通过eslint校验规范的,需要改为此插件
 
 Vetur : vscode的vue工具插件
+
+px2rem : 将像素值转为rem插件
+
+下面是markdown相关的插件
+
+Markdown-TOC : 对markdown文档生成目录的插件
 </code></pre><p>2.安装好上述插件后,对其进行配置设置</p>
 <pre><code>在文件-&gt;首选项-&gt;设置-&gt;用户设置里面写入以下配置
 </code></pre>  <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"workbench.startupEditor"</span>: <span class="string">"newUntitledFile"</span>,</span><br><span class="line">  <span class="attr">"extensions.ignoreRecommendations"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"workbench.iconTheme"</span>: <span class="string">"file-icons"</span>,</span><br><span class="line">  <span class="attr">"workbench.colorTheme"</span>: <span class="string">"Monokai"</span>,</span><br><span class="line">  <span class="attr">"vetur.format.defaultFormatter.js"</span>: <span class="string">"vscode-typescript"</span>,</span><br><span class="line">  <span class="attr">"extensions.autoUpdate"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"update.channel"</span>: <span class="string">"none"</span>,</span><br><span class="line">  <span class="attr">"eslint.autoFixOnSave"</span>: <span class="literal">false</span>,</span><br><span class="line">  <span class="attr">"files.autoSave"</span>: <span class="string">"off"</span>,</span><br><span class="line">  <span class="attr">"eslint.validate"</span>: [</span><br><span class="line">      <span class="string">"javascript"</span>,</span><br><span class="line">      <span class="string">"javascriptreact"</span>,</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="attr">"language"</span>: <span class="string">"vue"</span>,</span><br><span class="line">          <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;,</span><br><span class="line">      &#123;</span><br><span class="line">          <span class="attr">"language"</span>: <span class="string">"html"</span>,</span><br><span class="line">          <span class="attr">"autoFix"</span>: <span class="literal">true</span></span><br><span class="line">      &#125;,</span><br><span class="line">      <span class="string">"vue"</span></span><br><span class="line">  ],</span><br><span class="line">  <span class="attr">"eslint.options"</span>: &#123;</span><br><span class="line">      <span class="attr">"plugins"</span>: [</span><br><span class="line">          <span class="string">"html"</span></span><br><span class="line">      ]</span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="attr">"editor.tabSize"</span>: <span class="number">2</span>,</span><br><span class="line">  <span class="attr">"prettier.eslintIntegration"</span>: <span class="literal">true</span>,</span><br><span class="line">  <span class="attr">"vetur.format.defaultFormatter"</span>: &#123;</span><br><span class="line">      <span class="attr">"html"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"css"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"postcss"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"scss"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"less"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"js"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"ts"</span>: <span class="string">"prettier"</span>,</span><br><span class="line">      <span class="attr">"stylus"</span>: <span class="string">"stylus-supremacy"</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -116,7 +122,7 @@ Vetur : vscode的vue工具插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjil41m88000gmpcl39k9neeo" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjitmym17000cikclyrvociys" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
@@ -126,6 +132,15 @@ Vetur : vscode的vue工具插件
   
     
 <nav id="article-nav">
+  
+    <a href="/2018/06/25/atom配置vue前端开发环境/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          atom配置vue前端开发环境
+        
+      </div>
+    </a>
   
   
     <a href="/2018/06/12/java实现图片的灰度化处理/" id="article-nav-older" class="article-nav-link-wrap">
@@ -149,7 +164,7 @@ Vetur : vscode的vue工具插件
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atom/">atom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
     </div>
   </div>
 
@@ -159,7 +174,7 @@ Vetur : vscode的vue工具插件
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
     </div>
   </div>
 
@@ -181,6 +196,10 @@ Vetur : vscode的vue工具插件
       <ul>
         
           <li>
+            <a href="/2018/06/25/atom配置vue前端开发环境/">atom配置vue前端开发环境</a>
+          </li>
+        
+          <li>
             <a href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
           </li>
         
@@ -194,10 +213,6 @@ Vetur : vscode的vue工具插件
         
           <li>
             <a href="/2018/05/20/Shell基础/">Shell基础</a>
-          </li>
-        
-          <li>
-            <a href="/2018/05/20/Linux常用压缩解压缩/">Linux常用压缩解压缩</a>
           </li>
         
       </ul>

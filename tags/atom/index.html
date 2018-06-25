@@ -5,20 +5,19 @@
   
 
   
-  <title>linux离线安装oracle JDK | 学而时习之 - jackyting825</title>
+  <title>Tag: atom | 学而时习之 - jackyting825</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
-<meta name="keywords" content="linux,java,jdk">
-<meta property="og:type" content="article">
-<meta property="og:title" content="linux离线安装oracle JDK">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/13/JDK/index.html">
+  <meta name="description" content="jackyting825,记录中的点点滴滴...">
+<meta name="keywords" content="jackyting825">
+<meta property="og:type" content="website">
+<meta property="og:title" content="学而时习之 - jackyting825">
+<meta property="og:url" content="http://jackyting825.github.io/tags/atom/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
+<meta property="og:description" content="jackyting825,记录中的点点滴滴...">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="linux离线安装oracle JDK">
-<meta name="twitter:description" content="摘要:   本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用 如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装: sudo apt update #更新 sudo apt install oracle-java8 #安装  下面重点介绍离线安装官网下载安装包的方式:  1.oracle">
+<meta name="twitter:title" content="学而时习之 - jackyting825">
+<meta name="twitter:description" content="jackyting825,记录中的点点滴滴...">
   
     <link rel="alternate" href="/atom.xml" title="学而时习之 - jackyting825" type="application/atom+xml">
   
@@ -69,89 +68,40 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="linux离线安装oracle JDK-JDK" class="article article-type-linux离线安装oracle JDK" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/13/JDK/" class="article-date">
-  <time datetime="2018-05-13T03:02:48.000Z" itemprop="datePublished">2018-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+        <section id="main">
   
-    <h1 class="article-title" itemprop="name">
-      linux离线安装oracle JDK
+  
+    
+    
+      
+      
+      <section class="archives-wrap">
+        <div class="archive-year-wrap">
+          <a href="/archives/2018" class="archive-year">2018</a>
+        </div>
+        <div class="archives">
+    
+    <article class="archive-article archive-type-post">
+  <div class="archive-article-inner">
+    <header class="archive-article-header">
+      <a href="/2018/06/25/atom配置vue前端开发环境/" class="archive-article-date">
+  <time datetime="2018-06-25T01:48:27.000Z" itemprop="datePublished">Jun 25</time>
+</a>
+      
+  
+    <h1 itemprop="name">
+      <a class="archive-article-title" href="/2018/06/25/atom配置vue前端开发环境/">atom配置vue前端开发环境</a>
     </h1>
   
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>摘要:
-  本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用
-</code></pre><p>如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装:</p>
-<p><code>sudo apt update #更新</code></p>
-<p><code>sudo apt install oracle-java8 #安装</code></p>
-<p> 下面重点介绍离线安装官网下载安装包的方式:</p>
-<p> 1.oracle官网下载Linux对应的tar.gz安装包</p>
-<p> 2.进入到存放安装包的目录下,执行以下命令将安装包的内容解压到在指定目录(/usr/local/java/文件夹自己事先建好)</p>
-<p> <code>sudo tar zxvf ./xxxx.tar.gz  -C /usr/local/java</code></p>
-<p>3.查看第二步是否成功,如果有/usr/local/java/下有jdk对应的目录结构,则表示成功</p>
-<p><code>ls -anl /usr/local/java/</code></p>
-<p>4.配置环境变量(此处配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出</p>
-<pre><code>export JAVA_HOME=/usr/local/java/java-8u5_xxx
-
-export JRE_HOME=${JAVA_HOME}/jre   
-
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib   
-
-export PATH=${JAVA_HOME}/bin:$PATH
-
-unset _JAVA_OPTIONS
-</code></pre><p>5.执行以下命令使刚刚的配置生效</p>
-<p><code>source ~/.bashrc</code></p>
-<p>6.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的java版本信息</p>
-<p><code>java -version</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjitmym0q0000ikclmffo8ztw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/">jdk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
-
-    </footer>
+    </header>
   </div>
-  
-    
-<nav id="article-nav">
-  
-    <a href="/2018/05/13/Linux下安装maven/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          Linux下安装maven
-        
-      </div>
-    </a>
-  
-  
-    <a href="/2018/05/13/Linux增加使用文件代替swap分区分方法/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Linux增加使用文件代替swap分区分方法</div>
-    </a>
-  
-</nav>
-
-  
 </article>
+  
+  
+    </div></section>
+  
+
 
 </section>
         
