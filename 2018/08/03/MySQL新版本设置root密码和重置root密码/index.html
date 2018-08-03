@@ -5,20 +5,20 @@
   
 
   
-  <title>Linux下离线安装nodejs | 学而时习之 - jackyting825</title>
+  <title>MySQL新版本设置root密码和重置root密码 | 学而时习之 - jackyting825</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
-<meta name="keywords" content="linux,nodejs">
+  <meta name="description" content="&amp;gt; 摘要:最近在虚拟机上安装Ubuntu18.04版本,然后安装MySQL-server.安装MySQL-server过程中不再像之前会提示 输入root账户的密码.所以需要进行对root账户设置密码,  &amp;gt;操作环境:     OS:Ubuntu 18.04     MySQL版本:5.7及更高 1.前置条件需要系统的root账户或者使用sudo 命令 2.使用mysql_secure">
+<meta name="keywords" content="MySQL">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下离线安装nodejs">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/index.html">
+<meta property="og:title" content="MySQL新版本设置root密码和重置root密码">
+<meta property="og:url" content="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta property="og:description" content="&amp;gt; 摘要:最近在虚拟机上安装Ubuntu18.04版本,然后安装MySQL-server.安装MySQL-server过程中不再像之前会提示 输入root账户的密码.所以需要进行对root账户设置密码,  &amp;gt;操作环境:     OS:Ubuntu 18.04     MySQL版本:5.7及更高 1.前置条件需要系统的root账户或者使用sudo 命令 2.使用mysql_secure">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
+<meta property="og:updated_time" content="2018-08-03T03:18:36.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下离线安装nodejs">
-<meta name="twitter:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta name="twitter:title" content="MySQL新版本设置root密码和重置root密码">
+<meta name="twitter:description" content="&amp;gt; 摘要:最近在虚拟机上安装Ubuntu18.04版本,然后安装MySQL-server.安装MySQL-server过程中不再像之前会提示 输入root账户的密码.所以需要进行对root账户设置密码,  &amp;gt;操作环境:     OS:Ubuntu 18.04     MySQL版本:5.7及更高 1.前置条件需要系统的root账户或者使用sudo 命令 2.使用mysql_secure">
   
     <link rel="alternate" href="/atom.xml" title="学而时习之 - jackyting825" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux下安装nodejs" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-MySQL新版本设置root密码和重置root密码" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/12/Linux下安装nodejs/" class="article-date">
-  <time datetime="2018-05-12T10:36:16.000Z" itemprop="datePublished">2018-05-12</time>
+    <a href="/2018/08/03/MySQL新版本设置root密码和重置root密码/" class="article-date">
+  <time datetime="2018-08-03T02:45:54.000Z" itemprop="datePublished">2018-08-03</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Linux下离线安装nodejs
+      MySQL新版本设置root密码和重置root密码
     </h1>
   
 
@@ -91,26 +91,67 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h5 id="Linux下离线安装nodejs步骤"><a href="#Linux下离线安装nodejs步骤" class="headerlink" title="Linux下离线安装nodejs步骤:"></a>Linux下离线安装nodejs步骤:</h5><hr>
-<p>1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定</p>
-<p><code>sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/</code></p>
-<p>2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置)</p>
-<p><code>export NODE_HOME=/opt/node</code></p>
-<p><code>export PATH=$PATH:$NODE_HOME/bin</code></p>
-<p><code>export NODE_PATH=$NODE_HOME/lib/node_modules</code></p>
-<p>3.使配置生效,执行source命令</p>
-<p><code>source ~/.bashrc</code></p>
-<p>4.执行如下命令校验配置是否生效</p>
-<p><code>node -v</code></p>
-<p><code>npm -v</code></p>
+        <pre><code>&gt; 摘要:最近在虚拟机上安装Ubuntu18.04版本,然后安装MySQL-server.安装MySQL-server过程中不再像之前会提示
+输入root账户的密码.所以需要进行对root账户设置密码,
 
+&gt;操作环境:
+    OS:Ubuntu 18.04
+    MySQL版本:5.7及更高
+</code></pre><h3 id="1-前置条件"><a href="#1-前置条件" class="headerlink" title="1.前置条件"></a>1.前置条件</h3><pre><code>需要系统的root账户或者使用sudo 命令
+</code></pre><h3 id="2-使用mysql-secure-installation进行对密码设置"><a href="#2-使用mysql-secure-installation进行对密码设置" class="headerlink" title="2.使用mysql_secure_installation进行对密码设置"></a>2.使用mysql_secure_installation进行对密码设置</h3><pre><code>如果是第一次安装完MySQL后,可以使用:
+
+sudo mysql_secure_installation  对root账户进行设置密码操作
+</code></pre><h3 id="3-使用skip-grant-tables对root账户进行重置密码的操作"><a href="#3-使用skip-grant-tables对root账户进行重置密码的操作" class="headerlink" title="3.使用skip-grant-tables对root账户进行重置密码的操作"></a>3.使用skip-grant-tables对root账户进行重置密码的操作</h3><pre><code>3.1 停止当前正在运行的mysql服务
+
+    sudo service mysql stop
+
+3.2 创建/var/run/mysqld目录,因为MySQL进程在启动和运行的时候都需要访问该soket文件
+
+    sudo mkdir -p /var/run/mysqld
+    sudo chown mysql:mysql /var/run/mysqld
+
+3.3 使用skip-grant-tables启动服务程序
+
+    sudo /usr/sbin/mysqld --skip-grant-tables --skip-networking &amp;
+
+    jobs 然后确认下服务是否启动成功
+
+3.4 使用root无密码登录,进行修改设置密码操作
+
+    mysql -u root root无密码登录
+
+    FLUSH PRIVILEGES; 刷新一遍授权信息
+
+    USE mysql; 切换到mysql库(安装好后自带的)
+
+    UPDATE user SET authentication_string=PASSWORD(&quot;123456&quot;) WHERE User=&apos;root&apos;; 设置密码字段的新密码,
+    authentication_string是新版本存储密码的字段名,旧版本的是password.
+
+    UPDATE user SET plugin=&quot;mysql_native_password&quot; WHERE User=&apos;root&apos;;
+
+    FLUSH PRIVILEGES;
+
+    quit;
+
+3.5 重启MySQL服务
+
+    sudo pkill mysqld  停掉之前启动的服务
+
+    jobs 查看是否正确停止服务
+
+    sudo service mysql start 启动MySQL服务
+
+3.6 使用root账户和刚设置的密码进行登录操作
+
+    mysql -u root --password=123456  使用root和密码登录
+</code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/" data-id="cjkdf6qy200034hcl7ce8xtuo" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjkdf6qy700094hcl8xmipfbh" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
 
     </footer>
   </div>
@@ -118,15 +159,11 @@
     
 <nav id="article-nav">
   
-    <a href="/2018/05/13/MySQL字段值默认不区分大小写问题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          MySQL字段值默认不区分大小写问题
-        
-      </div>
-    </a>
   
+    <a href="/2018/06/25/atom配置vue前端开发环境/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">atom配置vue前端开发环境</div>
+    </a>
   
 </nav>
 
