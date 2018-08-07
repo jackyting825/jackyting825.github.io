@@ -70,6 +70,78 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux系统之间远程连接和传输文件" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/07/linux系统之间远程连接和传输文件/" class="article-date">
+  <time datetime="2018-08-07T02:06:41.000Z" itemprop="datePublished">2018-08-07</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/07/linux系统之间远程连接和传输文件/">linux系统之间远程连接和传输文件</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>&gt;摘要: 
+
+1.Windows与Windows系统之间可以开启远程桌面连接实现远程控制和传输文件,也可以搭建ftp服务器然后通过ftp客户端
+(例如:fileZilla)来实现.
+2.从Windows到Linux,可以使用xshell等工具来实现远程连接.然后使用winscp等工具实现文件传输.当然在Linux上
+搭建ftp服务器,然后用ftp客户端连接也可
+3.从Linux(桌面版,server版一般没必要)到Windows.可以使用remmina工具来远程连接Windows进行连接操作.
+文件拷贝推荐在Windows上搭建ftpserver(fileZilla-server),然后使用fileZilla client连接传输文件.
+
+ 注:fileZilla跨平台的.占用资源少,操作方便.简直神器~
+
+4.另外一种方式就是不分双方的操作系统.只要在对应的机器上安装对应的一些工具,比如teamviewer等.也可实现远程连接
+和文件传输.
+5.Linux到Linux之间通常是桌面端到server端的操作,有时候为了方便或者为了减少服务器资源占用,server端不需要安装
+额外的一些工具等,这时推荐使用Linux下的ssh和scp命令进行操作(大力推荐~)
+</code></pre><h2 id="1-ssh命令"><a href="#1-ssh命令" class="headerlink" title="1.ssh命令"></a>1.ssh命令</h2><p>  简单说，SSH是一种网络协议，用于计算机之间的加密登录。如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露.SSH只是一种协议，存在多种实现，既有商业实现，也有开源实现。本文针对的实现是OpenSSH(linux一般自带)，它是自由软件，应用非常广泛.注:ssh协议默认端口一般是22</p>
+<pre><code>ssh -V 查看当前安装的ssh版本
+</code></pre><p>1.1 连接到远程主机方式1</p>
+<pre><code>ssh username@serverAddress username是登录远程主机的用户名,serverAddress远程主机地址
+</code></pre><p>1.2 连接到远程主机方式2</p>
+<pre><code>ssh serverAddress -l username -p 22 serverAddress远程主机地址,可以是一个域名地址或者ip地址,
+username是登录远程主机的用户名, -p 指定远程服务端ssh协议开放的端口.
+</code></pre><h2 id="2-scp命令"><a href="#2-scp命令" class="headerlink" title="2.scp命令"></a>2.scp命令</h2><pre><code>scp用于实现在Linux server端和Linux客户端实现文件传输
+</code></pre><p>2.1 上传文件到服务器端,注:是文件,不是文件夹</p>
+<pre><code>scp ./test.js root@192.168.1.106:/var/www/ #将本地当前目录下的test.js文件上传到192.168.1.106的
+/var/www/目录下.root登录远程及其的用户名.
+</code></pre><p>2.2 上传文件夹(目录)到服务器端</p>
+<pre><code>scp -r ./test/ root@192.168.1.106:/var/www/ #将本地当前目录下的test目录上传到192.168.1.106的/var/www/目录下.
+-r参数代表上传目录
+</code></pre><p>2.3 从服务器上下载文件</p>
+<pre><code>scp root@192.168.1.106:/var/www/test.js /home/ #将服务器/var/www/目录下的test.js文件下载到本地的home目录下
+</code></pre><p>2.4 从服务器下载整个目录</p>
+<pre><code>scp -r root@192.168.1.106:/var/www/test/ /home/ #将服务器上的/var/www/test/目录下载到本地的home目录下
+-r参数代表目录
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjkj3vm6600003uclc4s3v94l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-MySQL新版本设置root密码和重置root密码" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/03/MySQL新版本设置root密码和重置root密码/" class="article-date">
@@ -149,7 +221,7 @@ sudo mysql_secure_installation  对root账户进行设置密码操作
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjkdf6qy700094hcl8xmipfbh" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjkj3kqiv000nafcllrmrztor" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -221,7 +293,7 @@ markdown-table-editor : markdown文档表格编辑插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjkdf6qyb000e4hcl2gubo5ia" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjkj3kqir000hafclkt0xpog2" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atom/">atom</a></li></ul>
@@ -286,7 +358,7 @@ Markdown-TOC : 对markdown文档生成目录的插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjkdf6qyg000l4hclps1yseyv" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjkj3kqit000lafcltrpmz7ew" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
@@ -343,7 +415,7 @@ Markdown-TOC : 对markdown文档生成目录的插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjkdf6qye000g4hcltdr0hu45" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjkj3kqin000cafclq5y4gxpc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -400,7 +472,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjkdf6qy8000b4hcl2s5wbo2y" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjkj3kqik0008afcliuzz0dps" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -675,7 +747,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjkdf6qy9000c4hclz03ygddz" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjkj3kqim000aafcl7yjmiket" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
@@ -750,7 +822,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjkdf6qy400054hcl318p3jj8" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjkj3kqib0001afcl1yvf6jpk" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -855,7 +927,7 @@ location ^~ /forum/ {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjkdf6qyf000j4hcltmrgdlpx" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjkj3kqit000kafcl0nwlvmfc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
@@ -906,75 +978,10 @@ export PATH=${M2_HOME}/bin:$PATH
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjkdf6qxz00014hclpire15ym" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjkj3kqig0004afcl1lel24zw" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="linux离线安装oracle JDK-JDK" class="article article-type-linux离线安装oracle JDK" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/13/JDK/" class="article-date">
-  <time datetime="2018-05-13T03:02:48.000Z" itemprop="datePublished">2018-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/13/JDK/">linux离线安装oracle JDK</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>摘要:
-  本文是在deepin linux(基于debian发行版)系统环境下,debian,ubuntu以及其他debian衍生版同理适用
-</code></pre><p>如果电脑处于联网状态,那么可以使用apt包管理器在线安装,可使用以下命令在线安装:</p>
-<p><code>sudo apt update #更新</code></p>
-<p><code>sudo apt install oracle-java8 #安装</code></p>
-<p> 下面重点介绍离线安装官网下载安装包的方式:</p>
-<p> 1.oracle官网下载Linux对应的tar.gz安装包</p>
-<p> 2.进入到存放安装包的目录下,执行以下命令将安装包的内容解压到在指定目录(/usr/local/java/文件夹自己事先建好)</p>
-<p> <code>sudo tar zxvf ./xxxx.tar.gz  -C /usr/local/java</code></p>
-<p>3.查看第二步是否成功,如果有/usr/local/java/下有jdk对应的目录结构,则表示成功</p>
-<p><code>ls -anl /usr/local/java/</code></p>
-<p>4.配置环境变量(此处配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出</p>
-<pre><code>export JAVA_HOME=/usr/local/java/java-8u5_xxx
-
-export JRE_HOME=${JAVA_HOME}/jre   
-
-export CLASSPATH=.:${JAVA_HOME}/lib:${JRE_HOME}/lib   
-
-export PATH=${JAVA_HOME}/bin:$PATH
-
-unset _JAVA_OPTIONS
-</code></pre><p>5.执行以下命令使刚刚的配置生效</p>
-<p><code>source ~/.bashrc</code></p>
-<p>6.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的java版本信息</p>
-<p><code>java -version</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjkdf6qxu00004hcl6c0c21yq" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/">jdk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -1033,6 +1040,10 @@ unset _JAVA_OPTIONS
       <ul>
         
           <li>
+            <a href="/2018/08/07/linux系统之间远程连接和传输文件/">linux系统之间远程连接和传输文件</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/03/MySQL新版本设置root密码和重置root密码/">MySQL新版本设置root密码和重置root密码</a>
           </li>
         
@@ -1046,10 +1057,6 @@ unset _JAVA_OPTIONS
         
           <li>
             <a href="/2018/06/12/java实现图片的灰度化处理/">java实现图片的灰度化处理</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/12/MySQL设置用户远程登录/">MySQL设置用户远程登录</a>
           </li>
         
       </ul>

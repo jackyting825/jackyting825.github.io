@@ -5,20 +5,20 @@
   
 
   
-  <title>Linux下安装maven | 学而时习之 - jackyting825</title>
+  <title>linux系统之间远程连接和传输文件 | 学而时习之 - jackyting825</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
-<meta name="keywords" content="linux,java,maven">
+  <meta name="description" content="&amp;gt;摘要:   1.Windows与Windows系统之间可以开启远程桌面连接实现远程控制和传输文件,也可以搭建ftp服务器然后通过ftp客户端 (例如:fileZilla)来实现. 2.从Windows到Linux,可以使用xshell等工具来实现远程连接.然后使用winscp等工具实现文件传输.当然在Linux上 搭建ftp服务器,然后用ftp客户端连接也可 3.从Linux(桌面版,se">
+<meta name="keywords" content="linux">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下安装maven">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/13/Linux下安装maven/index.html">
+<meta property="og:title" content="linux系统之间远程连接和传输文件">
+<meta property="og:url" content="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
+<meta property="og:description" content="&amp;gt;摘要:   1.Windows与Windows系统之间可以开启远程桌面连接实现远程控制和传输文件,也可以搭建ftp服务器然后通过ftp客户端 (例如:fileZilla)来实现. 2.从Windows到Linux,可以使用xshell等工具来实现远程连接.然后使用winscp等工具实现文件传输.当然在Linux上 搭建ftp服务器,然后用ftp客户端连接也可 3.从Linux(桌面版,se">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
+<meta property="og:updated_time" content="2018-08-07T02:48:56.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下安装maven">
-<meta name="twitter:description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
+<meta name="twitter:title" content="linux系统之间远程连接和传输文件">
+<meta name="twitter:description" content="&amp;gt;摘要:   1.Windows与Windows系统之间可以开启远程桌面连接实现远程控制和传输文件,也可以搭建ftp服务器然后通过ftp客户端 (例如:fileZilla)来实现. 2.从Windows到Linux,可以使用xshell等工具来实现远程连接.然后使用winscp等工具实现文件传输.当然在Linux上 搭建ftp服务器,然后用ftp客户端连接也可 3.从Linux(桌面版,se">
   
     <link rel="alternate" href="/atom.xml" title="学而时习之 - jackyting825" type="application/atom+xml">
   
@@ -69,10 +69,10 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-Linux下安装maven" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-linux系统之间远程连接和传输文件" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2018/05/13/Linux下安装maven/" class="article-date">
-  <time datetime="2018-05-13T03:18:57.000Z" itemprop="datePublished">2018-05-13</time>
+    <a href="/2018/08/07/linux系统之间远程连接和传输文件/" class="article-date">
+  <time datetime="2018-08-07T02:06:41.000Z" itemprop="datePublished">2018-08-07</time>
 </a>
     
   </div>
@@ -83,7 +83,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      Linux下安装maven
+      linux系统之间远程连接和传输文件
     </h1>
   
 
@@ -91,27 +91,48 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <pre><code>摘要:
-  Linux系统下离线安装maven
-</code></pre><p>1.在Apache官方网站下载对应系统的maven包然后解压maven</p>
-<p>2.配置环境变量.(配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录)</p>
-<pre><code>export M2_HOME=/home/user/apache-maven-3.3.9
+        <pre><code>&gt;摘要: 
 
-export PATH=${M2_HOME}/bin:$PATH
-</code></pre><p>3.执行以下命令使刚刚的配置生效</p>
-<pre><code>`source ~/.bashrc`
-</code></pre><p>4.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的maven版本信息</p>
-<pre><code>`mvn -v`
+1.Windows与Windows系统之间可以开启远程桌面连接实现远程控制和传输文件,也可以搭建ftp服务器然后通过ftp客户端
+(例如:fileZilla)来实现.
+2.从Windows到Linux,可以使用xshell等工具来实现远程连接.然后使用winscp等工具实现文件传输.当然在Linux上
+搭建ftp服务器,然后用ftp客户端连接也可
+3.从Linux(桌面版,server版一般没必要)到Windows.可以使用remmina工具来远程连接Windows进行连接操作.
+文件拷贝推荐在Windows上搭建ftpserver(fileZilla-server),然后使用fileZilla client连接传输文件.
+
+ 注:fileZilla跨平台的.占用资源少,操作方便.简直神器~
+
+4.另外一种方式就是不分双方的操作系统.只要在对应的机器上安装对应的一些工具,比如teamviewer等.也可实现远程连接
+和文件传输.
+5.Linux到Linux之间通常是桌面端到server端的操作,有时候为了方便或者为了减少服务器资源占用,server端不需要安装
+额外的一些工具等,这时推荐使用Linux下的ssh和scp命令进行操作(大力推荐~)
+</code></pre><h2 id="1-ssh命令"><a href="#1-ssh命令" class="headerlink" title="1.ssh命令"></a>1.ssh命令</h2><p>  简单说，SSH是一种网络协议，用于计算机之间的加密登录。如果一个用户从本地计算机，使用SSH协议登录另一台远程计算机，我们就可以认为，这种登录是安全的，即使被中途截获，密码也不会泄露.SSH只是一种协议，存在多种实现，既有商业实现，也有开源实现。本文针对的实现是OpenSSH(linux一般自带)，它是自由软件，应用非常广泛.注:ssh协议默认端口一般是22</p>
+<pre><code>ssh -V 查看当前安装的ssh版本
+</code></pre><p>1.1 连接到远程主机方式1</p>
+<pre><code>ssh username@serverAddress username是登录远程主机的用户名,serverAddress远程主机地址
+</code></pre><p>1.2 连接到远程主机方式2</p>
+<pre><code>ssh serverAddress -l username -p 22 serverAddress远程主机地址,可以是一个域名地址或者ip地址,
+username是登录远程主机的用户名, -p 指定远程服务端ssh协议开放的端口.
+</code></pre><h2 id="2-scp命令"><a href="#2-scp命令" class="headerlink" title="2.scp命令"></a>2.scp命令</h2><pre><code>scp用于实现在Linux server端和Linux客户端实现文件传输
+</code></pre><p>2.1 上传文件到服务器端,注:是文件,不是文件夹</p>
+<pre><code>scp ./test.js root@192.168.1.106:/var/www/ #将本地当前目录下的test.js文件上传到192.168.1.106的
+/var/www/目录下.root登录远程及其的用户名.
+</code></pre><p>2.2 上传文件夹(目录)到服务器端</p>
+<pre><code>scp -r ./test/ root@192.168.1.106:/var/www/ #将本地当前目录下的test目录上传到192.168.1.106的/var/www/目录下.
+-r参数代表上传目录
+</code></pre><p>2.3 从服务器上下载文件</p>
+<pre><code>scp root@192.168.1.106:/var/www/test.js /home/ #将服务器/var/www/目录下的test.js文件下载到本地的home目录下
+</code></pre><p>2.4 从服务器下载整个目录</p>
+<pre><code>scp -r root@192.168.1.106:/var/www/test/ /home/ #将服务器上的/var/www/test/目录下载到本地的home目录下
+-r参数代表目录
 </code></pre>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjkj3kqig0004afcl1lel24zw" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjkj3vm6600003uclc4s3v94l" class="article-share-link">Share</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -119,19 +140,10 @@ export PATH=${M2_HOME}/bin:$PATH
     
 <nav id="article-nav">
   
-    <a href="/2018/05/13/linux下nginx部署配置多站点/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          linux下nginx部署配置多站点
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/05/13/JDK/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2018/08/03/MySQL新版本设置root密码和重置root密码/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">linux离线安装oracle JDK</div>
+      <div class="article-nav-title">MySQL新版本设置root密码和重置root密码</div>
     </a>
   
 </nav>
