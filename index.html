@@ -70,6 +70,74 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-远程tomcat配置jconsole连接监测jvm参数" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/" class="article-date">
+  <time datetime="2018-08-20T03:10:30.000Z" itemprop="datePublished">2018-08-20</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/">远程tomcat配置jconsole连接监测jvm参数</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>摘要:
+
+  jconsole是Java 自带性能监控工具，监视和管理控制台 jconsole，它可以提供 Java 某个进程的内存、线程、类加载、
+  jvm 概要以及 MBean 等的实时信息.
+  Jvisualvm是jdk1.6 update 7 才有，是jconsole的升级工具，功能更强大，最大好处是支持插件安装。所以Jvisualvm远程
+  JMX连接方式和jconsole远程连接方式一样
+</code></pre><p>1.在tomcat的bin目录下catalina.sh文件首部增加以下配置(注意:不用换行)</p>
+<pre><code>CATALINA_OPTS=&quot;-Dfile.encoding=UTF-8 -server -Xms256m -Xmx256m -Djava.rmi.server.hostname=0.0.0.0 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10001 -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.password.file=./conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=./conf/jmxremote.access&quot;
+
+其中-Xms256m -Xmx256m是配置jvm虚拟机参数的,最小堆内存和最大堆内存,推荐保持一致,如果不一致会增加gc回收次数,
+对性能有严重影响.
+-Djava.rmi.server.hostname:本机的ip地址,可设置为0.0.0.0
+-Dcom.sun.management.jmxremote.port:监控的端口.不能和其他运行的端口相冲突
+-Dcom.sun.management.jmxremote.authenticate:需要授权才能进行连接
+-Dcom.sun.management.jmxremote.password.file:指定配置授权的密码文件存放位置,推荐放入到tomcat的conf目录下
+-Dcom.sun.management.jmxremote.access.file:指定配置授权账户的权限的文件存放位置,推荐放入到tomcat的conf目录下
+</code></pre><p>2.在tomcat的bin目录下startup.sh文件首部增加以下配置</p>
+<pre><code>JAVA_OPTS=&quot;-Djava.rmi.server.hostname=0.0.0.0&quot;
+</code></pre><p>3.启动本地的jconsole即可,输入远程ip和端口,username和password即可连接</p>
+<p>注意:</p>
+<pre><code>1.配置授权的2个文件是在系统的%JAVA_HOME%/jre/lib/management目录下可以找到对应的模板.将其复制到tomcat的conf目录下,
+并将jmxremote.password.template重命名为jmxremote.password
+2.jmxremote.access用户权限分readonly和readwrite两种，在jmxremote.access尾部添加用户权限&quot;admin  readwrite&quot;,
+其中admin代表远程授权的用户名
+3.在jmxremote.password尾部添加用户密码&quot;admin 123456&quot;其中admin代表用户名,123456代表对应的密码
+4.对jmxremote.access和jmxremote.password文件进行授权,chmod 600  jmxremote.access和
+chmod 600 jmxremote.password
+5.针对为什么在startup.sh文件中增加对应的-Djava.rmi.server.hostname=0.0.0.0配置,主要是因为在不加配置的情况下,
+用shutdown.sh关闭tomcat的时候会报该端口已经被占用,因为关闭tomcat时候，还会读取catalina.sh.所以推荐在startup.sh文件中配置
+6.一般情况下远程服务器系统是开启防火墙的,所以还需要将10001端口配置为允许访问
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/" data-id="cjl1qikip000028cliecyltec" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jconsole/">jconsole</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-linux系统之间远程连接和传输文件" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/08/07/linux系统之间远程连接和传输文件/" class="article-date">
@@ -130,7 +198,7 @@ username是登录远程主机的用户名, -p 指定远程服务端ssh协议开�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjkj3vm6600003uclc4s3v94l" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjl1qfgw6000ouscljupcpxja" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -221,7 +289,7 @@ sudo mysql_secure_installation  对root账户进行设置密码操作
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjkj3kqiv000nafcllrmrztor" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjl1qfgw4000luscl75oeo0fb" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -293,7 +361,7 @@ markdown-table-editor : markdown文档表格编辑插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjkj3kqir000hafclkt0xpog2" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjl1qfgvt0009uscl7wf4ct85" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atom/">atom</a></li></ul>
@@ -358,7 +426,7 @@ Markdown-TOC : 对markdown文档生成目录的插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjkj3kqit000lafcltrpmz7ew" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjl1qfgw7000pusclfi2k9ssu" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
@@ -415,7 +483,7 @@ Markdown-TOC : 对markdown文档生成目录的插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjkj3kqin000cafclq5y4gxpc" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjl1qfgw1000gusclxe3eg5dd" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -472,7 +540,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjkj3kqik0008afcliuzz0dps" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjl1qfgvw000cuscle1z5kv0y" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -747,7 +815,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjkj3kqim000aafcl7yjmiket" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjl1qfgvr0007uscljmqzuo1p" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
@@ -822,7 +890,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjkj3kqib0001afcl1yvf6jpk" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjl1qfgvq0005usclwa8i6ozh" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -927,61 +995,10 @@ location ^~ /forum/ {
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjkj3kqit000kafcl0nwlvmfc" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjl1qfgvz000euscl7mxm94gj" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Linux下安装maven" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/13/Linux下安装maven/" class="article-date">
-  <time datetime="2018-05-13T03:18:57.000Z" itemprop="datePublished">2018-05-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/13/Linux下安装maven/">Linux下安装maven</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>摘要:
-  Linux系统下离线安装maven
-</code></pre><p>1.在Apache官方网站下载对应系统的maven包然后解压maven</p>
-<p>2.配置环境变量.(配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录)</p>
-<pre><code>export M2_HOME=/home/user/apache-maven-3.3.9
-
-export PATH=${M2_HOME}/bin:$PATH
-</code></pre><p>3.执行以下命令使刚刚的配置生效</p>
-<pre><code>`source ~/.bashrc`
-</code></pre><p>4.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的maven版本信息</p>
-<pre><code>`mvn -v`
-</code></pre>
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjkj3kqig0004afcl1lel24zw" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
 
     </footer>
   </div>
@@ -1008,7 +1025,7 @@ export PATH=${M2_HOME}/bin:$PATH
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atom/">atom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atom/">atom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jconsole/">jconsole</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
     </div>
   </div>
 
@@ -1018,7 +1035,7 @@ export PATH=${M2_HOME}/bin:$PATH
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 15px;">MySQL</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/java/" style="font-size: 15px;">java</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jconsole/" style="font-size: 10px;">jconsole</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
     </div>
   </div>
 
@@ -1040,6 +1057,10 @@ export PATH=${M2_HOME}/bin:$PATH
       <ul>
         
           <li>
+            <a href="/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/">远程tomcat配置jconsole连接监测jvm参数</a>
+          </li>
+        
+          <li>
             <a href="/2018/08/07/linux系统之间远程连接和传输文件/">linux系统之间远程连接和传输文件</a>
           </li>
         
@@ -1053,10 +1074,6 @@ export PATH=${M2_HOME}/bin:$PATH
         
           <li>
             <a href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/12/java实现图片的灰度化处理/">java实现图片的灰度化处理</a>
           </li>
         
       </ul>
