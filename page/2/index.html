@@ -70,6 +70,111 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-linux下nginx部署配置多站点" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/05/13/linux下nginx部署配置多站点/" class="article-date">
+  <time datetime="2018-05-13T03:25:50.000Z" itemprop="datePublished">2018-05-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/05/13/linux下nginx部署配置多站点/">linux下nginx部署配置多站点</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <pre><code>摘要:
+  有时候你想在一台服务器上为不同的域名运行不同的站点。
+  比如www.siteA.com作为博客，www.siteB.com作为论坛。你可以把两个域名的IP都解析到你的服务器上，
+  但是没法在Nginx的根目录里同时运行两个不同的网站.
+  这时可以在nginx上面配置部署多个站点(使用nginx虚拟目录),为你节省服务器费用.
+  假设你把博客放在”/home/user/www/blog”下，论坛放在”/home/user/www/forum”下。下面我们就开始进行配置:
+</code></pre><p>1.在Nginx配置目录下，创建一个”vhost”目录。本例假设Nginx是默认安装，配置目录在”/etc/nginx”</p>
+<p><code>sudo mkdir /etc/nginx/vhost #创建保存站点配置文件的目录</code></p>
+<p>2.创建siteA的配置文件</p>
+<p>‘sudo vim /etc/nginx/vhost/siteA.conf #打开该文件(没有的话保存后会自动新建)’</p>
+<p>在文件里面输入以下配置内容(具体的相关目录及location内容根据自己实际情况修改,下面只是nginx配置文件的基本结构,其实可以拷贝nginx自带的配置文件到vhost目录下,然后对文件内容进行修改):</p>
+<pre><code>server {
+  listen 80; # 监听端口
+  server_name www.siteA.com siteA.com; # 站点域名
+  root /home/user/www/blog; # 站点根目录
+  index index.html index.htm index.php; # 默认导航页
+  location / {
+    # WordPress固定链接URL重写
+    if (!-e $request_filename) {
+      rewrite (.*) /index.php;
+    }
+  }
+</code></pre><p>3.跟第二步一样,创建siteB的配置文件.(“server_name”和”root”目录的内容和siteA不同)</p>
+<p>‘sudo vim /etc/nginx/vhost/siteB.conf #打开该文件(没有的话保存后会自动新建)’</p>
+<p>在文件里面输入以下配置内容(具体的相关目录及location内容根据自己实际情况修改,下面只是nginx配置文件的基本结构,其实可以拷贝nginx自带的配置文件到vhost目录下,然后对文件内容进行修改):</p>
+<pre><code>server {
+  listen 80; # 监听端口
+  server_name www.siteB.com siteB.com; # 站点域名
+  root /home/user/www/blog; # 站点根目录
+  index index.html index.htm index.php; # 默认导航页
+  location / {
+    # WordPress固定链接URL重写
+    if (!-e $request_filename) {
+      rewrite (.*) /index.php;
+    }
+  }
+</code></pre><p>4.打开编辑nginx的配置文件</p>
+<p><code>sudo vim /etc/nginx/nginx.conf</code></p>
+<p>将我们第一步创建的虚拟目录的路径增加到nginx.conf文件中去,将下面的内容加入到”http {}”部分的末尾</p>
+<pre><code>http {
+  ...
+  include /etc/nginx/vhost/*.conf;
+}
+</code></pre><p>5.重启nginx服务(注意:所有的配置文件修改保存后,先不急重新加载配置,先使用<code>nginx -t</code>测试下文件内容是否有错在进行重新加载配置操作)</p>
+<p><code>sudo service nginx restart</code></p>
+<p>6.访问<a href="http://www.siteA.com和www.siteB.com，你将发现浏览器会打开不同的站点" target="_blank" rel="noopener">www.siteA.com和www.siteB.com，你将发现浏览器会打开不同的站点</a></p>
+<p>nginx禁止ip访问的小技巧:</p>
+<p>假如你的Nginx根目录设在”/home/user/www”，你想阻止别人通过”<a href="http://IP地址/blog”或”http://IP地址/forum”来访问你的站点，最简单的方法就是禁止IP地址访问。方法如下：" target="_blank" rel="noopener">http://IP地址/blog”或”http://IP地址/forum”来访问你的站点，最简单的方法就是禁止IP地址访问。方法如下：</a></p>
+<p>打开Nginx网站默认配置文件，记得先备份</p>
+<p><code>sudo cp /etc/nginx/sites-available/default /etc/nginx/sites-available/default_bak #备份原来的默认文件</code></p>
+<p><code>sudo vim /etc/nginx/sites-available/default #编辑文件</code></p>
+<p>将其所有内容删除，只留以下配置</p>
+<pre><code>server {
+  listen 80 default_server;
+  server_name _;
+  return 404;
+}
+</code></pre><p>然后重启nginx或者<code>nginx -s reload</code>使配置文件生效,别人将无法通过IP地址访问网站了</p>
+<p>如果你不想禁止IP地址访问整个目录，只是要防止别人通过IP访问你的博客和论坛。那就需要禁止”/blog”和”/forum”的目录访问</p>
+<p>打开Nginx网站默认配置文件，同上面一样，记得先备份一下</p>
+<p>在”server { }”节点的部分加上以下配置,然后重启nginx或者reload nginx配置即可.</p>
+<pre><code>location ^~ /blog/ {
+  deny all;
+}
+location ^~ /forum/ {
+  deny all;
+}
+</code></pre>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/" data-id="cjlovnvbn000hraclczmsh33q" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nginx/">nginx</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-Linux下安装maven" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/05/13/Linux下安装maven/" class="article-date">
@@ -109,7 +214,7 @@ export PATH=${M2_HOME}/bin:$PATH
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjl1qfgvh0001uscl4kq8tebt" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/Linux下安装maven/" data-id="cjlovnvbc0004raclmwfzygyr" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/maven/">maven</a></li></ul>
@@ -174,7 +279,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjl1qfgvc0000uscluwklswyz" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/JDK/" data-id="cjlovnvb20000racl9stag1i9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jdk/">jdk</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -215,13 +320,13 @@ unset _JAVA_OPTIONS
   按理在Ubuntu,debian上也是可以的.
 </code></pre><p>注意:执行以下命令时,全部采用root账户的权限</p>
 <p>1.创建要作为swap分区的文件:增加1GB大小的交换分区，则命令写法如下，其中的count等于想要的块的数量（bs*count=文件大小）</p>
-<p><code>sudo dd if=/dev/zero of=/root/swapfile bs=1M count=1024</code></p>
+<p><code>sudo dd if=/dev/zero of=/swapfile bs=1M count=1024</code></p>
 <p>2.格式化为交换分区文件,建立swap的文件系统</p>
-<p><code>sudo mkswap /root/swapfile</code></p>
+<p><code>sudo mkswap /swapfile</code></p>
 <p>3.启用交换分区文件</p>
-<p><code>sudo swapon /root/swapfile</code></p>
+<p><code>sudo swapon /swapfile</code></p>
 <p>4.使系统开机时自启用，在文件/etc/fstab中添加一行(可使用vim打开文件进行编辑)：</p>
-<p><code>/root/swapfile swap swap defaults 0 0</code></p>
+<p><code>/swapfile swap swap defaults 0 0</code></p>
 <p>5.验证结果,执行free 命令查看是否有交换分区</p>
 <p><code>free -m</code></p>
 <p>注:如果想移除swap分区文件,执行以下命令:</p>
@@ -230,7 +335,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/Linux增加使用文件代替swap分区分方法/" data-id="cjl1qfgvp0004uscl014h469k" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/Linux增加使用文件代替swap分区分方法/" data-id="cjlovnvb70001raclbwd8ktqg" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/swap/">swap</a></li></ul>
@@ -281,7 +386,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/13/MySQL字段值默认不区分大小写问题/" data-id="cjl1qfgvu000buscl7lwwxtzb" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/13/MySQL字段值默认不区分大小写问题/" data-id="cjlovnvbg0009raclqkf62bm9" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -331,7 +436,7 @@ unset _JAVA_OPTIONS
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/" data-id="cjl1qfgvl0003uscl3gb68lpo" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/" data-id="cjlovnvba0003racl4u5k4u9b" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/nodejs/">nodejs</a></li></ul>
@@ -380,7 +485,7 @@ unset _JAVA_OPTIONS
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
   </div>
 
@@ -391,6 +496,10 @@ unset _JAVA_OPTIONS
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/09/05/debian系系统编译CuraEngine引擎/">debian系系统编译CuraEngine引擎</a>
+          </li>
         
           <li>
             <a href="/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/">远程tomcat配置jconsole连接监测jvm参数</a>
@@ -406,10 +515,6 @@ unset _JAVA_OPTIONS
         
           <li>
             <a href="/2018/06/25/atom配置vue前端开发环境/">atom配置vue前端开发环境</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/19/vscode配置前端vue开发环境/">vscode配置前端vue开发环境</a>
           </li>
         
       </ul>
