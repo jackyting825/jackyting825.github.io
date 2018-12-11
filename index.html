@@ -70,6 +70,117 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-axis2调用webservice" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/12/11/axis2调用webservice/" class="article-date">
+  <time datetime="2018-12-11T01:36:33.000Z" itemprop="datePublished">2018-12-11</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/12/11/axis2调用webservice/">axis2调用webservice</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <!-- TOC -->
+<ul>
+<li><a href="#webservice一种跨编程语言和跨操作系统平台的远程调用技术">WebService:一种跨编程语言和跨操作系统平台的远程调用技术.</a></li>
+<li><a href="#webservice的实现包有很多java语言有jdk16后内置的jwsapache-cxfapache-axisapache-axis2">WebService的实现包有很多,Java语言有jdk1.6后内置的jws.*,Apache cxf,Apache Axis,Apache Axis2.</a><ul>
+<li><a href="#1远程调用">1.远程调用</a><ul>
+<li><a href="#11-axis2wsdl地址方式调用">1.1 axis2+wsdl地址方式调用:</a></li>
+<li><a href="#12-axis2endpoint地址方式调用">1.2 axis2+endpoint地址方式调用:</a></li>
+</ul>
+</li>
+<li><a href="#2wsdl2java方式调用">2.wsdl2java方式调用</a></li>
+</ul>
+</li>
+</ul>
+<!-- /TOC -->
+<h3 id="WebService-一种跨编程语言和跨操作系统平台的远程调用技术"><a href="#WebService-一种跨编程语言和跨操作系统平台的远程调用技术" class="headerlink" title="WebService:一种跨编程语言和跨操作系统平台的远程调用技术."></a>WebService:一种跨编程语言和跨操作系统平台的远程调用技术.</h3><pre><code>WebService都是基于http请求(POST请求,无GET请求)
+XML+XSD,SOAP和WSDL就是构成WebService平台的三大技术。
+XML+XSD：
+
+WebService采用HTTP协议传输数据，采用XML格式封装数据（即XML中说明调用远程服务对象的哪个方法，传递的参数是什么，
+以及服务对象的返回结果是什么）。XML是WebService平台中表示数据的格式。
+
+SOAP(Simple Object Access Protocol)：简单对象访问协议
+
+SOAP提供了标准的RPC方法来调用Web Service。SOAP协议 = HTTP协议 + XML数据格式SOAP协议定义了SOAP消息的格式，
+SOAP协议是基于HTTP协议的，SOAP也是基于XML和XSD的，XML是SOAP的数据编码方式。
+soap协议分1.1和1.2版本:
+soap1.1:
+  请求方式:post
+  content-type:text/xml;charset=utf-8
+soap1.2:
+  请求方式:post
+  content-type:application/soap+xml
+
+WSDL(Web Services Description Language):基于XML的语言，用于描述Web Service及其函数、参数和返回值。
+
+它是WebService客户端和服务器端都能理解的标准格式。WSDL文件保存在Web服务器上，通过一个url地址就可以访问到它。
+客户端要调用一个WebService服务之前，要知道该服务的WSDL文件的地址。
+
+注:wsdl文件阅读技巧:(从下往上读)
+  找到wsdl:service节点-&gt;查看下面的wsdl:port节点-&gt;查看其binding属性-&gt;找到与bingding名称相同的wsdl:binding节点
+  -&gt;查看节点下的wsdl:operation节点(对应的调用method名称)-&gt;wsdl:input方法输入参数节点-&gt;对应message属性值
+  -&gt;找到同名的wsdl:message节点-&gt;wsdl:part对应的参数名称和类型.
+
+  wsdl:output节点代表服务返回的数据.阅读方式和wsdl:input一致
+</code></pre><p>WebService优点:跨平台跨语言.服务方和调用方不用关心各自的平台和语言</p>
+<p>WebService缺点:在使用方式上，RPC和soap的使用在减少，Restful架构占到了主导地位。在数据格式上，XML格式繁琐,使用在减少，json等轻量级格式的使用在增多..另外性能上略低(也有专门对xml解析优化的cpu)</p>
+<h3 id="WebService的实现包有很多-Java语言有jdk1-6后内置的jws-Apache-cxf-Apache-Axis-Apache-Axis2"><a href="#WebService的实现包有很多-Java语言有jdk1-6后内置的jws-Apache-cxf-Apache-Axis-Apache-Axis2" class="headerlink" title="WebService的实现包有很多,Java语言有jdk1.6后内置的jws.*,Apache cxf,Apache Axis,Apache Axis2."></a>WebService的实现包有很多,Java语言有jdk1.6后内置的jws.*,Apache cxf,Apache Axis,Apache Axis2.</h3><p>本文采用axis2包,发布webservice服务可以采用jdk的@WebService注解实现或者cxf/axis/axis2来进行实现,网上教程很多,本文不涉及到这块.主要是发现在调用的时候会有一些坑,所以在此记录</p>
+<p>WebService客户端调用主要有2类方式,一种是通过http远程调用,一种是通过wsdl2java产生Java代码调用</p>
+<h4 id="1-远程调用"><a href="#1-远程调用" class="headerlink" title="1.远程调用"></a>1.远程调用</h4><p>  引入axisjar包:<br>  <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- Axis2 --&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.axis2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axis2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.ws.commons.axiom<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axiom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.ws.commons.axiom<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axiom-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.ws.commons.axiom<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axiom-impl<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.20<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>wsdl4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>wsdl4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.ws.xmlschema<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>xmlschema-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.neethi<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>neethi<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="comment">&lt;!--&lt;version&gt;2.0.4&lt;/version&gt; --&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>3.1.1<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.axis2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axis2-transport-local<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.axis2<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>axis2-transport-http<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.7.7<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>javax.mail<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>javax.mail-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.6.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- Axis2 End --&gt;</span></span><br></pre></td></tr></table></figure></p>
+<h5 id="1-1-axis2-wsdl地址方式调用"><a href="#1-1-axis2-wsdl地址方式调用" class="headerlink" title="1.1 axis2+wsdl地址方式调用:"></a>1.1 axis2+wsdl地址方式调用:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">String soapBindingAddress = <span class="string">"http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx?wsdl"</span>;</span><br><span class="line">      EndpointReference endpointReference = <span class="keyword">new</span> EndpointReference(soapBindingAddress);</span><br><span class="line">      <span class="comment">//创建一个OMFactory</span></span><br><span class="line">      OMFactory factory = OMAbstractFactory.getOMFactory();</span><br><span class="line">      <span class="comment">//指定命名空间</span></span><br><span class="line">      OMNamespace namespace = factory.createOMNamespace(<span class="string">"http://WebXml.com.cn/"</span>, <span class="string">"web"</span>);</span><br><span class="line">      <span class="comment">//创建method对象，方法名 为getMobileCodeInfo</span></span><br><span class="line">      OMElement method = factory.createOMElement(<span class="string">"getMobileCodeInfo"</span>, namespace);</span><br><span class="line">      OMElement mobileCode = factory.createOMElement(<span class="string">"mobileCode"</span>, namespace);<span class="comment">//方法参数</span></span><br><span class="line">      OMElement userID = factory.createOMElement(<span class="string">"userID"</span>, namespace);<span class="comment">//方法参数</span></span><br><span class="line">      <span class="comment">//封装参数</span></span><br><span class="line">      mobileCode.addChild(factory.createOMText(mobileCode, <span class="string">"18265963256"</span>));<span class="comment">//设定参数的值</span></span><br><span class="line">      method.addChild(mobileCode);</span><br><span class="line">      userID.addChild(factory.createOMText(userID, <span class="string">""</span>));<span class="comment">//设定参数的值</span></span><br><span class="line">      method.addChild(userID);</span><br><span class="line">      <span class="comment">//请求参数设置</span></span><br><span class="line">      ServiceClient sender = <span class="keyword">new</span> ServiceClient();</span><br><span class="line">      Options options = <span class="keyword">new</span> Options();</span><br><span class="line">      <span class="comment">// 设置soap1.2协议</span></span><br><span class="line">      options.setSoapVersionURI(SOAP12Constants.SOAP_ENVELOPE_NAMESPACE_URI);</span><br><span class="line">      options.setAction(<span class="string">"http://WebXml.com.cn/getMobileCodeInfo"</span>);</span><br><span class="line">      options.setTo(endpointReference);</span><br><span class="line">      sender.setOptions(options);</span><br><span class="line">      OMElement result = sender.sendReceive(method);</span><br><span class="line">      System.out.println(result.getFirstElement().getText());</span><br></pre></td></tr></table></figure>
+<h5 id="1-2-axis2-endpoint地址方式调用"><a href="#1-2-axis2-endpoint地址方式调用" class="headerlink" title="1.2 axis2+endpoint地址方式调用:"></a>1.2 axis2+endpoint地址方式调用:</h5><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line">ServiceClient client = <span class="keyword">new</span> ServiceClient();</span><br><span class="line">      <span class="comment">// 创建服务地址WebService的URL,注意不是WSDL的URL</span></span><br><span class="line">      String url = <span class="string">"http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx"</span>;</span><br><span class="line">      EndpointReference targetEPR = <span class="keyword">new</span> EndpointReference(url);</span><br><span class="line">      Options options = client.getOptions();</span><br><span class="line">      <span class="comment">// 设置soap1.2协议</span></span><br><span class="line">      options.setSoapVersionURI(SOAP12Constants.SOAP_ENVELOPE_NAMESPACE_URI);</span><br><span class="line">      options.setTo(targetEPR);</span><br><span class="line">      <span class="comment">// 确定调用方法（wsdl 命名空间地址 (wsdl文档中的targetNamespace) 和 方法名称 的组合）</span></span><br><span class="line">      options.setAction(<span class="string">"http://WebXml.com.cn/getMobileCodeInfo"</span>);</span><br><span class="line">      OMFactory fac = OMAbstractFactory.getOMFactory();</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">       * 指定命名空间，参数： uri--即为wsdl文档的targetNamespace，命名空间 perfix--可不填</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      OMNamespace omNs = fac.createOMNamespace(<span class="string">"http://WebXml.com.cn/"</span>, <span class="string">""</span>);</span><br><span class="line">      <span class="comment">/*</span></span><br><span class="line"><span class="comment">       * 身份验证</span></span><br><span class="line"><span class="comment">       * OMElement header = fac.createOMElement("AuthenticationToken", omNs);</span></span><br><span class="line"><span class="comment">       * OMElement ome_user = fac.createOMElement("Username", omNs); OMElement</span></span><br><span class="line"><span class="comment">       * ome_pass = fac.createOMElement("Password", omNs);</span></span><br><span class="line"><span class="comment">       *</span></span><br><span class="line"><span class="comment">       * ome_user.setText("user"); ome_pass.setText("pass");</span></span><br><span class="line"><span class="comment">       *</span></span><br><span class="line"><span class="comment">       * header.addChild(ome_user); header.addChild(ome_pass);</span></span><br><span class="line"><span class="comment">       *</span></span><br><span class="line"><span class="comment">       * client.addHeader(header);</span></span><br><span class="line"><span class="comment">       */</span></span><br><span class="line">      <span class="comment">// 指定方法</span></span><br><span class="line">      OMElement method = fac.createOMElement(<span class="string">"getMobileCodeInfo"</span>, omNs);</span><br><span class="line">      <span class="comment">// 指定方法的参数</span></span><br><span class="line">      OMElement mobileCode = fac.createOMElement(<span class="string">"mobileCode"</span>, omNs);</span><br><span class="line">      mobileCode.setText(<span class="string">"18265963256"</span>);</span><br><span class="line">      OMElement userID = fac.createOMElement(<span class="string">"userID"</span>, omNs);</span><br><span class="line">      userID.setText(<span class="string">""</span>);</span><br><span class="line">      method.addChild(mobileCode);</span><br><span class="line">      method.addChild(userID);</span><br><span class="line">      method.build();</span><br><span class="line">      <span class="comment">// 远程调用web服务</span></span><br><span class="line">      OMElement result = client.sendReceive(method);</span><br><span class="line">      System.out.println(result);</span><br></pre></td></tr></table></figure>
+<pre><code>注:返回的xml数据可能含有需要转义的字符,比如&amp;lt;之类的.
+可以用org.apache.commons.lang3.StringEscapeUtils.unescapeXml方法处理,(已过时),
+可以用commons-text包下的StringEscapeUtils类进行反转义处理
+</code></pre><h4 id="2-wsdl2java方式调用"><a href="#2-wsdl2java方式调用" class="headerlink" title="2.wsdl2java方式调用"></a>2.wsdl2java方式调用</h4><p>  使用jdk命令行下的wsimport命令和wsdl文件生成生成客户端中间代码,</p>
+<p>  注意:只能编译soap1.1的协议，不能编译soap1.2的协议的代码</p>
+<pre><code>wsimport [options] &lt;WSDL_URI&gt;
+比较常用的[options]有：
+1. -d &lt;directory&gt;
+  在指定的目录生成class文件
+2. -clientjar &lt;jarfile&gt;
+  在当前目录生成jar文件，结合-d &lt;directory&gt;可以在指定的目录生成jar文件
+3. -s &lt;directory&gt;
+  在指定的目录生成java源文件
+4. -p &lt;pkg&gt;
+  指定生成文件的包结构
+5. -keep
+  在生成class文件，或者jar包时，同时保留java源文件
+</code></pre><p>例:在当前目录新建class文件夹和java文件夹,分别存放对应的class文件个java文件</p>
+<pre><code>wsimport -keep -d ./class -s ./java -p com.test.demo -verbose http://ws.webxml.com.cn/WebServices/MobileCodeWS.asmx?wsdl  
+</code></pre><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个MobileCodeWS工厂  </span></span><br><span class="line">MobileCodeWS factory = <span class="keyword">new</span> MobileCodeWS();  </span><br><span class="line"><span class="comment">//根据工厂创建一个MobileCodeWSSoap对象  </span></span><br><span class="line">MobileCodeWSSoap mobileCodeWSSoap = factory.getMobileCodeWSSoap();  </span><br><span class="line"><span class="comment">//调用WebService提供的getMobileCodeInfo方法查询手机号码的归属地  </span></span><br><span class="line">String searchResult = mobileCodeWSSoap.getMobileCodeInfo(<span class="string">"18265963256"</span>, <span class="keyword">null</span>);  </span><br><span class="line">System.out.println(searchResult);</span><br></pre></td></tr></table></figure>
+<p>笔后摘要:</p>
+<p>webservice既然是基于http的,那么也可使用最原始的URLconnect来进行访问请求处理,但是要注意对应的soap协议版本请求头,还需要组装符合soap协议xml文档信息等.完整的请求头应该和下例类似:</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">  请求头:</span><br><span class="line">  POST /WebServices/MobileCodeWS.asmx HTTP/1.1</span><br><span class="line">  Host: webservice.webxml.com.cn</span><br><span class="line">  Content-Type: text/xml; charset=utf-8</span><br><span class="line">  Content-Length: length</span><br><span class="line">  SOAPAction: "http://WebXml.com.cn/getMobileCodeInfo"</span><br><span class="line"></span><br><span class="line">消息体:</span><br><span class="line">&lt;?xml version="1.0" encoding="utf-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Envelope</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="attr">xmlns:xsd</span>=<span class="string">"http://www.w3.org/2001/XMLSchema"</span> <span class="attr">xmlns:soap</span>=<span class="string">"http://schemas.xmlsoap.org/soap/envelope/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">soap:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">getMobileCodeInfo</span> <span class="attr">xmlns</span>=<span class="string">"http://WebXml.com.cn/"</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mobileCode</span>&gt;</span>18265963256<span class="tag">&lt;/<span class="name">mobileCode</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">userID</span>&gt;</span>string<span class="tag">&lt;/<span class="name">userID</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">getMobileCodeInfo</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Body</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">soap:Envelope</span>&gt;</span></span><br></pre></td></tr></table></figure>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://jackyting825.github.io/2018/12/11/axis2调用webservice/" data-id="cjpj5oxra000ga2cl12osf68l" class="article-share-link">Share</a>
+      
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/WebService/">WebService</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/axis2/">axis2</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-debian系系统编译CuraEngine引擎" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2018/09/05/debian系系统编译CuraEngine引擎/" class="article-date">
@@ -140,7 +251,7 @@ cmake ..
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/09/05/debian系系统编译CuraEngine引擎/" data-id="cjp5gsyhi0003fz34mfqpbaw7" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/09/05/debian系系统编译CuraEngine引擎/" data-id="cjpj5oxrb000ja2cl5vdn3snc" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -210,7 +321,7 @@ chmod 600 jmxremote.password
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/" data-id="cjp5gsyi50009fz34jt3y5xt3" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/" data-id="cjpj5oxrh000ua2clbqwoh2qy" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jconsole/">jconsole</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/jvm/">jvm</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/tomcat/">tomcat</a></li></ul>
@@ -282,7 +393,7 @@ username是登录远程主机的用户名, -p 指定远程服务端ssh协议开�
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjp5gsyi00005fz34aoodmse6" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/07/linux系统之间远程连接和传输文件/" data-id="cjpj5oxrf000qa2clgx2afr73" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
@@ -373,7 +484,7 @@ sudo mysql_secure_installation  对root账户进行设置密码操作
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjp5gsygz0000fz34kkgcnlvi" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/08/03/MySQL新版本设置root密码和重置root密码/" data-id="cjpj5oxr30009a2cla08ht1i0" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -445,7 +556,7 @@ markdown-table-editor : markdown文档表格编辑插件
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjp5gsyhe0001fz345o5kd778" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/25/atom配置vue前端开发环境/" data-id="cjpj5oxr8000ea2cl8sa42yss" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/atom/">atom</a></li></ul>
@@ -513,7 +624,7 @@ Markdown-TOC : 对markdown文档生成目录的插件,有2个,请选择作者为
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjp5gsyi20007fz34lrbewe5z" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/19/vscode配置前端vue开发环境/" data-id="cjpj5oxrg000sa2clbc0otm46" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
@@ -570,7 +681,7 @@ Markdown-TOC : 对markdown文档生成目录的插件,有2个,请选择作者为
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjijqkvy0000c3e34nkjijmcy" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/java实现图片的灰度化处理/" data-id="cjpj5oxrc000la2clca3evmzx" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/java/">java</a></li></ul>
@@ -627,7 +738,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjijqkvxx000b3e345aul947b" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/06/12/MySQL设置用户远程登录/" data-id="cjpj5oxr5000ba2cle9ypgh97" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL/">MySQL</a></li></ul>
@@ -902,85 +1013,10 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjijqkvxp00053e34xncu5nww" class="article-share-link">Share</a>
+      <a data-url="http://jackyting825.github.io/2018/05/20/Shell基础/" data-id="cjpj5oxr6000ca2cllaxiysc8" class="article-share-link">Share</a>
       
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/shell/">shell</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-Linux常用压缩解压缩" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/05/20/Linux常用压缩解压缩/" class="article-date">
-  <time datetime="2018-05-20T09:08:52.000Z" itemprop="datePublished">2018-05-20</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/05/20/Linux常用压缩解压缩/">Linux常用压缩解压缩</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <pre><code>摘要:
-  Linux下常用的压缩格式有:.zip .gz .bz2 .tar.gz .tar.bz2
-</code></pre><h4 id="1-zip格式压缩"><a href="#1-zip格式压缩" class="headerlink" title="1 .zip格式压缩"></a>1 .zip格式压缩</h4><p>压缩文件 <code>zip 压缩文件名 源文件</code></p>
-<pre><code>zip test.zip ./test.txt #将当前目录的test.txt文档压缩为test.zip
-</code></pre><p>压缩目录 <code>zip -r 压缩文件名 源目录</code></p>
-<pre><code>zip test1.zip ./test1 #将当前目录的test1目录压缩为test1.zip
-</code></pre><h4 id="2-zip格式解压缩"><a href="#2-zip格式解压缩" class="headerlink" title="2 .zip格式解压缩"></a>2 .zip格式解压缩</h4><p>解压文件  <code>unzip 压缩文件</code></p>
-<pre><code>zip ./test1.zip #解压缩当前目录的test1.zip文件
-</code></pre><h4 id="3-gz格式压缩"><a href="#3-gz格式压缩" class="headerlink" title="3 .gz格式压缩"></a>3 .gz格式压缩</h4><p>压缩为.gz文件,源文件消失  <code>gzip 源文件</code></p>
-<p>压缩为.gz文件,源文件保留  <code>gzip -c 源文件 &gt; 压缩文件</code></p>
-<p>压缩目录下的所有子文件,但是不能压缩目录  <code>gzip -r 目录</code></p>
-<h4 id="4-gz格式解压缩"><a href="#4-gz格式解压缩" class="headerlink" title="4 .gz格式解压缩"></a>4 .gz格式解压缩</h4><p>解压缩.gz文件  <code>gzip -d 压缩文件</code></p>
-<p>解压缩.gz文件  <code>gunzip  压缩文件</code></p>
-<h4 id="5-bz2格式压缩"><a href="#5-bz2格式压缩" class="headerlink" title="5 .bz2格式压缩"></a>5 .bz2格式压缩</h4><p>压缩为.bz2格式,不保留源文件  <code>bzip2 源文件</code></p>
-<p>压缩为.bz2格式,保留源文件 <code>bzip2 -k 源文件</code></p>
-<p>注:bzip2不能压缩目录</p>
-<h4 id="6-bz2格式解压缩"><a href="#6-bz2格式解压缩" class="headerlink" title="6 .bz2格式解压缩"></a>6 .bz2格式解压缩</h4><p>解压缩.bz2文件,-k保留压缩文件  <code>bzip2 -d 压缩文件</code></p>
-<p>解压缩.bz2文件,-k保留压缩文件  <code>bunzip2 压缩文件</code></p>
-<h4 id="7-tar-gz格式压缩-先打包为tar-再压缩为-gz文件"><a href="#7-tar-gz格式压缩-先打包为tar-再压缩为-gz文件" class="headerlink" title="7 .tar.gz格式压缩(先打包为tar,再压缩为.gz文件)"></a>7 .tar.gz格式压缩(先打包为tar,再压缩为.gz文件)</h4><p>tar打包命令  <code>tar -cvf 打包文件名 源文件</code></p>
-<p>选项: -c 打包; -v 现实过程; -f 指定打包后的文件名</p>
-<p>tar -cvf test.tar ./test 将当前目录下test目录打包为tar文件</p>
-<p>gzip test.tar  生成test.tar.gz文件</p>
-<p>bzip2 test.tar 生成test.tar.bz2文件</p>
-<p>上述过程繁琐,可以直接用  <code>tar -zcvf 压缩包名.tar.gz 源文件</code></p>
-<h4 id="8-tar-gz格式解压缩-先用gzip解压文件-然后解打包"><a href="#8-tar-gz格式解压缩-先用gzip解压文件-然后解打包" class="headerlink" title="8 .tar.gz格式解压缩(先用gzip解压文件,然后解打包)"></a>8 .tar.gz格式解压缩(先用gzip解压文件,然后解打包)</h4><p>解打包命令  <code>tar -xvf 打包文件名</code></p>
-<p>选项: -x 解打包</p>
-<p>tar -vxf test.tar   解包text.tar文件</p>
-<p>上述过程繁琐,可以直接用  <code>tar -zxvf 压缩包名.tar.gz</code>,<br>解压到指定目录可用-C选项指定目录 <code>tar -zxvf 压缩包名.tar.gz -C /tmp/</code></p>
-<h4 id="9-tar-bz2格式压缩-先打包为tar-再压缩为-bz2文件"><a href="#9-tar-bz2格式压缩-先打包为tar-再压缩为-bz2文件" class="headerlink" title="9 .tar.bz2格式压缩(先打包为tar,再压缩为.bz2文件)"></a>9 .tar.bz2格式压缩(先打包为tar,再压缩为.bz2文件)</h4><p>tar打包命令  <code>tar -cvf 打包文件名 源文件</code></p>
-<p>选项: -c 打包; -v 现实过程; -f 指定打包后的文件名</p>
-<p>tar -cvf test.tar ./test 将当前目录下test目录打包为tar文件</p>
-<p>bzip2 test.tar 生成test.tar.bz2文件</p>
-<p>上述过程繁琐,可以直接用  <code>tar -jcvf 压缩包名.tar.bz2 源文件</code></p>
-<h4 id="10-tar-bz2格式解压缩-先用bzip2解压文件-然后解打包"><a href="#10-tar-bz2格式解压缩-先用bzip2解压文件-然后解打包" class="headerlink" title="10 .tar.bz2格式解压缩(先用bzip2解压文件,然后解打包)"></a>10 .tar.bz2格式解压缩(先用bzip2解压文件,然后解打包)</h4><p>解打包命令  <code>tar -xvf 打包文件名</code></p>
-<p>选项: -x 解打包</p>
-<p>tar -vxf test.tar   解包text.tar文件</p>
-<p>上述过程繁琐,可以直接用  <code>tar -jxvf 压缩包名.tar.bz2</code>,<br>解压到指定目录可用-C选项指定目录 <code>tar -jxvf 压缩包名.tar.bz2 -C /tmp/</code></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://jackyting825.github.io/2018/05/20/Linux常用压缩解压缩/" data-id="cjijqkvxs00073e34ztybyw4e" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/linux/">linux</a></li></ul>
 
     </footer>
   </div>
@@ -1007,7 +1043,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atom/">atom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jconsole/">jconsole</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/MySQL/">MySQL</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/WebService/">WebService</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/atom/">atom</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/axis2/">axis2</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/java/">java</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jconsole/">jconsole</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jdk/">jdk</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/jvm/">jvm</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/linux/">linux</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/maven/">maven</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nginx/">nginx</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/nodejs/">nodejs</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/shell/">shell</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/swap/">swap</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/tomcat/">tomcat</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/vscode/">vscode</a></li></ul>
     </div>
   </div>
 
@@ -1017,7 +1053,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jconsole/" style="font-size: 10px;">jconsole</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
+      <a href="/tags/MySQL/" style="font-size: 13.33px;">MySQL</a> <a href="/tags/WebService/" style="font-size: 10px;">WebService</a> <a href="/tags/atom/" style="font-size: 10px;">atom</a> <a href="/tags/axis2/" style="font-size: 10px;">axis2</a> <a href="/tags/java/" style="font-size: 16.67px;">java</a> <a href="/tags/jconsole/" style="font-size: 10px;">jconsole</a> <a href="/tags/jdk/" style="font-size: 10px;">jdk</a> <a href="/tags/jvm/" style="font-size: 10px;">jvm</a> <a href="/tags/linux/" style="font-size: 20px;">linux</a> <a href="/tags/maven/" style="font-size: 10px;">maven</a> <a href="/tags/nginx/" style="font-size: 10px;">nginx</a> <a href="/tags/nodejs/" style="font-size: 10px;">nodejs</a> <a href="/tags/shell/" style="font-size: 10px;">shell</a> <a href="/tags/swap/" style="font-size: 10px;">swap</a> <a href="/tags/tomcat/" style="font-size: 10px;">tomcat</a> <a href="/tags/vscode/" style="font-size: 10px;">vscode</a>
     </div>
   </div>
 
@@ -1026,7 +1062,7 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/12/">December 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/09/">September 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/08/">August 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/06/">June 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/05/">May 2018</a></li></ul>
     </div>
   </div>
 
@@ -1037,6 +1073,10 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/12/11/axis2调用webservice/">axis2调用webservice</a>
+          </li>
         
           <li>
             <a href="/2018/09/05/debian系系统编译CuraEngine引擎/">debian系系统编译CuraEngine引擎</a>
@@ -1052,10 +1092,6 @@ mysql&gt;FLUSH PRIVILEGES; # 刷新权限,使配置生效
         
           <li>
             <a href="/2018/08/03/MySQL新版本设置root密码和重置root密码/">MySQL新版本设置root密码和重置root密码</a>
-          </li>
-        
-          <li>
-            <a href="/2018/06/25/atom配置vue前端开发环境/">atom配置vue前端开发环境</a>
           </li>
         
       </ul>
