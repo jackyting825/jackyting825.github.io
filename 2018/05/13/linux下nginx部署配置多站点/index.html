@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="学而时习之 - jackyting825">
 <meta property="og:description" content="摘要:   有时候你想在一台服务器上为不同的域名运行不同的站点。   比如www.siteA.com作为博客，www.siteB.com作为论坛。你可以把两个域名的IP都解析到你的服务器上，   但是没法在Nginx的根目录里同时运行两个不同的网站.   这时可以在nginx上面配置部署多个站点(使用nginx虚拟目录),为你节省服务器费用.   假设你把博客放在”/home/user/www/b">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-12-29T08:31:32.961Z">
+<meta property="og:updated_time" content="2019-01-11T07:13:14.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下nginx部署配置多站点">
 <meta name="twitter:description" content="摘要:   有时候你想在一台服务器上为不同的域名运行不同的站点。   比如www.siteA.com作为博客，www.siteB.com作为论坛。你可以把两个域名的IP都解析到你的服务器上，   但是没法在Nginx的根目录里同时运行两个不同的网站.   这时可以在nginx上面配置部署多个站点(使用nginx虚拟目录),为你节省服务器费用.   假设你把博客放在”/home/user/www/b">
@@ -376,6 +376,10 @@
     root  /aaa/bbb;
     expires   7d;
   }
+  # websocket地址
+  location ^~ /ws {
+        proxy_pass http://127.0.0.1:10002;
+    }
 }
 </code></pre><p>4.打开编辑nginx的配置文件</p>
 <p><code>sudo vim /etc/nginx/nginx.conf</code></p>
@@ -418,18 +422,26 @@ gzip_comp_level 6;
 gzip_types text/plain application/javascript application/x-javascript text/css application/xml text/javascript application/x-httpd-php image/jpeg image/gif image/png;
 gzip_vary on;
 gzip_disable &quot;MSIE [1-6]\.&quot;;
+
 #proxy_connect_timeout 600;  #nginx跟后端服务器连接超时时间(代理连接超时)
-#proxy_read_timeout    600;  #连接成功后，后端服务器响应时间(代理接收超时)
-#proxy_send_timeout    600;  #后端服务器数据回传时间(代理发送超时)
+
 proxy_buffer_size     32k;  #设置代理服务器（nginx）保存用户头信息的缓冲区大小
 proxy_buffers         4 32k;#proxy_buffers缓冲区，网页平均在32k以下的话，这样设置
 proxy_busy_buffers_size  64k;           #高负荷下缓冲大小（proxy_buffers*2）
 proxy_temp_file_write_size  1024m;       #设定缓存文件夹大小，大于这个值，将从upstream服务器传
 client_max_body_size 100M;
+
 # 给后端服务器暴露获取客户端真实IP地址的头
 proxy_set_header X-Real-IP $remote_addr;
 proxy_set_header REMOTE-HOST $remote_addr;
 proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+
+# websocket 支持
+proxy_http_version 1.1;
+proxy_set_header Upgrade $http_upgrade;
+proxy_set_header Connection &quot;upgrade&quot;;
+proxy_read_timeout    600;  #连接成功后，后端服务器响应时间(代理接收超时)
+proxy_send_timeout    600;  #后端服务器数据回传时间(代理发送超时)
 </code></pre>
       
     </div>
@@ -612,7 +624,7 @@ proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-snowflake-o"></i>
   </span>
