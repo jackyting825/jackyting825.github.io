@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="linux," />
+  <meta name="keywords" content="tomcat," />
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="摘要:CuraEngine是一个功能强大、快速、强劲的3D模型切片引擎.Cura就是采用了CuraEngine引擎的. 本文的操作环境为deepin 15.7,编译CuraEngine的版本为2.4 1.安装cmake sudo apt install cmake 2.安装Protobuf &amp;gt;= 3.0.0    2.1 安装libtool sudo apt install libtool">
-<meta name="keywords" content="linux">
+<meta name="description" content="tomcat新版添加了对于http头的验证。出现java.lang.IllegalArgumentException: Invalid character found in the request target. The valid char… 异常  网上查找了几种方法归类 1.更换tomcat版本,但是7,8,9的版本都更换过,问题依然.但是有网友确实可以解决,但是更换到具体什么版本未知.">
+<meta name="keywords" content="tomcat">
 <meta property="og:type" content="article">
-<meta property="og:title" content="debian系系统编译CuraEngine引擎">
-<meta property="og:url" content="http://jackyting825.github.io/2018/09/05/debian系系统编译CuraEngine引擎/index.html">
+<meta property="og:title" content="tomcat解决java.lang.IllegalArgumentException: Invalid character异常">
+<meta property="og:url" content="http://jackyting825.github.io/2019/02/21/tomcat解决java-lang-IllegalArgumentException-Invalid-character异常/index.html">
 <meta property="og:site_name" content="学而时习之 - jackyting825">
-<meta property="og:description" content="摘要:CuraEngine是一个功能强大、快速、强劲的3D模型切片引擎.Cura就是采用了CuraEngine引擎的. 本文的操作环境为deepin 15.7,编译CuraEngine的版本为2.4 1.安装cmake sudo apt install cmake 2.安装Protobuf &amp;gt;= 3.0.0    2.1 安装libtool sudo apt install libtool">
+<meta property="og:description" content="tomcat新版添加了对于http头的验证。出现java.lang.IllegalArgumentException: Invalid character found in the request target. The valid char… 异常  网上查找了几种方法归类 1.更换tomcat版本,但是7,8,9的版本都更换过,问题依然.但是有网友确实可以解决,但是更换到具体什么版本未知.">
 <meta property="og:locale" content="default">
-<meta property="og:updated_time" content="2018-10-09T01:31:46.520Z">
+<meta property="og:updated_time" content="2019-02-21T03:23:06.219Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="debian系系统编译CuraEngine引擎">
-<meta name="twitter:description" content="摘要:CuraEngine是一个功能强大、快速、强劲的3D模型切片引擎.Cura就是采用了CuraEngine引擎的. 本文的操作环境为deepin 15.7,编译CuraEngine的版本为2.4 1.安装cmake sudo apt install cmake 2.安装Protobuf &amp;gt;= 3.0.0    2.1 安装libtool sudo apt install libtool">
+<meta name="twitter:title" content="tomcat解决java.lang.IllegalArgumentException: Invalid character异常">
+<meta name="twitter:description" content="tomcat新版添加了对于http头的验证。出现java.lang.IllegalArgumentException: Invalid character found in the request target. The valid char… 异常  网上查找了几种方法归类 1.更换tomcat版本,但是7,8,9的版本都更换过,问题依然.但是有网友确实可以解决,但是更换到具体什么版本未知.">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/2018/09/05/debian系系统编译CuraEngine引擎/"/>
+  <link rel="canonical" href="http://jackyting825.github.io/2019/02/21/tomcat解决java-lang-IllegalArgumentException-Invalid-character异常/"/>
 
 
 
 
 
-  <title>debian系系统编译CuraEngine引擎 | 学而时习之 - jackyting825</title>
+  <title>tomcat解决java.lang.IllegalArgumentException: Invalid character异常 | 学而时习之 - jackyting825</title>
   
 
 
@@ -246,7 +246,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2018/09/05/debian系系统编译CuraEngine引擎/">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/02/21/tomcat解决java-lang-IllegalArgumentException-Invalid-character异常/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jackyting825">
@@ -263,7 +263,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">debian系系统编译CuraEngine引擎</h1>
+          <h1 class="post-title" itemprop="name headline">tomcat解决java.lang.IllegalArgumentException: Invalid character异常</h1>
         
 
         <div class="post-meta">
@@ -275,8 +275,8 @@
               
                 <span class="post-meta-item-text">Posted on</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-09-05T16:13:22+08:00">
-                2018-09-05
+              <time title="Post created" itemprop="dateCreated datePublished" datetime="2019-02-21T11:06:41+08:00">
+                2019-02-21
               </time>
             
 
@@ -313,51 +313,15 @@
       
 
       
-        <pre><code>摘要:CuraEngine是一个功能强大、快速、强劲的3D模型切片引擎.Cura就是采用了CuraEngine引擎的.
-本文的操作环境为deepin 15.7,编译CuraEngine的版本为2.4
-</code></pre><p>1.安装cmake</p>
-<pre><code>sudo apt install cmake
-</code></pre><p>2.安装Protobuf &gt;= 3.0.0 </p>
-<p>  2.1 安装libtool</p>
-<pre><code>sudo apt install libtool
-</code></pre><p>  2.2 安装autoconf</p>
-<pre><code>sudo apt install autoconf
-</code></pre><p>  2.3 clone代码,–depth=1.clone最近一次提交的,可以减少clone时间</p>
-<pre><code>git clone https://github.com/protocolbuffers/protobuf.git --depth=1
-</code></pre><p>  2.4 进入到protobuf目录.执行</p>
-<pre><code>./autogen.sh
-</code></pre><p>  2.5 </p>
-<pre><code>./configure
-</code></pre><p>  2.6 </p>
-<pre><code>make 
-</code></pre><p>  2.7 </p>
-<pre><code>sudo make install
-</code></pre><p>3.安装libArcus</p>
-<p>  3.1 安装python3-dev</p>
-<pre><code>sudo apt install python3-dev
-</code></pre><p>  3.2 安装python3-sip-dev</p>
-<pre><code>sudo apt install python3-sip-dev
-</code></pre><p>  3.3 安装libprotobuf-dev</p>
-<pre><code>sudo apt install libprotobuf-dev
-</code></pre><p>  3.4 clone代码</p>
-<pre><code>git clone https://github.com/Ultimaker/libArcus.git --depth=1
-</code></pre><p>  3.5 进入到libArcus目录,执行</p>
-<pre><code>mkdir build &amp;&amp; cd build
-cmake ..
-</code></pre><p>  3.6 </p>
-<pre><code>make
-</code></pre><p>  3.7 </p>
-<pre><code>sudo make install
-</code></pre><p>4.编译CuraEngine</p>
-<p>  4.1 clone代码.此处编译2.4版本,-b指定版本</p>
-<pre><code>git clone https://github.com/Ultimaker/CuraEngine.git -b 2.4 --depth=1
-</code></pre><p>  4.2 </p>
-<pre><code>mkdir build &amp;&amp; cd build
-</code></pre><p>  4.3 </p>
-<pre><code>cmake ..
-</code></pre><p>  4.4 </p>
-<pre><code>make
-</code></pre>
+        <blockquote>
+<p>tomcat新版添加了对于http头的验证。出现java.lang.IllegalArgumentException: Invalid character found in the request target. The valid char… 异常</p>
+</blockquote>
+<p>网上查找了几种方法归类</p>
+<p>1.更换tomcat版本,但是7,8,9的版本都更换过,问题依然.但是有网友确实可以解决,但是更换到具体什么版本未知.</p>
+<p>2.前端http请求的时候对参数进行URL编码处理,理论上是绝对可行的,但是已有的http请求数很多,一个一个修改工作量大.未试</p>
+<p>3.配置tomcat的catalina.properties 添加或者修改： tomcat.util.http.parser.HttpParser.requestTargetAllow=|{}</p>
+<p>4.使用Connector中relaxedPathChars和relaxedQueryChars属性可以解决问题.找到tomcat/conf/server.xml,在Connector中增加这两个配置.<br><code>&lt;Connector port=&quot;8080&quot; protocol=&quot;HTTP/1.1&quot;    relaxedPathChars=&quot;[]{}|\^&quot; relaxedQueryChars=&quot;[]{}|\^&quot; /&gt;</code></p>
+
       
     </div>
     
@@ -374,7 +338,7 @@ cmake ..
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/tomcat/" rel="tag"># tomcat</a>
           
         </div>
       
@@ -387,8 +351,8 @@ cmake ..
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/" rel="next" title="远程tomcat配置jconsole连接监测jvm参数">
-                <i class="fa fa-chevron-left"></i> 远程tomcat配置jconsole连接监测jvm参数
+              <a href="/2019/01/17/基于vue组件实现web端页面调用摄像头拍照/" rel="next" title="基于vue组件实现web端页面调用摄像头拍照">
+                <i class="fa fa-chevron-left"></i> 基于vue组件实现web端页面调用摄像头拍照
               </a>
             
           </div>
@@ -396,10 +360,6 @@ cmake ..
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/12/11/axis2调用webservice/" rel="prev" title="axis2调用webservice">
-                axis2调用webservice <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
