@@ -5,7 +5,7 @@
   
 
 
-<html class="theme-next gemini use-motion" lang="">
+<html class="theme-next gemini use-motion" lang="zh-Hans">
 <head>
   <meta charset="UTF-8"/>
 <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -89,7 +89,7 @@
 <meta property="og:url" content="http://jackyting825.github.io/2018/05/13/linux下nginx部署配置多站点/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
 <meta property="og:description" content="摘要:   有时候你想在一台服务器上为不同的域名运行不同的站点。   比如www.siteA.com作为博客，www.siteB.com作为论坛。你可以把两个域名的IP都解析到你的服务器上，   但是没法在Nginx的根目录里同时运行两个不同的网站.   这时可以在nginx上面配置部署多个站点(使用nginx虚拟目录),为你节省服务器费用.   假设你把博客放在”/home/user/www/b">
-<meta property="og:locale" content="default">
+<meta property="og:locale" content="zh-Hans">
 <meta property="og:updated_time" content="2019-01-11T07:13:14.836Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="linux下nginx部署配置多站点">
@@ -109,7 +109,7 @@
     motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
     duoshuo: {
       userId: '0',
-      author: 'Author'
+      author: '博主'
     },
     algolia: {
       applicationID: '',
@@ -141,7 +141,7 @@
 
 </head>
 
-<body itemscope itemtype="http://schema.org/WebPage" lang="default">
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
 
   
   
@@ -189,7 +189,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
             
-            Home
+            首页
           </a>
         </li>
       
@@ -199,7 +199,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
             
-            Tags
+            标签
           </a>
         </li>
       
@@ -209,7 +209,7 @@
             
               <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
             
-            Archives
+            归档
           </a>
         </li>
       
@@ -222,7 +222,7 @@
             
               <i class="menu-item-icon fa fa-search fa-fw"></i> <br />
             
-            Search
+            搜索
           </a>
         </li>
       
@@ -242,7 +242,7 @@
     </span>
     <div class="local-search-input-wrapper">
       <input autocomplete="off"
-             placeholder="Searching..." spellcheck="false"
+             placeholder="搜索..." spellcheck="false"
              type="text" id="local-search-input">
     </div>
   </div>
@@ -307,9 +307,9 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               
-                <span class="post-meta-item-text">Posted on</span>
+                <span class="post-meta-item-text">发表于</span>
               
-              <time title="Post created" itemprop="dateCreated datePublished" datetime="2018-05-13T11:25:50+08:00">
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T11:25:50+08:00">
                 2018-05-13
               </time>
             
@@ -550,6 +550,18 @@ proxy_send_timeout    600;  #后端服务器数据回传时间(代理发送超�
           
 
   
+    <div class="comments" id="comments">
+      
+  <script src="https://utteranc.es/client.js"
+    repo="jackyting825/jackyting825.github.io"
+    issue-term="title"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+  </script>
+
+    </div>
+  
 
 
 
@@ -593,7 +605,7 @@ proxy_send_timeout    600;  #后端服务器数据回传时间(代理发送超�
                 <a href="/archives/">
               
                   <span class="site-state-item-count">21</span>
-                  <span class="site-state-item-name">posts</span>
+                  <span class="site-state-item-name">日志</span>
                 </a>
               </div>
             
@@ -606,7 +618,7 @@ proxy_send_timeout    600;  #后端服务器数据回传时间(代理发送超�
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
                   <span class="site-state-item-count">19</span>
-                  <span class="site-state-item-name">tags</span>
+                  <span class="site-state-item-name">标签</span>
                 </a>
               </div>
             
