@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="linux,nodejs," />
+  <meta name="keywords" content="java,pdfbox,pdf," />
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
-<meta name="keywords" content="linux,nodejs">
+<meta name="description" content="摘要:   最近需要使用到对PDF文件内容进行解析,然后对文件的部分内容进行索引查询.在解析的PDF的时候Java语言有2个   开源的PDF工具:PDFbox和Itext. PDFbox和Itext都能读取、解析pdf文件，并且可对文件进行修改.有小伙伴将2个工具对比总结出以下结论:在读取和解析PDF的时候使用PDFBox，较为简单，示例较为详细;修改PDF的时候使用Itext，支持粒度较细，比">
+<meta name="keywords" content="java,pdfbox,pdf">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下离线安装nodejs">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/index.html">
+<meta property="og:title" content="pdfbox解析PDF文件">
+<meta property="og:url" content="http://jackyting825.github.io/2019/05/14/pdfbox解析PDF文件/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta property="og:description" content="摘要:   最近需要使用到对PDF文件内容进行解析,然后对文件的部分内容进行索引查询.在解析的PDF的时候Java语言有2个   开源的PDF工具:PDFbox和Itext. PDFbox和Itext都能读取、解析pdf文件，并且可对文件进行修改.有小伙伴将2个工具对比总结出以下结论:在读取和解析PDF的时候使用PDFBox，较为简单，示例较为详细;修改PDF的时候使用Itext，支持粒度较细，比">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
+<meta property="og:updated_time" content="2019-05-14T02:28:23.741Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下离线安装nodejs">
-<meta name="twitter:description" content="Linux下离线安装nodejs步骤: 1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定 sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/ 2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置) export NODE_HOME=/opt/nod">
+<meta name="twitter:title" content="pdfbox解析PDF文件">
+<meta name="twitter:description" content="摘要:   最近需要使用到对PDF文件内容进行解析,然后对文件的部分内容进行索引查询.在解析的PDF的时候Java语言有2个   开源的PDF工具:PDFbox和Itext. PDFbox和Itext都能读取、解析pdf文件，并且可对文件进行修改.有小伙伴将2个工具对比总结出以下结论:在读取和解析PDF的时候使用PDFBox，较为简单，示例较为详细;修改PDF的时候使用Itext，支持粒度较细，比">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/"/>
+  <link rel="canonical" href="http://jackyting825.github.io/2019/05/14/pdfbox解析PDF文件/"/>
 
 
 
 
 
-  <title>Linux下离线安装nodejs | That's all mean to be! - jackyting825</title>
+  <title>pdfbox解析PDF文件 | That's all mean to be! - jackyting825</title>
   
 
 
@@ -280,7 +280,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2018/05/12/Linux下安装nodejs/">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/05/14/pdfbox解析PDF文件/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jackyting825">
@@ -297,7 +297,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux下离线安装nodejs</h1>
+          <h1 class="post-title" itemprop="name headline">pdfbox解析PDF文件</h1>
         
 
         <div class="post-meta">
@@ -309,8 +309,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-12T18:36:16+08:00">
-                2018-05-12
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-14T10:11:34+08:00">
+                2019-05-14
               </time>
             
 
@@ -347,18 +347,20 @@
       
 
       
-        <h5 id="Linux下离线安装nodejs步骤"><a href="#Linux下离线安装nodejs步骤" class="headerlink" title="Linux下离线安装nodejs步骤:"></a>Linux下离线安装nodejs步骤:</h5><hr>
-<p>1.在官网下载Linux版本的nodejs安装包,然后解压并且移动到/usr/local/目录,具体目录可随意指定</p>
-<p><code>sudo tar -xvJf ./node-v8.9.3-linux-x64.tar.xz -C /usr/local/</code></p>
-<p>2.配置环境变量，编辑～/.bashrc文件(当前用户的环境变量配置)</p>
-<p><code>export NODE_HOME=/opt/node</code></p>
-<p><code>export PATH=$PATH:$NODE_HOME/bin</code></p>
-<p><code>export NODE_PATH=$NODE_HOME/lib/node_modules</code></p>
-<p>3.使配置生效,执行source命令</p>
-<p><code>source ~/.bashrc</code></p>
-<p>4.执行如下命令校验配置是否生效</p>
-<p><code>node -v</code></p>
-<p><code>npm -v</code></p>
+        <pre><code>摘要:
+  最近需要使用到对PDF文件内容进行解析,然后对文件的部分内容进行索引查询.在解析的PDF的时候Java语言有2个
+  开源的PDF工具:PDFbox和Itext.
+</code></pre><p>PDFbox和Itext都能读取、解析pdf文件，并且可对文件进行修改.有小伙伴将2个工具对比总结出以下结论:<br><strong>在读取和解析PDF的时候使用PDFBox，较为简单，示例较为详细;修改PDF的时候使用Itext，支持粒度较细，比如控制文字字体等</strong></p>
+<h3 id="Itext"><a href="#Itext" class="headerlink" title="Itext"></a>Itext</h3><p>  iText是著名的开放项目，是用于生成PDF文档的一个java类库。通过iText不仅可以生成PDF或rtf的文档，而且可以将XML、Html文件转化为PDF文件等.目前只是用到对PDF文档的解析,所以对于Itext具体使用暂未查看,</p>
+<pre><code>官网:https://itextpdf.com/
+插入文字可以自定义字体，使用字库文件(ttf)
+</code></pre><h3 id="PDFBox"><a href="#PDFBox" class="headerlink" title="PDFBox"></a>PDFBox</h3><h4 id="引入PDFBox工具库jar"><a href="#引入PDFBox工具库jar" class="headerlink" title="引入PDFBox工具库jar"></a>引入PDFBox工具库jar</h4><pre><code>&lt;dependency&gt;
+    &lt;groupId&gt;org.apache.pdfbox&lt;/groupId&gt;
+    &lt;artifactId&gt;pdfbox&lt;/artifactId&gt;
+    &lt;version&gt;2.0.15&lt;/version&gt; &lt;!--当前使用2.0.15的版本--&gt;
+&lt;/dependency&gt;
+</code></pre><h4 id="编写PDFUtils类"><a href="#编写PDFUtils类" class="headerlink" title="编写PDFUtils类"></a>编写PDFUtils类</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.pdfbox.cos.COSName;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.io.RandomAccessBuffer;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.pdfparser.PDFParser;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.pdmodel.PDDocument;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.pdmodel.PDPage;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.pdmodel.graphics.image.PDImageXObject;</span><br><span class="line"><span class="keyword">import</span> org.apache.pdfbox.text.PDFTextStripper;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.Logger;</span><br><span class="line"><span class="keyword">import</span> org.slf4j.LoggerFactory;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.File;</span><br><span class="line"><span class="keyword">import</span> java.io.FileInputStream;</span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.io.InputStream;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Paths;</span><br><span class="line"><span class="keyword">import</span> java.util.ArrayList;</span><br><span class="line"><span class="keyword">import</span> java.util.List;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * pdf文档解析工具类</span></span><br><span class="line"><span class="comment"> *</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@author</span> bz</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">PDFUtils</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> Logger logger = LoggerFactory.getLogger(PDFUtils.class);</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pdfPath pdf文件路径</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> PDDocument <span class="title">initPDDocument</span><span class="params">(String pdfPath)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        File pdfFile = Paths.get(pdfPath).toFile();</span><br><span class="line">        <span class="keyword">if</span> (!pdfFile.exists()) &#123;</span><br><span class="line">            logger.error(<span class="string">"pdf文件不存在"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 新建一个PDF解析器对象</span></span><br><span class="line">        PDFParser pdfParser = <span class="keyword">new</span> PDFParser(<span class="keyword">new</span> RandomAccessBuffer(<span class="keyword">new</span> FileInputStream(pdfFile)));</span><br><span class="line">        <span class="comment">// 对PDF文件进行解析</span></span><br><span class="line">        pdfParser.parse();</span><br><span class="line">        <span class="comment">// 获取解析后得到的PDF文档对象</span></span><br><span class="line">        PDDocument pdfdocument = pdfParser.getPDDocument();</span><br><span class="line">        <span class="keyword">return</span> pdfdocument;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> inputStream 输入流</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> PDDocument <span class="title">initPDDocument</span><span class="params">(InputStream inputStream)</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">        <span class="comment">// 新建一个PDF解析器对象</span></span><br><span class="line">        PDFParser pdfParser = <span class="keyword">new</span> PDFParser(<span class="keyword">new</span> RandomAccessBuffer(inputStream));</span><br><span class="line">        <span class="comment">// 对PDF文件进行解析</span></span><br><span class="line">        pdfParser.parse();</span><br><span class="line">        <span class="comment">// 获取解析后得到的PDF文档对象</span></span><br><span class="line">        PDDocument pdfdocument = pdfParser.getPDDocument();</span><br><span class="line">        <span class="keyword">return</span> pdfdocument;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析pdf文档中的字符内容</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pdDocument</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startPage  开始页码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> endPage    结束页码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> String <span class="title">getContent</span><span class="params">(PDDocument pdDocument, <span class="keyword">int</span> startPage, <span class="keyword">int</span> endPage)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (endPage &lt;= startPage) &#123;</span><br><span class="line">            logger.error(<span class="string">"页码参数不正确"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 新建一个PDF文本剥离器</span></span><br><span class="line">        PDFTextStripper stripper = <span class="keyword">new</span> PDFTextStripper();</span><br><span class="line">        stripper.setStartPage(<span class="number">0</span>); <span class="comment">// 开始提取页数</span></span><br><span class="line">        stripper.setEndPage(endPage); <span class="comment">// 结束提取页数</span></span><br><span class="line">        <span class="comment">// 从PDF文档对象中剥离文本</span></span><br><span class="line">        String result = stripper.getText(pdDocument);</span><br><span class="line">        <span class="keyword">return</span> result;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 解析pdf文档中的所有图片列表</span></span><br><span class="line"><span class="comment">     *</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> pdDocument</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> startPage  开始页码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@param</span> endPage    结束页码</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">static</span> List&lt;PDImageXObject&gt; <span class="title">getImageList</span><span class="params">(PDDocument pdDocument, <span class="keyword">int</span> startPage, <span class="keyword">int</span> endPage)</span> <span class="keyword">throws</span> IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (endPage &lt;= startPage) &#123;</span><br><span class="line">            logger.error(<span class="string">"页码参数不正确"</span>);</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        List&lt;PDImageXObject&gt; imageList = <span class="keyword">new</span> ArrayList&lt;PDImageXObject&gt;();</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = startPage; i &lt; endPage; i++) &#123;</span><br><span class="line">            PDPage page = pdDocument.getPage(i);</span><br><span class="line">            Iterable&lt;COSName&gt; objectNames = page.getResources().getXObjectNames();</span><br><span class="line">            <span class="keyword">for</span> (COSName imageObjectName : objectNames) &#123;</span><br><span class="line">                <span class="keyword">if</span> (page.getResources().isImageXObject(imageObjectName)) &#123;</span><br><span class="line">                    PDImageXObject imageXObject = (PDImageXObject) page.getResources()</span><br><span class="line">                            .getXObject(imageObjectName);</span><br><span class="line">                    imageList.add(imageXObject);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> imageList;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h4 id="调用PDFUtils类方法"><a href="#调用PDFUtils类方法" class="headerlink" title="调用PDFUtils类方法"></a>调用PDFUtils类方法</h4><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">test4</span><span class="params">()</span> <span class="keyword">throws</span> Exception </span>&#123;</span><br><span class="line">    PDDocument pdDocument = PDFUtils.initPDDocument(<span class="string">"/home/bz/Desktop/1.pdf"</span>);</span><br><span class="line">    <span class="keyword">if</span> (pdDocument != <span class="keyword">null</span>) &#123;</span><br><span class="line">        <span class="comment">// 获取文档文本内容</span></span><br><span class="line">        String result = PDFUtils.getContent(pdDocument, <span class="number">0</span>, pdDocument.getNumberOfPages());</span><br><span class="line">        System.out.println(<span class="string">"PDF文件的文本内容如下："</span>);</span><br><span class="line">        System.out.println(result);</span><br><span class="line">        <span class="comment">// 获取文档中的所有图片</span></span><br><span class="line">        List&lt;PDImageXObject&gt; imageList = PDFUtils.getImageList(pdDocument, <span class="number">0</span>,pdDocument.getNumberOfPages());</span><br><span class="line">        <span class="keyword">for</span> (<span class="keyword">int</span> i = <span class="number">0</span>; i &lt; imageList.size(); i++) &#123;</span><br><span class="line">            PDImageXObject imageXObject = imageList.get(i);</span><br><span class="line">            BufferedImage bufferedImage = imageXObject.getImage();</span><br><span class="line">            ImageIO.write(bufferedImage, imageXObject.getSuffix(),</span><br><span class="line">                    <span class="keyword">new</span> FileOutputStream(Paths</span><br><span class="line">                            .get(<span class="string">"/home/bz/Desktop/"</span> + i + <span class="string">"."</span> + imageXObject.getSuffix()).toFile()));</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
       
     </div>
@@ -376,9 +378,11 @@
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/java/" rel="tag"># java</a>
           
-            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+            <a href="/tags/pdfbox/" rel="tag"># pdfbox</a>
+          
+            <a href="/tags/pdf/" rel="tag"># pdf</a>
           
         </div>
       
@@ -391,15 +395,15 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
+              <a href="/2019/04/27/MySQL中utf8和utf8mb4区别对emoji支持/" rel="next" title="MySQL中utf8和utf8mb4区别对emoji支持">
+                <i class="fa fa-chevron-left"></i> MySQL中utf8和utf8mb4区别对emoji支持
+              </a>
+            
           </div>
 
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/13/MySQL字段值默认不区分大小写问题/" rel="prev" title="MySQL字段值默认不区分大小写问题">
-                MySQL字段值默认不区分大小写问题 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -554,7 +558,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-5"><a class="nav-link" href="#Linux下离线安装nodejs步骤"><span class="nav-number">1.</span> <span class="nav-text">Linux下离线安装nodejs步骤:</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Itext"><span class="nav-number">1.</span> <span class="nav-text">Itext</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#PDFBox"><span class="nav-number">2.</span> <span class="nav-text">PDFBox</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#引入PDFBox工具库jar"><span class="nav-number">2.1.</span> <span class="nav-text">引入PDFBox工具库jar</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#编写PDFUtils类"><span class="nav-number">2.2.</span> <span class="nav-text">编写PDFUtils类</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#调用PDFUtils类方法"><span class="nav-number">2.3.</span> <span class="nav-text">调用PDFUtils类方法</span></a></li></ol></li></ol></div>
             
 
           </div>
