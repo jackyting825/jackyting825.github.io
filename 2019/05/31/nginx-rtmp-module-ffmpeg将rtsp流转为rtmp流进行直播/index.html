@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="linux,java,maven," />
+  <meta name="keywords" content="nginx,rtmp,rtsp,ffmpeg," />
 
 
 
@@ -82,18 +82,20 @@
 
 
 
-<meta name="description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
-<meta name="keywords" content="linux,java,maven">
+<meta name="description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
+<meta name="keywords" content="nginx,rtmp,rtsp,ffmpeg">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Linux下安装maven">
-<meta property="og:url" content="http://jackyting825.github.io/2018/05/13/Linux下安装maven/index.html">
+<meta property="og:title" content="nginx-rtmp-module+ffmpeg将rtsp流转为rtmp流进行直播">
+<meta property="og:url" content="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg将rtsp流转为rtmp流进行直播/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
+<meta property="og:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-06-12T07:33:24.229Z">
+<meta property="og:image" content="http://jackyting825.github.io/images/rtmp-result.png">
+<meta property="og:updated_time" content="2019-05-31T09:45:22.840Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Linux下安装maven">
-<meta name="twitter:description" content="摘要:   Linux系统下离线安装maven 1.在Apache官方网站下载对应系统的maven包然后解压maven 2.配置环境变量.(配置到当前用户的环境变量上) sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件 在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录) export M2_HOME=/home/user">
+<meta name="twitter:title" content="nginx-rtmp-module+ffmpeg将rtsp流转为rtmp流进行直播">
+<meta name="twitter:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
+<meta name="twitter:image" content="http://jackyting825.github.io/images/rtmp-result.png">
 
 
 
@@ -123,13 +125,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/2018/05/13/Linux下安装maven/"/>
+  <link rel="canonical" href="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg将rtsp流转为rtmp流进行直播/"/>
 
 
 
 
 
-  <title>Linux下安装maven | That's all mean to be! - jackyting825</title>
+  <title>nginx-rtmp-module+ffmpeg将rtsp流转为rtmp流进行直播 | That's all mean to be! - jackyting825</title>
   
 
 
@@ -280,7 +282,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2018/05/13/Linux下安装maven/">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg将rtsp流转为rtmp流进行直播/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jackyting825">
@@ -297,7 +299,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Linux下安装maven</h1>
+          <h1 class="post-title" itemprop="name headline">nginx-rtmp-module+ffmpeg将rtsp流转为rtmp流进行直播</h1>
         
 
         <div class="post-meta">
@@ -309,8 +311,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-05-13T11:18:57+08:00">
-                2018-05-13
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-31T16:53:11+08:00">
+                2019-05-31
               </time>
             
 
@@ -347,20 +349,27 @@
       
 
       
-        <pre><code>摘要:
-  Linux系统下离线安装maven
-</code></pre><p>1.在Apache官方网站下载对应系统的maven包然后解压maven</p>
-<p>2.配置环境变量.(配置到当前用户的环境变量上)</p>
-<p><code>sudo  vim ~/.bashrc #用vim打开当前用户的环境变量配置文件</code></p>
-<p>在.bashrc文件底部加入以下内容,然后保存退出.(M2_HOME代表解压后的maven目录)</p>
-<pre><code>export M2_HOME=/home/user/apache-maven-3.3.9
+        <h3 id="RTSP、RTMP、HTTP协议比较"><a href="#RTSP、RTMP、HTTP协议比较" class="headerlink" title="RTSP、RTMP、HTTP协议比较"></a>RTSP、RTMP、HTTP协议比较</h3><h4 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h4><p>1.都是用在应用层的协议</p>
+<p>2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP</p>
+<h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><p>1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图片文件, 查询结果等).所以HTTP不是流媒体协议，RTMP和RTSP是流媒体协议</p>
+<p>2.RTMP是Real Time Messaging Protocol（实时消息传输协议）的首字母缩写。该协议基于TCP，是一个协议族，包括RTMP基本协议及RTMPT/RTMPS/RTMPE等多种变种。RTMP是一种设计用来进行实时数据通信的网络协议，主要用来在Flash/AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信,RTMP一般传输flv,f4v格式流.</p>
+<p>3.RTSP（Real Time Streaming Protocol），RFC2326，实时流传输协议.RTSP以客户端方式工作，对流媒体提供播放、暂停、后退、前进等操作.RTSP传输的一般是TS、MP4格式的流，其传输一般需要2~3个通道，命令和数据通道分离。使用RTSP协议传输流媒体数据需要有专门的媒体播放器和媒体服务器，也就是需要支持RTSP协议的客户端和服务器。</p>
+<h3 id="ffmpeg简介"><a href="#ffmpeg简介" class="headerlink" title="ffmpeg简介"></a>ffmpeg简介</h3><p>FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。它包括了目前领先的音/视频编码库libavcodec.可以轻易地实现多种视频格式之间的相互转换，例如可以将摄录下的视频avi等转成现在视频网站所采用的flv格式</p>
+<h3 id="nginx-nginx-rtmp-moudle安装"><a href="#nginx-nginx-rtmp-moudle安装" class="headerlink" title="nginx+nginx-rtmp-moudle安装"></a>nginx+nginx-rtmp-moudle安装</h3><p>分别下载nginx和nginx-rtmp的源码然后进行编译即可.在此,为了方便我是直接使用的docker的tiangolo/nginx-rtmp镜像,docker安装参考上一篇初识docker文档</p>
+<p><code>docker pull tiangolo/nginx-rtmp</code> // 拉取nginx-rtmp镜像</p>
+<p><code>docker run -it --name nginx-rtmp tiangolo/nginx-rtmp -p 1935:1935</code> // 第一次运行容器,取个别名,后续可直接使用 <code>docker start nginx-rtmp</code></p>
+<p>使用<code>netstat -tunlp | grep 1935</code> 检测1935端口是否正在监听,正常情况是正在监听中</p>
+<h3 id="ffmpeg安装"><a href="#ffmpeg安装" class="headerlink" title="ffmpeg安装"></a>ffmpeg安装</h3><p><code>sudo apt install ffmpeg</code> // 安装ffmpeg(我当前环境deepin,仓库里面自带ffmpeg包)</p>
+<p>其他操作系统需要去官网下载对应的安装包即可或者按照官方文档添加对应系统的ppa进行安装即可.</p>
+<h3 id="ffmpeg将rtsp转码为rtmp"><a href="#ffmpeg将rtsp转码为rtmp" class="headerlink" title="ffmpeg将rtsp转码为rtmp"></a>ffmpeg将rtsp转码为rtmp</h3><p>使用ffmpeg命令,将rtsp转码为rtmp.ffmpeg参数项很多,未对其深究,直接参考网友的命令的.-i后面是rtsp流地址.</p>
+<p><code>ffmpeg -re  -rtsp_transport tcp -i &quot;rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov&quot; -f flv -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -r 10 -s 1280x720 -q 10 &quot;rtmp://127.0.0.1:1935/live/demo&quot;</code></p>
+<pre><code>在执行转码命令过程中,可能会报信息类似 Past duration 0.999992 too large 的警告错误,经查询资料,是在-r参数后面
+指定的视频帧率参数导致的.rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov这个地址是网络上的地址,
+刚开始copy网友命令的时候参数值为25,就会报以上错误.使用VLC media player播放其rtsp地址,
+发现其rtsp源本身视频就很模糊,所以但是后面直接改为10就不报错的.所以这个值得根据具体的情况进行调整
+</code></pre><h3 id="使用VLC-media-player播放转换后的rtmp地址"><a href="#使用VLC-media-player播放转换后的rtmp地址" class="headerlink" title="使用VLC media player播放转换后的rtmp地址"></a>使用VLC media player播放转换后的rtmp地址</h3><p>打开VLC media player播放器.在工具栏”媒体-&gt;打开网络串流”然后输入rtmp://127.0.0.1:1935/live/demo点击确定即可进行直播预览转换后的rtmp视频流</p>
+<p><img src="/images/rtmp-result.png" alt=""></p>
 
-export PATH=${M2_HOME}/bin:$PATH
-</code></pre><p>3.执行以下命令使刚刚的配置生效</p>
-<pre><code>`source ~/.bashrc`
-</code></pre><p>4.验证安装结果,执行下列命令,如果一切无误,会正常出现对应的maven版本信息</p>
-<pre><code>`mvn -v`
-</code></pre>
       
     </div>
     
@@ -377,11 +386,13 @@ export PATH=${M2_HOME}/bin:$PATH
       
         <div class="post-tags">
           
-            <a href="/tags/linux/" rel="tag"># linux</a>
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
-            <a href="/tags/java/" rel="tag"># java</a>
+            <a href="/tags/rtmp/" rel="tag"># rtmp</a>
           
-            <a href="/tags/maven/" rel="tag"># maven</a>
+            <a href="/tags/rtsp/" rel="tag"># rtsp</a>
+          
+            <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
           
         </div>
       
@@ -394,8 +405,8 @@ export PATH=${M2_HOME}/bin:$PATH
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/05/13/JDK/" rel="next" title="linux离线安装oracle JDK">
-                <i class="fa fa-chevron-left"></i> linux离线安装oracle JDK
+              <a href="/2019/05/29/deepin-linux下初识docker/" rel="next" title="deepin linux下初识docker">
+                <i class="fa fa-chevron-left"></i> deepin linux下初识docker
               </a>
             
           </div>
@@ -403,10 +414,6 @@ export PATH=${M2_HOME}/bin:$PATH
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/05/13/linux下nginx部署配置多站点/" rel="prev" title="linux下nginx部署配置多站点">
-                linux下nginx部署配置多站点 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -470,8 +477,17 @@ export PATH=${M2_HOME}/bin:$PATH
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -542,6 +558,22 @@ export PATH=${M2_HOME}/bin:$PATH
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTSP、RTMP、HTTP协议比较"><span class="nav-number">1.</span> <span class="nav-text">RTSP、RTMP、HTTP协议比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#共同点"><span class="nav-number">1.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同点"><span class="nav-number">1.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg简介"><span class="nav-number">2.</span> <span class="nav-text">ffmpeg简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-nginx-rtmp-moudle安装"><span class="nav-number">3.</span> <span class="nav-text">nginx+nginx-rtmp-moudle安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg安装"><span class="nav-number">4.</span> <span class="nav-text">ffmpeg安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg将rtsp转码为rtmp"><span class="nav-number">5.</span> <span class="nav-text">ffmpeg将rtsp转码为rtmp</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用VLC-media-player播放转换后的rtmp地址"><span class="nav-number">6.</span> <span class="nav-text">使用VLC media player播放转换后的rtmp地址</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
