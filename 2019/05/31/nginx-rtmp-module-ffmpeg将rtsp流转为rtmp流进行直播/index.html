@@ -91,7 +91,8 @@
 <meta property="og:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jackyting825.github.io/images/rtmp-result.png">
-<meta property="og:updated_time" content="2019-05-31T09:45:22.840Z">
+<meta property="og:image" content="http://jackyting825.github.io/images/build_push_rtsp.jpg">
+<meta property="og:updated_time" content="2019-06-01T09:02:08.552Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="nginx-rtmp-module+ffmpeg将rtsp流转为rtmp流进行直播">
 <meta name="twitter:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
@@ -369,6 +370,8 @@
 发现其rtsp源本身视频就很模糊,所以但是后面直接改为10就不报错的.所以这个值得根据具体的情况进行调整
 </code></pre><h3 id="使用VLC-media-player播放转换后的rtmp地址"><a href="#使用VLC-media-player播放转换后的rtmp地址" class="headerlink" title="使用VLC media player播放转换后的rtmp地址"></a>使用VLC media player播放转换后的rtmp地址</h3><p>打开VLC media player播放器.在工具栏”媒体-&gt;打开网络串流”然后输入rtmp://127.0.0.1:1935/live/demo点击确定即可进行直播预览转换后的rtmp视频流</p>
 <p><img src="/images/rtmp-result.png" alt=""></p>
+<p><strong>注:关于测试rtsp地址问题,上面的地址我测试的时候能够使用,但是不能保证以后能够一直正常使用,所以有网友图文讲解了使用VLC media player自制rtsp流.小伙伴的力量强大!其地址如下:<a href="https://blog.csdn.net/taoerit/article/details/51920018" target="_blank" rel="noopener">https://blog.csdn.net/taoerit/article/details/51920018</a><br>为了防止地址失效,我将页面截了一张完整图.图片如下:</strong></p>
+<p><img src="/images/build_push_rtsp.jpg" alt=""></p>
 
       
     </div>
