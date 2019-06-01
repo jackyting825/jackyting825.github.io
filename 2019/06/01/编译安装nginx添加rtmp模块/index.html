@@ -92,7 +92,7 @@
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="http://jackyting825.github.io/images/push_rtmp_res.png">
 <meta property="og:image" content="http://jackyting825.github.io/images/m3u8-res.png">
-<meta property="og:updated_time" content="2019-06-01T07:29:28.106Z">
+<meta property="og:updated_time" content="2019-06-01T08:19:16.539Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="编译安装nginx添加rtmp模块">
 <meta name="twitter:description" content="摘要:nginx源码编译添加rtmp模块实现视频推流服务器 环境:deepin linux 15.10.1(基于debian9) 安装依赖库执行命令前,最好执行一次sudo apt update更新下仓库 sudo apt install autoconf automake sudo apt install libpcre3 libpcre3-dev sudo apt install openss">
@@ -368,7 +368,19 @@
 <p><code>make</code> // 编译</p>
 <p><code>sudo make install</code> // 安装</p>
 <h3 id="查看结果"><a href="#查看结果" class="headerlink" title="查看结果"></a>查看结果</h3><p><code>ls -l /opt/nginx/</code> // 查看opt目录下nginx目录的内容</p>
-<p><code>sudo /opt/nginx/sbin/nginx</code> // 启动nginx服务</p>
+<p><code>sudo /opt/nginx/sbin/nginx</code> // 启动nginx服务,默认只能用root启动,所以加sudo</p>
+<p><code>sudo chmod u+s /opt/nginx/sbin/nginx</code> // 为nginx文件加上setuid标志.(setuid只对文件有效).设置后可以通过普通用户就可以启动</p>
+<ul>
+<li><p>关于chmod扩展:如果是一个可执行文件, 那么在执行时, 一般该文件只拥有调用该文件的用户具有的权限. 而setuid, setgid 可以来改变这种设置:</p>
+<p>setuid: 设置使文件在执行阶段具有文件所有者的权限</p>
+<p>setgid: 该权限只对目录有效. 目录被设置该位后, 任何用户在此目录下创建的文件都具有和该目录所属的组相同的组.</p>
+<p>sticky bit: 该位可以理解为防删除位. 一个文件是否可以被某用户删除, 主要取决于该文件所属的组是否对该用户具有写权限. 如果没有写权限, 则这个目录下的所有文件都不能被删除, 同时也不能添加新的文件. 如果希望用户能够添加文件但同时不能删除文件, 则可以对文件使用sticky bit位. 设置该位后, 就算用户对目录具有写权限, 也不能删除该文件,该权限只对目录有效.</p>
+<p>具体使用如下</p>
+<p>chmod u+s temp — 为temp文件加上setuid标志. (setuid 只对文件有效)</p>
+<p>chmod g+s tempdir — 为tempdir目录加上setgid标志 (setgid 只对目录有效)</p>
+<p>chmod o+t temp — 为temp文件加上sticky标志 (sticky只对文件有效) *</p>
+</li>
+</ul>
 <p>浏览器打开localhost,正常就能打开nginx默认的首页面</p>
 <h3 id="nginx-推流配置"><a href="#nginx-推流配置" class="headerlink" title="nginx 推流配置"></a>nginx 推流配置</h3><p><code>sudo vim /opt/nginx/conf/nginx.conf</code></p>
 <pre><code>rtmp {
@@ -397,15 +409,13 @@ location ^~ /hlsvideo {
 }
 </code></pre><p><code>sudo /opt/nginx/sbin/nginx -t</code> // 测试配置文件是否ok</p>
 <p><code>sudo /opt/nginx/sbin/nginx -s reload</code></p>
-<p>测试rtmp推流</p>
-<p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://192.168.100.31:1935/rtmplive_demo/longzhuchao</code></p>
+<h4 id="测试rtmp推流"><a href="#测试rtmp推流" class="headerlink" title="测试rtmp推流"></a>测试rtmp推流</h4><p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://192.168.100.31:1935/rtmplive_demo/longzhuchao</code></p>
 <pre><code>注:rtmp://192.168.100.31:1935/rtmplive_demo/longzhuchao rtmp流地址,其中rtmplive_demo必须和nginx.conf中
 application中的rtmplive_demo名称必须一致,否则导致推流不成功
 </code></pre><p>打开VLC Media Player测试</p>
 <p>在工具栏”媒体-&gt;打开网络串流”然后输入rtmp://192.168.100.31:1935/rtmplive_demo/longzhuchao点击确定即可进行直播预览转换后的rtmp视频流.效果如图</p>
 <p><img src="/images/push_rtmp_res.png" alt=""></p>
-<p>测试HLS推流</p>
-<p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://192.168.100.31:1935/hlsvideo/longzhuchao</code></p>
+<h4 id="测试HLS推流"><a href="#测试HLS推流" class="headerlink" title="测试HLS推流"></a>测试HLS推流</h4><p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -s 1280x720 -q 10 rtmp://192.168.100.31:1935/hlsvideo/longzhuchao</code></p>
 <pre><code>注:rtmp://192.168.100.31:1935/hlsvideo/longzhuchao,其中hlsvideo必须和nginx.conf中
 application中hlsvideo名称必须一致,否则导致推流不成功
 </code></pre><p>打开VLC Media Player测试</p>
@@ -607,7 +617,7 @@ application中hlsvideo名称必须一致,否则导致推流不成功
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">1.</span> <span class="nav-text">安装依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载nginx和nginx-rtmp-module源码"><span class="nav-number">2.</span> <span class="nav-text">下载nginx和nginx-rtmp-module源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译和安装"><span class="nav-number">3.</span> <span class="nav-text">编译和安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看结果"><span class="nav-number">4.</span> <span class="nav-text">查看结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-推流配置"><span class="nav-number">5.</span> <span class="nav-text">nginx 推流配置</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#安装依赖库"><span class="nav-number">1.</span> <span class="nav-text">安装依赖库</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#下载nginx和nginx-rtmp-module源码"><span class="nav-number">2.</span> <span class="nav-text">下载nginx和nginx-rtmp-module源码</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#编译和安装"><span class="nav-number">3.</span> <span class="nav-text">编译和安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#查看结果"><span class="nav-number">4.</span> <span class="nav-text">查看结果</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-推流配置"><span class="nav-number">5.</span> <span class="nav-text">nginx 推流配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#测试rtmp推流"><span class="nav-number">5.1.</span> <span class="nav-text">测试rtmp推流</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#测试HLS推流"><span class="nav-number">5.2.</span> <span class="nav-text">测试HLS推流</span></a></li></ol></li></ol></div>
             
 
           </div>
