@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT" />
+  <meta name="keywords" content="nginx,rtmp,rtsp,ffmpeg," />
 
 
 
@@ -82,17 +82,25 @@
 
 
 
-<meta name="description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
-<meta name="keywords" content="jackyting825">
-<meta property="og:type" content="website">
-<meta property="og:title" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:url" content="http://jackyting825.github.io/archives/2019/index.html">
+<meta name="description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
+<meta name="keywords" content="nginx,rtmp,rtsp,ffmpeg">
+<meta property="og:type" content="article">
+<meta property="og:title" content="nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls">
+<meta property="og:url" content="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
+<meta property="og:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jackyting825.github.io/images/rtmp-result.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/hls-result.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/push_to_rtsp.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/push_to_rtmp.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/rtsp_to_rtsp.png">
+<meta property="og:image" content="http://jackyting825.github.io/images/build_push_rtsp.jpg">
+<meta property="og:updated_time" content="2019-06-03T10:53:07.945Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="That&#39;s all mean to be! - jackyting825">
-<meta name="twitter:description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
+<meta name="twitter:title" content="nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls">
+<meta name="twitter:description" content="RTSP、RTMP、HTTP协议比较共同点1.都是用在应用层的协议 2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP 不同点1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图">
+<meta name="twitter:image" content="http://jackyting825.github.io/images/rtmp-result.png">
 
 
 
@@ -122,13 +130,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/archives/2019/"/>
+  <link rel="canonical" href="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls/"/>
 
 
 
 
 
-  <title>归档 | That's all mean to be! - jackyting825</title>
+  <title>nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls | That's all mean to be! - jackyting825</title>
   
 
 
@@ -147,7 +155,7 @@
     
   
 
-  <div class="container sidebar-position-left page-archive">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -265,370 +273,203 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block archive">
-    <div id="posts" class="posts-collapse">
-      <span class="archive-move-on"></span>
+  <div id="posts" class="posts-expand">
+    
 
-      <span class="archive-page-counter">
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/05/31/nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jackyting825">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/avatar/wukong.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="That's all mean to be! - jackyting825">
+    </span>
+
+    
+      <header class="post-header">
+
         
         
+          <h1 class="post-title" itemprop="name headline">nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls</h1>
         
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-05-31T16:53:11+08:00">
+                2019-05-31
+              </time>
+            
+
+            
+
+            
+          </span>
+
           
-        
-        嗯..! 目前共计 26 篇日志。 继续努力。
-      </span>
 
-      
-
-        
-        
-        
-
-        
           
-          <div class="collection-title">
-            <h1 class="archive-year" id="archive-year-2019">2019</h1>
-          </div>
-        
-        
+            
+          
 
-        
+          
+          
 
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+          
 
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/06/01/编译安装nginx添加rtmp模块/" itemprop="url">
-              
-                <span itemprop="name">编译安装nginx添加rtmp模块</span>
-              
-            </a>
-        
-      </h2>
+          
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-06-01T11:30:17+08:00"
-              content="2019-06-01" >
-          06-01
-        </time>
-      </div>
+          
 
-    </header>
-  </article>
+        </div>
+      </header>
+    
 
-
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/05/31/nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls/" itemprop="url">
-              
-                <span itemprop="name">nginx-rtmp-module-ffmpeg视频推流和rtsp转rtmp及hls</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-05-31T16:53:11+08:00"
-              content="2019-05-31" >
-          05-31
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
       
 
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/05/29/deepin-linux下初识docker/" itemprop="url">
-              
-                <span itemprop="name">deepin linux下初识docker</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-05-29T10:27:29+08:00"
-              content="2019-05-29" >
-          05-29
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
+      
+        <h3 id="RTSP、RTMP、HTTP协议比较"><a href="#RTSP、RTMP、HTTP协议比较" class="headerlink" title="RTSP、RTMP、HTTP协议比较"></a>RTSP、RTMP、HTTP协议比较</h3><h4 id="共同点"><a href="#共同点" class="headerlink" title="共同点"></a>共同点</h4><p>1.都是用在应用层的协议</p>
+<p>2.理论上这三种协议都可以做直播和点播，但直播一般用RTSP和RTMP点播用HTTP</p>
+<h4 id="不同点"><a href="#不同点" class="headerlink" title="不同点"></a>不同点</h4><p>1.HTTP协议（HyperText Transfer Protocol，超文本传输协议)，是因特网上应用最为广泛的一种网络传输协议，所有的WWW文件都必须遵守这个标准,HTTP是一个基于TCP/IP通信协议来传递数据(HTML 文件, 图片文件, 查询结果等).所以HTTP不是流媒体协议，RTMP和RTSP是流媒体协议</p>
+<p>2.RTMP是Real Time Messaging Protocol（实时消息传输协议）的首字母缩写。该协议基于TCP，是一个协议族，包括RTMP基本协议及RTMPT/RTMPS/RTMPE等多种变种。RTMP是一种设计用来进行实时数据通信的网络协议，主要用来在Flash/AIR平台和支持RTMP协议的流媒体/交互服务器之间进行音视频和数据通信,RTMP一般传输flv,f4v格式流.</p>
+<p>3.RTSP（Real Time Streaming Protocol），RFC2326，实时流传输协议.RTSP以客户端方式工作，对流媒体提供播放、暂停、后退、前进等操作.RTSP传输的一般是TS、MP4格式的流，其传输一般需要2~3个通道，命令和数据通道分离。使用RTSP协议传输流媒体数据需要有专门的媒体播放器和媒体服务器，也就是需要支持RTSP协议的客户端和服务器。</p>
+<h3 id="ffmpeg简介"><a href="#ffmpeg简介" class="headerlink" title="ffmpeg简介"></a>ffmpeg简介</h3><p>FFmpeg是一套可以用来记录、转换数字音频、视频，并能将其转化为流的开源计算机程序。它包括了目前领先的音/视频编码库libavcodec.可以轻易地实现多种视频格式之间的相互转换，例如可以将摄录下的视频avi等转成现在视频网站所采用的flv格式</p>
+<h3 id="nginx-nginx-rtmp-moudle安装"><a href="#nginx-nginx-rtmp-moudle安装" class="headerlink" title="nginx+nginx-rtmp-moudle安装"></a>nginx+nginx-rtmp-moudle安装</h3><p>分别下载nginx和nginx-rtmp的源码然后进行编译即可.在此,为了方便我是直接使用的docker的tiangolo/nginx-rtmp镜像,docker安装参考上一篇初识docker文档</p>
+<p><code>docker pull tiangolo/nginx-rtmp</code> // 拉取nginx-rtmp镜像</p>
+<p><code>docker run -it --name nginx-rtmp tiangolo/nginx-rtmp -p 1935:1935</code> // 第一次运行容器,取个别名,后续可直接使用 <code>docker start nginx-rtmp</code></p>
+<p>使用<code>netstat -tunlp | grep 1935</code> 检测1935端口是否正在监听,正常情况是正在监听中</p>
+<h3 id="ffmpeg安装"><a href="#ffmpeg安装" class="headerlink" title="ffmpeg安装"></a>ffmpeg安装</h3><p><code>sudo apt install ffmpeg</code> // 安装ffmpeg(我当前环境deepin,仓库里面自带ffmpeg包)</p>
+<p>其他操作系统需要去官网下载对应的安装包即可或者按照官方文档添加对应系统的ppa进行安装即可.</p>
+<p>ffmpeg参数:</p>
+<p>-re : 表示使用文件的原始帧率进行读取，因为ffmpeg读取视频帧的速度很快，如果不使用这个参数，ffmpeg可以在很短时间就把video.mp4中的视频帧全部读取完并进行推流，这样就无法体现出视频播放的效果了</p>
+<p>-i :这个参数表示输入 ，后面跟的路劲文件就是输入文件。</p>
+<p>-vcodec copy : -vcodec表示使用的视频编解码器 ，前缀v表示video。后面紧跟的copy 表示复制使用源文件的视频编解码器，比如原文件的编解码器(codec)是h264，则这里就使用h264</p>
+<p>-acodec copy : -acodec表示使用的音频编解码器，前缀a表示audio。后面的copy 表示使用源文件的音频编解码器</p>
+<p>-b:v 800k : -b:v表示视频的比特率(bitrate) ，为800k</p>
+<p>-b:a 32k : 表示音频的比特率为32k</p>
+<p>-f flv : -f表示format ，就是强制输出格式为flv，这一步其实也叫封装(mux)，封装要做的事就是把视频和音频混合在一起，进行同步。紧跟在后面的rtmp://xxx.xxx.xxx/xxx 表示输出的”文件名”，这个文件名可以是一个本地的文件，也可以指定为rtmp流媒体地址。指定为rtmp流媒体地址后，则ffmpeg就可以进行推流</p>
+<h3 id="ffmpeg将rtsp转码为rtmp"><a href="#ffmpeg将rtsp转码为rtmp" class="headerlink" title="ffmpeg将rtsp转码为rtmp"></a>ffmpeg将rtsp转码为rtmp</h3><p>使用ffmpeg命令,将rtsp转码为rtmp.ffmpeg参数项很多,未对其深究,直接参考网友的命令的.-i后面是rtsp流地址.</p>
+<p><code>ffmpeg -re -rtsp_transport tcp -i &quot;rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov&quot; -f flv -vcodec libx264 -vprofile baseline -acodec aac -ar 44100 -strict -2 -ac 1 -f flv -r 10 -s 1280x720 -q 10 &quot;rtmp://127.0.0.1:1935/live/demo&quot;</code></p>
+<pre><code>在执行转码命令过程中,可能会报信息类似 Past duration 0.999992 too large 的警告错误,经查询资料,是在-r参数后面
+指定的视频帧率参数导致的.rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov这个地址是网络上的地址,
+可使用vlc media player查看源的帧率而设置
+</code></pre><h4 id="使用VLC-media-player测试播放转换后的rtmp地址"><a href="#使用VLC-media-player测试播放转换后的rtmp地址" class="headerlink" title="使用VLC media player测试播放转换后的rtmp地址"></a>使用VLC media player测试播放转换后的rtmp地址</h4><p>打开VLC media player播放器.在工具栏”媒体-&gt;打开网络串流”然后输入rtmp://127.0.0.1:1935/live/demo点击确定即可进行直播预览转换后的rtmp视频流</p>
+<p><img src="/images/rtmp-result.png" alt=""></p>
+<h3 id="ffmpeg将rtsp转码为hls"><a href="#ffmpeg将rtsp转码为hls" class="headerlink" title="ffmpeg将rtsp转码为hls"></a>ffmpeg将rtsp转码为hls</h3><p>使用ffmpeg命令,将rtsp转码为hls.ffmpeg参数项很多,未对其深究,直接参考网友的命令的.-i后面是rtsp流地址.</p>
+<p><code>ffmpeg -f rtsp -rtsp_transport tcp -i rtsp://192.168.100.2/longzhu/demo_2 -r 23 -f hls -hls_time 4 -hls_list_size 5 -hls_wrap 10 /home/bz/Desktop/h5live/longzhuchao.m3u8</code></p>
+<pre><code>在执行转码命令过程中,可能会报信息类似 Past duration 0.999992 too large 的警告错误,经查询资料,是在-r参数后面
+指定的视频帧率参数导致的.rtsp://184.72.239.149/vod/mp4://BigBuckBunny_175k.mov这个地址是网络上的地址,
+可使用vlc media player查看源的帧率而设置
+</code></pre><h4 id="使用VLC-media-player测试播放转换后的hls地址-m3u8文件"><a href="#使用VLC-media-player测试播放转换后的hls地址-m3u8文件" class="headerlink" title="使用VLC media player测试播放转换后的hls地址(m3u8文件)"></a>使用VLC media player测试播放转换后的hls地址(m3u8文件)</h4><p>打开VLC media player播放器.在工具栏”媒体-&gt;打开网络串流”然后输入<a href="http://192.168.100.31/hlsvideo/longzhuchao.m3u8点击确定即可进行直播预览转换后的rtmp视频流,该地址是在nginx中配置了的" target="_blank" rel="noopener">http://192.168.100.31/hlsvideo/longzhuchao.m3u8点击确定即可进行直播预览转换后的rtmp视频流,该地址是在nginx中配置了的</a></p>
+<p><img src="/images/hls-result.png" alt=""></p>
+<h3 id="ffmpeg推送视频文件到rtsp服务器"><a href="#ffmpeg推送视频文件到rtsp服务器" class="headerlink" title="ffmpeg推送视频文件到rtsp服务器"></a>ffmpeg推送视频文件到rtsp服务器</h3><p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec copy -codec copy -f rtsp rtsp://192.168.252.1/longzhu/demo_2</code></p>
+<pre><code>注:使用了easydarwin,rtsp://192.168.252.1地址就是启动easydarwin成功后的rtsp server地址
+</code></pre><h4 id="使用VLC-media-player测试播放推流后rtsp地址"><a href="#使用VLC-media-player测试播放推流后rtsp地址" class="headerlink" title="使用VLC media player测试播放推流后rtsp地址"></a>使用VLC media player测试播放推流后rtsp地址</h4><p><img src="/images/push_to_rtsp.png" alt=""></p>
+<h3 id="ffmpeg推送视频文件到rtmp服务器"><a href="#ffmpeg推送视频文件到rtmp服务器" class="headerlink" title="ffmpeg推送视频文件到rtmp服务器"></a>ffmpeg推送视频文件到rtmp服务器</h3><p><code>ffmpeg -re -i ./龙珠超.布罗利.mp4 -vcodec copy -acodec copy -b:v 800k -b:a 32k -f flv rtmp://192.168.100.31:1935/rtmplive_demo/demo_3</code></p>
+<pre><code>注:rtmp地址中的rtmplive_demo必须和nginx中配置的application名称一致才能推流成功,192.168.100.31是我的一台虚拟机
+</code></pre><h4 id="使用VLC-media-player测试播放推流后rtmp地址"><a href="#使用VLC-media-player测试播放推流后rtmp地址" class="headerlink" title="使用VLC media player测试播放推流后rtmp地址"></a>使用VLC media player测试播放推流后rtmp地址</h4><p><img src="/images/push_to_rtmp.png" alt=""></p>
+<h3 id="ffmpeg转发rtsp流"><a href="#ffmpeg转发rtsp流" class="headerlink" title="ffmpeg转发rtsp流"></a>ffmpeg转发rtsp流</h3><p><code>ffmpeg -i rtsp://192.168.100.2:8554/longzhu/live -codec copy -f rtsp rtsp://192.168.252.1/longzhu/demo_1</code></p>
+<pre><code>第一个rtsp是源地址,第二个是新地址.但是必须保证新地址是能够支持rtsp协议的才行.我试过使用nginx+rtsp是不能够
+成功的.所以换成了easydarwin,rtsp://192.168.252.1地址就是启动easydarwin成功后的rtsp server地址.
+</code></pre><p>效果图如下:</p>
+<p><img src="/images/rtsp_to_rtsp.png" alt=""></p>
+<p><strong>注:关于测试rtsp地址问题,上面的地址我测试的时候能够使用,但是不能保证以后能够一直正常使用,所以有网友图文讲解了使用VLC media player自制rtsp流.小伙伴的力量强大!其地址如下:<a href="https://blog.csdn.net/taoerit/article/details/51920018" target="_blank" rel="noopener">https://blog.csdn.net/taoerit/article/details/51920018</a><br>为了防止地址失效,我将页面截了一张完整图.图片如下:</strong></p>
+<p><img src="/images/build_push_rtsp.jpg" alt=""></p>
 
       
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/05/14/pdfbox解析PDF文件/" itemprop="url">
-              
-                <span itemprop="name">pdfbox解析PDF文件</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-05-14T10:11:34+08:00"
-              content="2019-05-14" >
-          05-14
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/27/MySQL中utf8和utf8mb4区别对emoji支持/" itemprop="url">
-              
-                <span itemprop="name">MySQL中utf8和utf8mb4区别对emoji支持</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-27T11:13:08+08:00"
-              content="2019-04-27" >
-          04-27
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/04/22/nginx限制某个IP同一时间段的访问次数/" itemprop="url">
-              
-                <span itemprop="name">nginx限制某个IP同一时间段的访问次数</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-04-22T11:59:11+08:00"
-              content="2019-04-22" >
-          04-22
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/03/16/git常用的使用总结/" itemprop="url">
-              
-                <span itemprop="name">git常用的使用总结</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-03-16T11:29:32+08:00"
-              content="2019-03-16" >
-          03-16
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/02/21/tomcat解决java-lang-IllegalArgumentException-Invalid-character异常/" itemprop="url">
-              
-                <span itemprop="name">tomcat解决java.lang.IllegalArgumentException: Invalid character异常</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-02-21T11:06:41+08:00"
-              content="2019-02-21" >
-          02-21
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
-        
-        
-        
-
-        
-        
-
-        
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
-
-      <h2 class="post-title">
-        
-            <a class="post-title-link" href="/2019/01/17/基于vue组件实现web端页面调用摄像头拍照/" itemprop="url">
-              
-                <span itemprop="name">基于vue组件实现web端页面调用摄像头拍照</span>
-              
-            </a>
-        
-      </h2>
-
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated"
-              datetime="2019-01-17T10:25:11+08:00"
-              content="2019-01-17" >
-          01-17
-        </time>
-      </div>
-
-    </header>
-  </article>
-
-
-
-      
-
     </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
+          
+            <a href="/tags/rtmp/" rel="tag"># rtmp</a>
+          
+            <a href="/tags/rtsp/" rel="tag"># rtsp</a>
+          
+            <a href="/tags/ffmpeg/" rel="tag"># ffmpeg</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/05/29/deepin-linux下初识docker/" rel="next" title="deepin linux下初识docker">
+                <i class="fa fa-chevron-left"></i> deepin linux下初识docker
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2019/06/01/编译安装nginx添加rtmp模块/" rel="prev" title="编译安装nginx添加rtmp模块">
+                编译安装nginx添加rtmp模块 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
 
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -636,6 +477,22 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+  <script src="https://utteranc.es/client.js"
+    repo="jackyting825/jackyting825.github.io"
+    issue-term="title"
+    theme="github-light"
+    crossorigin="anonymous"
+    async>
+  </script>
+
+    </div>
+  
+
+
 
         </div>
         
@@ -656,8 +513,17 @@
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -728,6 +594,22 @@
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#RTSP、RTMP、HTTP协议比较"><span class="nav-number">1.</span> <span class="nav-text">RTSP、RTMP、HTTP协议比较</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#共同点"><span class="nav-number">1.1.</span> <span class="nav-text">共同点</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#不同点"><span class="nav-number">1.2.</span> <span class="nav-text">不同点</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg简介"><span class="nav-number">2.</span> <span class="nav-text">ffmpeg简介</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#nginx-nginx-rtmp-moudle安装"><span class="nav-number">3.</span> <span class="nav-text">nginx+nginx-rtmp-moudle安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg安装"><span class="nav-number">4.</span> <span class="nav-text">ffmpeg安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg将rtsp转码为rtmp"><span class="nav-number">5.</span> <span class="nav-text">ffmpeg将rtsp转码为rtmp</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用VLC-media-player测试播放转换后的rtmp地址"><span class="nav-number">5.1.</span> <span class="nav-text">使用VLC media player测试播放转换后的rtmp地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg将rtsp转码为hls"><span class="nav-number">6.</span> <span class="nav-text">ffmpeg将rtsp转码为hls</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用VLC-media-player测试播放转换后的hls地址-m3u8文件"><span class="nav-number">6.1.</span> <span class="nav-text">使用VLC media player测试播放转换后的hls地址(m3u8文件)</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg推送视频文件到rtsp服务器"><span class="nav-number">7.</span> <span class="nav-text">ffmpeg推送视频文件到rtsp服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用VLC-media-player测试播放推流后rtsp地址"><span class="nav-number">7.1.</span> <span class="nav-text">使用VLC media player测试播放推流后rtsp地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg推送视频文件到rtmp服务器"><span class="nav-number">8.</span> <span class="nav-text">ffmpeg推送视频文件到rtmp服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#使用VLC-media-player测试播放推流后rtmp地址"><span class="nav-number">8.1.</span> <span class="nav-text">使用VLC media player测试播放推流后rtmp地址</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ffmpeg转发rtsp流"><span class="nav-number">9.</span> <span class="nav-text">ffmpeg转发rtsp流</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
@@ -869,6 +751,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
