@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
 <meta property="og:description" content="deepin linux 安装最新版 docker可以参考官放 wiki 文档进行安装,地址如下: https://wiki.deepin.org/wiki/Docker#.E5.9C.A8_Deepin_.E4.B8.AD.E5.AE.89.E8.A3.85_Docker_.E6.9C.80.E6.96.B0.E7.89.88.E7.9A.84.E6.96.B9.E6.B3.95 但官网打开速度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-05-29T03:34:59.605Z">
+<meta property="og:updated_time" content="2019-06-04T03:24:59.166Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deepin linux下初识docker">
 <meta name="twitter:description" content="deepin linux 安装最新版 docker可以参考官放 wiki 文档进行安装,地址如下: https://wiki.deepin.org/wiki/Docker#.E5.9C.A8_Deepin_.E4.B8.AD.E5.AE.89.E8.A3.85_Docker_.E6.9C.80.E6.96.B0.E7.89.88.E7.9A.84.E6.96.B9.E6.B3.95 但官网打开速度">
@@ -441,6 +441,10 @@
 <pre><code>多个端口映射可以跟多个-p,比如:-p 8080:80 -p 6379:6379
 </code></pre><h4 id="docker-镜像备份和导入镜像"><a href="#docker-镜像备份和导入镜像" class="headerlink" title="docker 镜像备份和导入镜像"></a>docker 镜像备份和导入镜像</h4><p><code>docker save -o /home/xxx/images/nginx.tar nginx1.0</code> // 将 nginx1.0 镜像备份到/home/xxx/images/目录下</p>
 <p><code>docker load --input /home/xxx/images/nginx.tar</code> // 导入镜像</p>
+<h4 id="docker挂载物理机本地目录"><a href="#docker挂载物理机本地目录" class="headerlink" title="docker挂载物理机本地目录"></a>docker挂载物理机本地目录</h4><p>docker可以支持把一个宿主机上的目录挂载到镜像里。</p>
+<p><code>docker run -itd -v /home/bz/Downloads:/home/Downloads nginx1.0</code> // 通过-v参数，冒号前为宿主机目录，必须为绝对路径，冒号后为镜像内挂载的路径</p>
+<p>默认挂载的路径权限为读写。如果指定为只读可以用：ro</p>
+<p><code>docker run -itd -v /home/bz/Downloads:/home/Downloads:ro nginx1.0</code></p>
 
       
     </div>
@@ -640,7 +644,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepin-linux-安装最新版-docker"><span class="nav-number">1.</span> <span class="nav-text">deepin linux 安装最新版 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-使用初识"><span class="nav-number">2.</span> <span class="nav-text">docker 使用初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-入门命令"><span class="nav-number">2.1.</span> <span class="nav-text">docker 入门命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-网络"><span class="nav-number">2.2.</span> <span class="nav-text">docker 网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-镜像备份和导入镜像"><span class="nav-number">2.3.</span> <span class="nav-text">docker 镜像备份和导入镜像</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepin-linux-安装最新版-docker"><span class="nav-number">1.</span> <span class="nav-text">deepin linux 安装最新版 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-使用初识"><span class="nav-number">2.</span> <span class="nav-text">docker 使用初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-入门命令"><span class="nav-number">2.1.</span> <span class="nav-text">docker 入门命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-网络"><span class="nav-number">2.2.</span> <span class="nav-text">docker 网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-镜像备份和导入镜像"><span class="nav-number">2.3.</span> <span class="nav-text">docker 镜像备份和导入镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker挂载物理机本地目录"><span class="nav-number">2.4.</span> <span class="nav-text">docker挂载物理机本地目录</span></a></li></ol></li></ol></div>
             
 
           </div>
