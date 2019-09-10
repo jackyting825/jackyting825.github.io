@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="java,jconsole,jvm,tomcat," />
+  <meta name="keywords" content="nginx," />
 
 
 
@@ -82,18 +82,18 @@
 
 
 
-<meta name="description" content="摘要:    jconsole是Java 自带性能监控工具，监视和管理控制台 jconsole，它可以提供 Java 某个进程的内存、线程、类加载、   jvm 概要以及 MBean 等的实时信息.   Jvisualvm是jdk1.6 update 7 才有，是jconsole的升级工具，功能更强大，最大好处是支持插件安装。所以Jvisualvm远程   JMX连接方式和jconsole远程连接">
-<meta name="keywords" content="java,jconsole,jvm,tomcat">
+<meta name="description" content="记录和整理一下nginx用到的匹配规则,部分内容搜集于网络上  Nginx的location语法location指令的作用是根据用户请求的URI来执行不同的应用，也就是根据用户请求的网站URL进行匹配，匹配成功即进行相关的操作 nginx常见正则匹配符号表示^ ： 匹配字符串的开始位置 $ ：匹配字符串的结束位置 .* : .匹配任意字符，*匹配数量0到正无穷 \. : 斜杠用来转义,\.匹配.">
+<meta name="keywords" content="nginx">
 <meta property="og:type" content="article">
-<meta property="og:title" content="远程tomcat配置jconsole连接监测jvm参数">
-<meta property="og:url" content="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/index.html">
+<meta property="og:title" content="nginx常用的location匹配规则">
+<meta property="og:url" content="http://jackyting825.github.io/2019/09/10/nginx常用的location匹配规则/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:description" content="摘要:    jconsole是Java 自带性能监控工具，监视和管理控制台 jconsole，它可以提供 Java 某个进程的内存、线程、类加载、   jvm 概要以及 MBean 等的实时信息.   Jvisualvm是jdk1.6 update 7 才有，是jconsole的升级工具，功能更强大，最大好处是支持插件安装。所以Jvisualvm远程   JMX连接方式和jconsole远程连接">
+<meta property="og:description" content="记录和整理一下nginx用到的匹配规则,部分内容搜集于网络上  Nginx的location语法location指令的作用是根据用户请求的URI来执行不同的应用，也就是根据用户请求的网站URL进行匹配，匹配成功即进行相关的操作 nginx常见正则匹配符号表示^ ： 匹配字符串的开始位置 $ ：匹配字符串的结束位置 .* : .匹配任意字符，*匹配数量0到正无穷 \. : 斜杠用来转义,\.匹配.">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-20T06:18:13.000Z">
+<meta property="og:updated_time" content="2019-09-10T02:12:04.349Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="远程tomcat配置jconsole连接监测jvm参数">
-<meta name="twitter:description" content="摘要:    jconsole是Java 自带性能监控工具，监视和管理控制台 jconsole，它可以提供 Java 某个进程的内存、线程、类加载、   jvm 概要以及 MBean 等的实时信息.   Jvisualvm是jdk1.6 update 7 才有，是jconsole的升级工具，功能更强大，最大好处是支持插件安装。所以Jvisualvm远程   JMX连接方式和jconsole远程连接">
+<meta name="twitter:title" content="nginx常用的location匹配规则">
+<meta name="twitter:description" content="记录和整理一下nginx用到的匹配规则,部分内容搜集于网络上  Nginx的location语法location指令的作用是根据用户请求的URI来执行不同的应用，也就是根据用户请求的网站URL进行匹配，匹配成功即进行相关的操作 nginx常见正则匹配符号表示^ ： 匹配字符串的开始位置 $ ：匹配字符串的结束位置 .* : .匹配任意字符，*匹配数量0到正无穷 \. : 斜杠用来转义,\.匹配.">
 
 
 
@@ -123,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/"/>
+  <link rel="canonical" href="http://jackyting825.github.io/2019/09/10/nginx常用的location匹配规则/"/>
 
 
 
 
 
-  <title>远程tomcat配置jconsole连接监测jvm参数 | That's all mean to be! - jackyting825</title>
+  <title>nginx常用的location匹配规则 | That's all mean to be! - jackyting825</title>
   
 
 
@@ -286,7 +286,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2018/08/20/远程tomcat配置jconsole连接监测jvm参数/">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/09/10/nginx常用的location匹配规则/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="jackyting825">
@@ -303,7 +303,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">远程tomcat配置jconsole连接监测jvm参数</h1>
+          <h1 class="post-title" itemprop="name headline">nginx常用的location匹配规则</h1>
         
 
         <div class="post-meta">
@@ -315,8 +315,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-20T11:10:30+08:00">
-                2018-08-20
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-09-10T09:32:36+08:00">
+                2019-09-10
               </time>
             
 
@@ -331,8 +331,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2018-08-20T14:18:13+08:00">
-                2018-08-20
+              <time title="更新于" itemprop="dateModified" datetime="2019-09-10T10:12:04+08:00">
+                2019-09-10
               </time>
             
           </span>
@@ -364,7 +364,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  733 字
+                  985 字
                 </span>
               
 
@@ -401,39 +401,77 @@
       
 
       
-        <pre><code>摘要:
+        <blockquote>
+<p>记录和整理一下nginx用到的匹配规则,部分内容搜集于网络上</p>
+</blockquote>
+<h3 id="Nginx的location语法"><a href="#Nginx的location语法" class="headerlink" title="Nginx的location语法"></a>Nginx的location语法</h3><p>location指令的作用是根据用户请求的URI来执行不同的应用，也就是根据用户请求的网站URL进行匹配，匹配成功即进行相关的操作</p>
+<h4 id="nginx常见正则匹配符号表示"><a href="#nginx常见正则匹配符号表示" class="headerlink" title="nginx常见正则匹配符号表示"></a>nginx常见正则匹配符号表示</h4><pre><code>^ ： 匹配字符串的开始位置
+$ ：匹配字符串的结束位置
+.* : .匹配任意字符，*匹配数量0到正无穷
+\. : 斜杠用来转义,\.匹配.,特殊用法
+（值1|值2|值3|值4）：或匹配模式，例：（jpg|gif|png|bmp）匹配jpg或gif或png或bmp
+i : 不区分大小写
+</code></pre><h4 id="普通匹配"><a href="#普通匹配" class="headerlink" title="普通匹配"></a>普通匹配</h4><blockquote>
+<p>location = URI { configuration } # 精确匹配,表示完全匹配规则才执行操作</p>
+</blockquote>
+<pre><code>例:
+  # http://{domain-name}/index
+  location = /index {
+    [configuration A]
+  }
+</code></pre><blockquote>
+<p>location ^~ URI { configuration } # 非正则匹配，表示URI以某个常规字符串开头</p>
+</blockquote>
+<pre><code>例:
+  # URL为http://{domain_name}/images/xxx.jpg
+  location ^~ /images/ {
+    [ cofigurations D ]
+  }
+</code></pre><blockquote>
+<p>location [space] URI { configuration} # 前缀匹配, 匹配后，继续更长前缀匹配和正则匹配</p>
+</blockquote>
+<pre><code>例:
+  # URL为http://{domain_name}/images/xxx.jpg
+  location /images/ {
+    # 字符匹配到 /images/，继续往下，会发现 ^~ 存在
+    [ cofigurations D ]
+  }
+</code></pre><h4 id="正则表达式匹配-表示执行正则匹配"><a href="#正则表达式匹配-表示执行正则匹配" class="headerlink" title="正则表达式匹配(~表示执行正则匹配)"></a>正则表达式匹配(~表示执行正则匹配)</h4><blockquote>
+<p>location ~ URI { configuration } # 执行正则匹配，但区分大小写</p>
+</blockquote>
+<pre><code>例:
+  # http://{domain-name}/page/1匹配结尾数字为1~99时，配置生效
+  location ~ /page/\d{1,2} {
+      [ configuration B ]
+  }
+</code></pre><blockquote>
+<p>location ~* URI { configuration } # 执行正则匹配，但不区分大小写</p>
+</blockquote>
+<pre><code>例:
+  # 匹配所有URL以.jpg、.jpeg、.gif结尾时,配置生效
+  location ~* /\.(jpg|jpeg|gif)$ {
+      [ configuration C ]
+  }
+</code></pre><blockquote>
+<p>@符号,定义一个location，用于处理内部重定向</p>
+</blockquote>
+<pre><code>例:
+  location @error {
+      proxy_pass http://error;
+  }
 
-  jconsole是Java 自带性能监控工具，监视和管理控制台 jconsole，它可以提供 Java 某个进程的内存、线程、类加载、
-  jvm 概要以及 MBean 等的实时信息.
-  Jvisualvm是jdk1.6 update 7 才有，是jconsole的升级工具，功能更强大，最大好处是支持插件安装。所以Jvisualvm远程
-  JMX连接方式和jconsole远程连接方式一样
-</code></pre><p>1.在tomcat的bin目录下catalina.sh文件首部增加以下配置(注意:不用换行)</p>
-<pre><code>CATALINA_OPTS=&quot;-Dfile.encoding=UTF-8 -server -Xms256m -Xmx256m -Djava.rmi.server.hostname=0.0.0.0 -Dcom.sun.management.jmxremote -Dcom.sun.management.jmxremote.port=10001 -Dcom.sun.management.jmxremote.rmi.port=10001 -Dcom.sun.management.jmxremote.authenticate=true -Dcom.sun.management.jmxremote.ssl=false -Dcom.sun.management.jmxremote.password.file=./conf/jmxremote.password -Dcom.sun.management.jmxremote.access.file=./conf/jmxremote.access&quot;
-
-其中-Xms256m -Xmx256m是配置jvm虚拟机参数的,最小堆内存和最大堆内存,推荐保持一致,如果不一致会增加gc回收次数,
-对性能有严重影响.
--Djava.rmi.server.hostname:本机的ip地址,可设置为0.0.0.0
--Dcom.sun.management.jmxremote.port:监控的端口.不能和其他运行的端口相冲突
--Dcom.sun.management.jmxremote.authenticate:需要授权才能进行连接
--Dcom.sun.management.jmxremote.password.file:指定配置授权的密码文件存放位置,推荐放入到tomcat的conf目录下
--Dcom.sun.management.jmxremote.access.file:指定配置授权账户的权限的文件存放位置,推荐放入到tomcat的conf目录下
-</code></pre><p>2.在tomcat的bin目录下startup.sh文件首部增加以下配置</p>
-<pre><code>JAVA_OPTS=&quot;-Djava.rmi.server.hostname=0.0.0.0&quot;
-</code></pre><p>3.启动本地的jconsole即可,输入远程ip和端口,username和password即可连接</p>
-<p>注意:</p>
-<pre><code>1.配置授权的2个文件是在系统的%JAVA_HOME%/jre/lib/management目录下可以找到对应的模板.将其复制到tomcat的conf目录下,
-并将jmxremote.password.template重命名为jmxremote.password
-2.jmxremote.access用户权限分readonly和readwrite两种，在jmxremote.access尾部添加用户权限&quot;admin  readwrite&quot;,
-其中admin代表远程授权的用户名
-3.在jmxremote.password尾部添加用户密码&quot;admin 123456&quot;其中admin代表用户名,123456代表对应的密码
-4.对jmxremote.access和jmxremote.password文件进行授权,chmod 600  jmxremote.access和
-chmod 600 jmxremote.password
-5.针对为什么在startup.sh文件中增加对应的-Djava.rmi.server.hostname=0.0.0.0配置,主要是因为在不加配置的情况下,
-用shutdown.sh关闭tomcat的时候会报该端口已经被占用,因为关闭tomcat时候，还会读取catalina.sh.所以推荐在startup.sh文件中配置
-6.一般情况下远程服务器系统是开启防火墙的,所以还需要将10001端口配置为允许访问
-7.如果配置一切无误,还是连接不上的话,请将0.0.0.0换成对应的IP地址.因为亲测在Ubuntu下0.0.0.0能连接成功,
-但是在centos7下连接不成功
-</code></pre>
+  error_page 404 @error;
+</code></pre><p>location的各个匹配之间的优先级顺序:</p>
+<pre><code>(location =) &gt; (location 完整路径) &gt; (location ^~ 路径) &gt; (location ~,~* 正则顺序) &gt; (location 部分起始路径) &gt; (/)
+</code></pre><h4 id="文件及目录匹配"><a href="#文件及目录匹配" class="headerlink" title="文件及目录匹配"></a>文件及目录匹配</h4><pre><code>*-f和!-f用来判断是否存在文件
+*-d和!-d用来判断是否存在目录
+*-e和!-e用来判断是否存在文件或目录
+*-x和!-x用来判断文件是否可执行
+</code></pre><h4 id="rewrite指令的最后一项参数为flag标记，flag标记有以下"><a href="#rewrite指令的最后一项参数为flag标记，flag标记有以下" class="headerlink" title="rewrite指令的最后一项参数为flag标记，flag标记有以下"></a>rewrite指令的最后一项参数为flag标记，flag标记有以下</h4><pre><code>last      相当于apache里面的[L]标记，表示rewrite
+break     本条规则匹配完成后，终止匹配，不再匹配后面的规则
+redirect  返回302临时重定向，浏览器地址会显示跳转后的URL地址
+permanent 返回301永久重定向，浏览器地址会显示跳转后的URL地址
+</code></pre><h3 id="location指令配置示例"><a href="#location指令配置示例" class="headerlink" title="location指令配置示例"></a>location指令配置示例</h3><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line">location  = / &#123;</span><br><span class="line">  # 精确匹配 / ，主机名后面不能带任何字符串</span><br><span class="line">  [ configuration A ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location  / &#123;</span><br><span class="line">  # 因为所有的地址都以 / 开头，所以这条规则将匹配到所有请求</span><br><span class="line">  # 但是正则和最长字符串会优先匹配</span><br><span class="line">  [ configuration B ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location /documents/ &#123;</span><br><span class="line">  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</span><br><span class="line">  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span><br><span class="line">  [ configuration C ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ /documents/Abc &#123;</span><br><span class="line">  # 匹配任何以 /documents/ 开头的地址，匹配符合以后，还要继续往下搜索</span><br><span class="line">  # 只有后面的正则表达式没有匹配到时，这一条才会采用这一条</span><br><span class="line">  [ configuration CC ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ^~ /images/ &#123;</span><br><span class="line">  # 匹配任何以 /images/ 开头的地址，匹配符合以后，停止往下搜索正则，采用这一条。</span><br><span class="line">  [ configuration D ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~* \.(gif|jpg|jpeg)$ &#123;</span><br><span class="line">  # 匹配所有以 gif,jpg或jpeg 结尾的请求</span><br><span class="line">  # 然而，所有请求 /images/ 下的图片会被 config D 处理，因为 ^~ 到达不了这一条正则</span><br><span class="line">  [ configuration E ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location /images/ &#123;</span><br><span class="line">  # 字符匹配到 /images/，继续往下，会发现 ^~ 存在</span><br><span class="line">  [ configuration F ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location /images/abc &#123;</span><br><span class="line">  # 最长字符匹配到 /images/abc，继续往下，会发现 ^~ 存在</span><br><span class="line">  # F与G的放置顺序是没有关系的</span><br><span class="line">  [ configuration G ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ /images/abc/ &#123;</span><br><span class="line">  # 只有去掉 config D 才有效：先最长匹配 config G 开头的地址，继续往下搜索，匹配到这一条正则，采用</span><br><span class="line">    [ configuration H ]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -450,13 +488,7 @@ chmod 600 jmxremote.password
       
         <div class="post-tags">
           
-            <a href="/tags/java/" rel="tag"># java</a>
-          
-            <a href="/tags/jconsole/" rel="tag"># jconsole</a>
-          
-            <a href="/tags/jvm/" rel="tag"># jvm</a>
-          
-            <a href="/tags/tomcat/" rel="tag"># tomcat</a>
+            <a href="/tags/nginx/" rel="tag"># nginx</a>
           
         </div>
       
@@ -469,8 +501,8 @@ chmod 600 jmxremote.password
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/07/linux系统之间远程连接和传输文件/" rel="next" title="linux系统之间远程连接和传输文件">
-                <i class="fa fa-chevron-left"></i> linux系统之间远程连接和传输文件
+              <a href="/2019/06/26/linux使用systemd方式添加开机自动执行脚本/" rel="next" title="linux使用systemd方式添加开机自动执行脚本">
+                <i class="fa fa-chevron-left"></i> linux使用systemd方式添加开机自动执行脚本
               </a>
             
           </div>
@@ -478,10 +510,6 @@ chmod 600 jmxremote.password
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
-            
-              <a href="/2018/09/05/debian系系统编译CuraEngine引擎/" rel="prev" title="debian系系统编译CuraEngine引擎">
-                debian系系统编译CuraEngine引擎 <i class="fa fa-chevron-right"></i>
-              </a>
             
           </div>
         </div>
@@ -545,8 +573,17 @@ chmod 600 jmxremote.password
       
 
       
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
 
-      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+      <section class="site-overview-wrap sidebar-panel">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -617,6 +654,22 @@ chmod 600 jmxremote.password
         </div>
       </section>
 
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Nginx的location语法"><span class="nav-number">1.</span> <span class="nav-text">Nginx的location语法</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#nginx常见正则匹配符号表示"><span class="nav-number">1.1.</span> <span class="nav-text">nginx常见正则匹配符号表示</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#普通匹配"><span class="nav-number">1.2.</span> <span class="nav-text">普通匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正则表达式匹配-表示执行正则匹配"><span class="nav-number">1.3.</span> <span class="nav-text">正则表达式匹配(~表示执行正则匹配)</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#文件及目录匹配"><span class="nav-number">1.4.</span> <span class="nav-text">文件及目录匹配</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#rewrite指令的最后一项参数为flag标记，flag标记有以下"><span class="nav-number">1.5.</span> <span class="nav-text">rewrite指令的最后一项参数为flag标记，flag标记有以下</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#location指令配置示例"><span class="nav-number">2.</span> <span class="nav-text">location指令配置示例</span></a></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
       
 
       
