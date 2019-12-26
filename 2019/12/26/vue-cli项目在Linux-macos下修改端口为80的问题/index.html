@@ -71,7 +71,7 @@
 
 
 
-  <meta name="keywords" content="Hexo, NexT">
+  <meta name="keywords" content="nodejs,vue,">
 
 
 
@@ -82,17 +82,18 @@
 
 
 
-<meta name="description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
-<meta name="keywords" content="jackyting825">
-<meta property="og:type" content="website">
-<meta property="og:title" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:url" content="http://jackyting825.github.io/tags/swap/index.html">
+<meta name="description" content="摘要:一直在写vue项目,但是最近需要将端口更改为80,在Linux/macos下无论是修改vue.config.js了面devServer的port为80还是在脚本命令后加启动参数--port 80, 最后启动成功后的端口都是1024 猜测:在Linux/macos下,端口范围是有一定的权限要求的.同事在Windows下直接修改为80是完全可以的. 此时,需要将npm命令用root的身份运行,才">
+<meta name="keywords" content="nodejs,vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue-cli项目在Linux&#x2F;macos下修改端口为80的问题">
+<meta property="og:url" content="http://jackyting825.github.io/2019/12/26/vue-cli项目在Linux-macos下修改端口为80的问题/index.html">
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
-<meta property="og:description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
+<meta property="og:description" content="摘要:一直在写vue项目,但是最近需要将端口更改为80,在Linux/macos下无论是修改vue.config.js了面devServer的port为80还是在脚本命令后加启动参数--port 80, 最后启动成功后的端口都是1024 猜测:在Linux/macos下,端口范围是有一定的权限要求的.同事在Windows下直接修改为80是完全可以的. 此时,需要将npm命令用root的身份运行,才">
 <meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2019-12-26T02:08:06.423Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="That&#39;s all mean to be! - jackyting825">
-<meta name="twitter:description" content="我们快忘了,你说呢,如果回忆先忘了.如果还记得......">
+<meta name="twitter:title" content="vue-cli项目在Linux&#x2F;macos下修改端口为80的问题">
+<meta name="twitter:description" content="摘要:一直在写vue项目,但是最近需要将端口更改为80,在Linux/macos下无论是修改vue.config.js了面devServer的port为80还是在脚本命令后加启动参数--port 80, 最后启动成功后的端口都是1024 猜测:在Linux/macos下,端口范围是有一定的权限要求的.同事在Windows下直接修改为80是完全可以的. 此时,需要将npm命令用root的身份运行,才">
 
 
 
@@ -122,13 +123,13 @@
 
 
 
-  <link rel="canonical" href="http://jackyting825.github.io/tags/swap/">
+  <link rel="canonical" href="http://jackyting825.github.io/2019/12/26/vue-cli项目在Linux-macos下修改端口为80的问题/">
 
 
 
 
 
-  <title>标签: swap | That's all mean to be! - jackyting825</title>
+  <title>vue-cli项目在Linux/macos下修改端口为80的问题 | That's all mean to be! - jackyting825</title>
   
 
 
@@ -147,7 +148,7 @@
     
   
 
-  <div class="container sidebar-position-left ">
+  <div class="container sidebar-position-left page-post-detail">
     <div class="headband"></div>
 
     <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
@@ -268,52 +269,206 @@
           <div id="content" class="content">
             
 
-  
-  
-  
-  <div class="post-block tag">
+  <div id="posts" class="posts-expand">
+    
 
-    <div id="posts" class="posts-collapse">
-      <div class="collection-title">
-        <h1>swap<small>标签</small>
-        </h1>
-      </div>
+  
 
-      
-        
+  
+  
+  
 
   <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-    <header class="post-header">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2019/12/26/vue-cli项目在Linux-macos下修改端口为80的问题/">
 
-      <h2 class="post-title">
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jackyting825">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/avatar/wukong.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="That's all mean to be! - jackyting825">
+    </span>
+
+    
+      <header class="post-header">
+
         
-            <a class="post-title-link" href="/2018/05/13/Linux增加使用文件代替swap分区分方法/" itemprop="url">
-              
-                <span itemprop="name">Linux增加使用文件代替swap分区分方法</span>
-              
-            </a>
         
-      </h2>
+          <h1 class="post-title" itemprop="name headline">vue-cli项目在Linux/macos下修改端口为80的问题</h1>
+        
 
-      <div class="post-meta">
-        <time class="post-time" itemprop="dateCreated" datetime="2018-05-13T10:52:59+08:00" content="2018-05-13">
-          05-13
-        </time>
-      </div>
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2019-12-26T09:57:14+08:00">
+                2019-12-26
+              </time>
+            
 
-    </header>
-  </article>
+            
+              <span class="post-meta-divider">|</span>
+            
 
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2019-12-26T10:08:06+08:00">
+                2019-12-26
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  282 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  1 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>摘要:一直在写vue项目,但是最近需要将端口更改为80,在Linux/macos下无论是修改vue.config.js了面devServer的port为80还是在脚本命令后加启动参数--port 80,
+最后启动成功后的端口都是1024
+</code></pre><p>猜测:在Linux/macos下,端口范围是有一定的权限要求的.同事在Windows下直接修改为80是完全可以的.</p>
+<p>此时,需要将npm命令用root的身份运行,才能有足够的权限来使用80端口.因为本机安装nodejs的时候,直接是安装到当前用户下的.使用sudo命令的时候,查找的命令目录是/usr/bin/,可以在该目录下建立对应的npm命令软链接,使root能够执行npm命令</p>
+<pre><code>cd /usr/bin/  # 进入到目录
+which npm  # 查看当前npm安装路径
+sudo ln -s /opt/node-v10.16.3-linux-x64/bin/npm # 建立软链接
+sudo ln -s /opt/node-v10.16.3-linux-x64/bin/node  # 建立软链接
+sudo npm -v # 检测root下命令是否可用
+</code></pre><p>执行完毕后,使用sudo npm run serve即可正常在80端口下启动.</p>
 
       
     </div>
+    
+    
+    
 
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/nodejs/" rel="tag"># nodejs</a>
+          
+            <a href="/tags/vue/" rel="tag"># vue</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2019/12/26/使用AES加密密钥大于128抛出Illegal-key-size-or-default-parameters/" rel="next" title="使用AES加密密钥大于128抛出Illegal key size or default parameters">
+                <i class="fa fa-chevron-left"></i> 使用AES加密密钥大于128抛出Illegal key size or default parameters
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
   </div>
   
   
   
+  </article>
 
-  
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
 
 
           </div>
@@ -321,6 +476,17 @@
 
 
           
+
+  
+    <div class="comments" id="comments">
+      
+  <script src="https://utteranc.es/client.js" repo="jackyting825/jackyting825.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async>
+  </script>
+
+    </div>
+  
+
+
 
         </div>
         
@@ -581,6 +747,10 @@
 
 
   
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
 
   
 
