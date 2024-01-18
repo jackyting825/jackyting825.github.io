@@ -1,0 +1,1225 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="k8s,Rocky Linux,virtualbox,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
+<meta name="keywords" content="k8s,Rocky Linux,virtualbox">
+<meta property="og:type" content="article">
+<meta property="og:title" content="k8s初窥之准备">
+<meta property="og:url" content="http://jackyting825.github.io/2024/01/17/k8s初窥之准备/index.html">
+<meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
+<meta property="og:description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jackyting825.github.io/images/rocky_linux_download.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_req.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/virtual_host_only_global_cfg.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/cluster_net_cfg.jpeg">
+<meta property="og:updated_time" content="2024-01-18T04:51:03.558Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="k8s初窥之准备">
+<meta name="twitter:description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
+<meta name="twitter:image" content="http://jackyting825.github.io/images/rocky_linux_download.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jackyting825.github.io/2024/01/17/k8s初窥之准备/">
+
+
+
+
+
+  <title>k8s初窥之准备 | That's all mean to be! - jackyting825</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">That's all mean to be! - jackyting825</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不要问我人生怎能没有遗憾,往事总有某一段难堪......</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<div style="padding-left: 2rem; margin: 0.5rem auto;">
+  <iframe width="384" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="//i.tianqi.com/index.php?c=code&id=12&color=%23002060&bgc=%23FFFFFF&bdc=%23&icon=1&num=1&site=12">
+ </iframe>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2024/01/17/k8s初窥之准备/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jackyting825">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/avatar/wukong.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="That's all mean to be! - jackyting825">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">k8s初窥之准备</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-01-17T13:15:50+08:00">
+                2024-01-17
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2024-01-18T12:51:03+08:00">
+                2024-01-18
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.5k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  6 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <pre><code>摘要:
+  最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；
+  由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。
+</code></pre><p>下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。</p>
+<blockquote>
+<p>Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的生产级平台。旨在与RHEL（Red Hat Enterprise Linux） 100%兼容。可作为CentOS停止维护（改为滚动更新的Stream版）后，RHEL的下游Linux操作系统替代方案，并继承了原CentOS的开源免费特点。</p>
+</blockquote>
+<h3 id="从Rocky-Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1-6G左右。"><a href="#从Rocky-Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1-6G左右。" class="headerlink" title="从Rocky Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1.6G左右。"></a>从Rocky Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1.6G左右。</h3><blockquote>
+<p>官网地址：<a href="https://rockylinux.org/download" target="_blank" rel="noopener">https://rockylinux.org/download</a></p>
+</blockquote>
+<p> 下载页面如下图</p>
+<p> <img src="/images/rocky_linux_download.jpeg" alt></p>
+<h3 id="使用VirtualBox创建虚拟机并安装Rocky-Linux系统"><a href="#使用VirtualBox创建虚拟机并安装Rocky-Linux系统" class="headerlink" title="使用VirtualBox创建虚拟机并安装Rocky Linux系统"></a>使用VirtualBox创建虚拟机并安装Rocky Linux系统</h3><blockquote>
+<p>k8s对机器有要求，建议最低2vCPU，内存的话笔者设置的3G，硬盘100G。</p>
+</blockquote>
+<p>  <img src="/images/k8s_req.jpeg" alt></p>
+<p>  笔者这里准备3台虚拟机，1台用于部署k8s集群的master节点，另外2台作为node节点。对对于需要3台虚拟机，可以装好一台然后通过virtualbox的clone功能来创建另外2台（clone的过程中生成新的网卡MAC地址）。</p>
+<p>  因为是集群环境，需要环境中的每台机器网络互通，并且还能访问外网。访问外网，此处使用NAT(网络地址转换)模式，集群内部的机器，使用Host-only模式。virtualbox全局对网络的设置如下图; dhcp配置与否，都可以，反正后续会把集群中的机器的ip设置成静态的。</p>
+<p>  <img src="/images/virtual_host_only_global_cfg.jpeg" alt></p>
+<p>  安装过程很简单，此处就不截图展示了。</p>
+<h3 id="安装完之后"><a href="#安装完之后" class="headerlink" title="安装完之后"></a>安装完之后</h3><h4 id="关闭防火墙"><a href="#关闭防火墙" class="headerlink" title="关闭防火墙"></a>关闭防火墙</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># systemctl status firewalld # Active显示running代表防火墙开启状态</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl stop firewalld # 停止防火墙</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl status firewalld # Active显示inactive代表防火墙关闭状态</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl disable firewalld # 关闭开启自启防火墙</span></span><br></pre></td></tr></table></figure>
+<h4 id="设置hostname"><a href="#设置hostname" class="headerlink" title="设置hostname"></a>设置hostname</h4><p>  需要保证集群中的每台机器的hostname都不一样。</p>
+  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># hostnamectl set-hostname master #master 为主机名</span></span><br></pre></td></tr></table></figure>
+<h4 id="关闭swap"><a href="#关闭swap" class="headerlink" title="关闭swap"></a>关闭swap</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># swapoff -a  # 关闭swap，临时</span></span><br><span class="line">[root@master ~]<span class="comment"># sed -ri 's/.*swap.*/#&amp;/' /etc/fstab # 关闭swap，永久</span></span><br></pre></td></tr></table></figure>
+<h4 id="关闭selinux"><a href="#关闭selinux" class="headerlink" title="关闭selinux"></a>关闭selinux</h4>  <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># setenforce 0 # 关闭selinux</span></span><br><span class="line">[root@master ~]<span class="comment"># sudo sed -i 's/^SELINUX=enforcing$/SELINUX=permissive/' /etc/selinux/config ## 将 SELinux 设置为 permissive 模式（相当于将其禁用）</span></span><br></pre></td></tr></table></figure>
+<p>  或者通过修改/etc/selinux/config文件，将SELINUX的值改为disabled</p>
+<h4 id="配置静态ip地址，以便于集群中机器的通信。"><a href="#配置静态ip地址，以便于集群中机器的通信。" class="headerlink" title="配置静态ip地址，以便于集群中机器的通信。"></a>配置静态ip地址，以便于集群中机器的通信。</h4><blockquote>
+<p>在Rocky9中，丢弃使用了传统的network 而使用新的NetworkManager管理方式,较之前的版本配置方式有所不同</p>
+</blockquote>
+<p>先查看当前网卡的相关信息</p>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># ip addr</span></span><br><span class="line">  1: lo: &lt;LOOPBACK,UP,LOWER_UP&gt; mtu 65536 qdisc noqueue state UNKNOWN group default qlen 1000</span><br><span class="line">      link/loopback 00:00:00:00:00:00 brd 00:00:00:00:00:00</span><br><span class="line">      inet 127.0.0.1/8 scope host lo</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">      inet6 ::1/128 scope host </span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">  2: enp0s3: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">      link/ether 08:00:27:9a:9d:14 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">      inet 10.0.2.15/24 brd 10.0.2.255 scope global dynamic noprefixroute enp0s3</span><br><span class="line">        valid_lft 86056sec preferred_lft 86056sec</span><br><span class="line">      inet6 fe80::a00:27ff:fe9a:9d14/64 scope link noprefixroute </span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">  3: enp0s8: &lt;BROADCAST,MULTICAST,UP,LOWER_UP&gt; mtu 1500 qdisc fq_codel state UP group default qlen 1000</span><br><span class="line">      link/ether 08:00:27:1a:1d:86 brd ff:ff:ff:ff:ff:ff</span><br><span class="line">      inet 192.168.56.102/24 brd 192.168.56.255 scope global noprefixroute enp0s8</span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">      inet6 fe80::a00:27ff:fe1a:1d86/64 scope link noprefixroute </span><br><span class="line">        valid_lft forever preferred_lft forever</span><br><span class="line">[root@master ~]<span class="comment">#</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>找到virtualbox的host-only网卡对应的名字是enp0s8，然后进行设置静态ip</p>
+<blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/NetworkManager/system-connections/enp0s8.nmconnection</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<p>将[ipv4]下的内容修改为如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ipv4]</span><br><span class="line">method=manual <span class="comment"># 设置获取IP地址方式auto--&gt;manual</span></span><br><span class="line">address1=192.168.56.102/24,192.168.56.1 <span class="comment">#设置IP地址为192.168.56.102,掩码为255.255.255.0，可直接紧跟ip地址后写/24，网关地址为192.168.56.1</span></span><br></pre></td></tr></table></figure>
+<p>重启网卡配置：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">nmcli c reload</span><br><span class="line">nmcli c up enp0s8</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>重新通过ip addr查看ip地址是否设置成功;</p>
+</blockquote>
+<blockquote>
+<p><b>其他2台机器按照同样的流程进行配置。注意ip地址和主机名</b></p>
+</blockquote>
+<h4 id="开启ipv4转发"><a href="#开启ipv4转发" class="headerlink" title="开启ipv4转发"></a>开启ipv4转发</h4><blockquote>
+<p>此项非必须，后续rancher相关操作时会用到，所以此处一起设置了</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># cat /proc/sys/net/ipv4/ip_forward #查看是否开启 ipv4 转发，结果为 1 则是已开启。</span></span><br><span class="line">[root@master ~]<span class="comment"># echo 'net.ipv4.ip_forward=1' &gt;&gt; /etc/sysctl.conf</span></span><br><span class="line">[root@master ~] sysctl -p <span class="comment"># 重新加载配置</span></span><br></pre></td></tr></table></figure>
+<p>或者直接编辑/etc/sysctl.conf文件，在文件中添加net.ipv4.ip_forward=1<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/sysctl.conf</span></span><br><span class="line">[root@master ~] sysctl -p <span class="comment"># 重新加载配置</span></span><br></pre></td></tr></table></figure></p>
+<p>配置好3台机器的网络信息后，可在3台机器上通过ping命令互相ping查看通讯是否正常。</p>
+<p>笔者这里3台机（192.168.56.102、192.168.56.103、192.168.56.104）配置好的结果如下图：<br> <img src="/images/cluster_net_cfg.jpeg" alt></p>
+<h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>对3台机器进行docker安装。Rocky Linux兼容了Centos，所以安装docker的方法和Centos一致。详细过程可参考docker官网地址：<a href="https://docs.docker.com/engine/install/centos" target="_blank" rel="noopener">https://docs.docker.com/engine/install/centos</a></p>
+<h4 id="Set-up-the-repository-设置添加docker仓库"><a href="#Set-up-the-repository-设置添加docker仓库" class="headerlink" title="Set up the repository 设置添加docker仓库"></a>Set up the repository 设置添加docker仓库</h4><p>Install the yum-utils package (which provides the yum-config-manager utility) and set up the repository.</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install -y yum-utils</span></span><br><span class="line">[root@master ~]<span class="comment"># yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span></span><br></pre></td></tr></table></figure>
+<h4 id="Install-Docker-Engine-安装docker引擎"><a href="#Install-Docker-Engine-安装docker引擎" class="headerlink" title="Install Docker Engine 安装docker引擎"></a>Install Docker Engine 安装docker引擎</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  # 安装docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl start docker  # 启动docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl enable docker # 设置docker自启动</span></span><br><span class="line">[root@master ~]<span class="comment"># usermod -aG docker $USER  # 将当前用户加入docker用户组，这样当前用户就可以直接使用docker命令了</span></span><br><span class="line">[root@master ~]<span class="comment"># newgrp docker # 更新用户组docker,立即生效</span></span><br><span class="line">[root@master ~]<span class="comment"># docker version  # 查看docker版本</span></span><br><span class="line">[root@master ~]<span class="comment"># docker run hello-world  # 测试docker是否安装成功</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>为了后续下载镜像时方便，可以将docker镜像仓库地址设置为阿里云的镜像仓库，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"registry-mirrors"</span>: [<span class="string">"https://registry.cn-hangzhoualiyuncs.com"</span>]</span><br><span class="line">              &#125;</span><br></pre></td></tr></table></figure></p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/Rocky-Linux/" rel="tag"># Rocky Linux</a>
+          
+            <a href="/tags/virtualbox/" rel="tag"># virtualbox</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2021/07/27/springboot-接收参数统一除去参数值前后的空串/" rel="next" title="springboot 接收参数统一除去参数值前后的空串">
+                <i class="fa fa-chevron-left"></i> springboot 接收参数统一除去参数值前后的空串
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2024/01/18/k8s初窥之实战集群搭建/" rel="prev" title="k8s初窥之实战集群搭建">
+                k8s初窥之实战集群搭建 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+  <script src="https://utteranc.es/client.js" repo="jackyting825/jackyting825.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async>
+  </script>
+
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/avatar/wukong.jpeg" alt="jackyting825">
+            
+              <p class="site-author-name" itemprop="name">jackyting825</p>
+              <p class="site-description motion-element" itemprop="description">我们快忘了,你说呢,如果回忆先忘了.如果还记得......</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jackyting825" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jackyting825@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#从Rocky-Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1-6G左右。"><span class="nav-number">1.</span> <span class="nav-text">从Rocky Linux的官方网站下载对应的镜像iso文件，下载Minimal版本，大约1.6G左右。</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#使用VirtualBox创建虚拟机并安装Rocky-Linux系统"><span class="nav-number">2.</span> <span class="nav-text">使用VirtualBox创建虚拟机并安装Rocky Linux系统</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装完之后"><span class="nav-number">3.</span> <span class="nav-text">安装完之后</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭防火墙"><span class="nav-number">3.1.</span> <span class="nav-text">关闭防火墙</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#设置hostname"><span class="nav-number">3.2.</span> <span class="nav-text">设置hostname</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭swap"><span class="nav-number">3.3.</span> <span class="nav-text">关闭swap</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#关闭selinux"><span class="nav-number">3.4.</span> <span class="nav-text">关闭selinux</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#配置静态ip地址，以便于集群中机器的通信。"><span class="nav-number">3.5.</span> <span class="nav-text">配置静态ip地址，以便于集群中机器的通信。</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#开启ipv4转发"><span class="nav-number">3.6.</span> <span class="nav-text">开启ipv4转发</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#安装docker"><span class="nav-number">4.</span> <span class="nav-text">安装docker</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Set-up-the-repository-设置添加docker仓库"><span class="nav-number">4.1.</span> <span class="nav-text">Set up the repository 设置添加docker仓库</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Install-Docker-Engine-安装docker引擎"><span class="nav-number">4.2.</span> <span class="nav-text">Install Docker Engine 安装docker引擎</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jackyting825</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">42.8k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  <script type="text/javascript" src="/js/src/clicklove.js"></script>
+</body>
+</html>
