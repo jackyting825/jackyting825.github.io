@@ -102,7 +102,7 @@
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_worker_success.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_all_node_success.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_all_node_pods.jpeg">
-<meta property="og:updated_time" content="2024-01-18T04:54:56.983Z">
+<meta property="og:updated_time" content="2024-01-19T06:47:37.154Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s初窥之实战集群搭建">
 <meta name="twitter:description" content="摘要:   k8s集群搭建有2种方式，一种是通过二进制方式搭建，另一种是通过kubeadm命令行工具搭建，笔者此次主要是kubeadm命令行工具搭建k8s集群。  此次搭建的是k8s 1.28.5版本；官方文档地址：https://v1-28.docs.kubernetes.io/zh-cn/docs/setup/production-environment/tools/kubeadm/insta">
@@ -341,8 +341,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-01-18T12:54:56+08:00">
-                2024-01-18
+              <time title="更新于" itemprop="dateModified" datetime="2024-01-19T14:47:37+08:00">
+                2024-01-19
               </time>
             
           </span>
@@ -374,7 +374,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k 字
+                  1.8k 字
                 </span>
               
 
@@ -390,7 +390,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  7 分钟
                 </span>
               
             </div>
@@ -451,6 +451,9 @@ kubeadm 不能帮你安装或者管理 kubelet 或 kubectl， 所以你需要确
 <p>  <img src="/images/k8s_init_error.jpeg" alt></p>
 <p>查看错误提示信息，container run time is not runing.发现问题是在containerd，于是重新生成/etc/containerd/config.toml，把上面报错的“registry.k8s.io/pause:3.6”修改为阿里云的镜像，如下：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">containerd config default | sudo tee /etc/containerd/config.toml <span class="comment">#重新生成/etc/containerd/config.toml</span></span><br><span class="line">sed -i <span class="string">'s#SystemdCgroup = false#SystemdCgroup = true#g'</span> /etc/containerd/config.toml</span><br><span class="line">sed -i <span class="string">'s#sandbox_image = "registry.k8s.io/pause:3.6"#sandbox_image = "registry.cn-hangzhou.aliyuncs.com/google_containers/pause:3.9"#g'</span> /etc/containerd/config.toml</span><br><span class="line">systemctl restart containerd</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Containerd是一个开源的容器运行时管理器，用于管理容器的生命周期，包括容器的创建、启动、停止、暂停和销毁。它是Docker Engine的核心组件之一，也是Kubernetes、CRI-O等容器平台的基础组件。k8s早期版本(1.23之前)采用Docker作为容器运行时；docker作为k8s容器运行时，调用关系为：kubelet –&gt; dockershim （在 kubelet 进程中） –&gt; dockerd –&gt; containerd；而containerd 作为 k8s 容器运行时，调用关系为：kubelet –&gt; cri plugin（在 containerd 进程中） –&gt; containerd；作为一个纯粹的容器运行时，Containerd被设计为更加符合K8s的架构和需求。它具有更小的资源占用，更快的启动时间，以及更好的性能表现。所以，节点只要装好containerd，也能运行k8s。(前文已装好docker(docker内含了containerd))</p>
+</blockquote>
 <p>执行上述操作后，再次执行kubeadm init命令，等一会后，k8s集群就初始化成功了。</p>
 <p>记住上述圈着的几处地方，第一处提示节点初始化成功，然后执行第二处里面的相关命令，然后进入第三处的链接地址，安装网络组件，第四处是worker节点加入集群的命令，需要记录下来。然后开始安装网络组件：</p>
 <p>k8s支持很多网络组件，地址如下：<a href="https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/addons/" target="_blank" rel="noopener">https://kubernetes.io/zh-cn/docs/concepts/cluster-administration/addons/</a></p>
@@ -707,7 +710,7 @@ kubeadm 不能帮你安装或者管理 kubelet 或 kubectl， 所以你需要确
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">42.8k</span>
+    <span title="Site words total count">43k</span>
   
 </div>
 
