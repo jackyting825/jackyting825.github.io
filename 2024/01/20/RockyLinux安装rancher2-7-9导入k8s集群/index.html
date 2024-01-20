@@ -106,7 +106,7 @@
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_import5.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_import6.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_import7.jpeg">
-<meta property="og:updated_time" content="2024-01-20T06:03:19.791Z">
+<meta property="og:updated_time" content="2024-01-20T06:08:57.556Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="RockyLinux安装rancher2-7-9导入k8s集群">
 <meta name="twitter:description" content="rancher2.7.9官网有好几种安装方式，目前不推荐使用docker安装的方式了，但是作为个人学习使用，使用docker方式安装是最方便快捷的了。  当前采用的系统是Rocky Linux 9.3,已装好docker。 打开rancher官网：https://www.rancher.cn/quick-start    拷贝图中的命令执行即可： 1sudo docker run --privi">
@@ -345,7 +345,7 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-01-20T14:03:19+08:00">
+              <time title="更新于" itemprop="dateModified" datetime="2024-01-20T14:08:57+08:00">
                 2024-01-20
               </time>
             
@@ -424,7 +424,7 @@
 <p>拷贝图中的命令执行即可：</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --privileged -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable</span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>截止目前为止(2024-01-20)，如果把镜像版本更改为rancher:2.7.9，会提示找不到对应镜像的，所以直接拷贝官网的staled</p>
+<p>截止目前为止(2024-01-20)，如果把镜像版本更改为rancher:2.7.9，会提示找不到对应镜像的，所以直接拷贝官网的stable版本</p>
 </blockquote>
 <p>  <img src="/images/rancher_not_found.jpeg" alt></p>
 <p>正常情况下，是能够直接安装并启动成功的（之前在debian12系统上这样就能直接安装成功）；但是在Rocky Linux 9.3系统上，拉取镜像后启动容器会失败，docker logs 容器id查看相关错误信息如下：</p>
