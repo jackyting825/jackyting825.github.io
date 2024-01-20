@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_req.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/virtual_host_only_global_cfg.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/cluster_net_cfg.jpeg">
-<meta property="og:updated_time" content="2024-01-18T04:51:03.558Z">
+<meta property="og:updated_time" content="2024-01-20T03:40:10.468Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s初窥之准备">
 <meta name="twitter:description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-01-18T12:51:03+08:00">
-                2024-01-18
+              <time title="更新于" itemprop="dateModified" datetime="2024-01-20T11:40:10+08:00">
+                2024-01-20
               </time>
             
           </span>
@@ -464,7 +464,8 @@
 <blockquote>
 <p>为了后续下载镜像时方便，可以将docker镜像仓库地址设置为阿里云的镜像仓库，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"registry-mirrors"</span>: [<span class="string">"https://registry.cn-hangzhoualiyuncs.com"</span>]</span><br><span class="line">              &#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
-
+<p>重启docker</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># systemctl daemon-reload</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
       
     </div>
     
@@ -596,7 +597,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">43</span>
+                  <span class="site-state-item-count">44</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -609,7 +610,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">31</span>
+                  <span class="site-state-item-count">32</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -692,7 +693,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">43k</span>
+    <span title="Site words total count">44.2k</span>
   
 </div>
 

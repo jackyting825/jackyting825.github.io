@@ -1,0 +1,1219 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next gemini use-motion" lang="zh-Hans">
+<head><meta name="generator" content="Hexo 3.9.0">
+  <meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="theme-color" content="#222">
+
+
+
+  
+  
+    
+    
+  <script src="/lib/pace/pace.min.js?v=1.0.2"></script>
+  <link href="/lib/pace/pace-theme-minimal.min.css?v=1.0.2" rel="stylesheet">
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform">
+<meta http-equiv="Cache-Control" content="no-siteapp">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css">
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css">
+
+<link href="/css/main.css?v=5.1.4" rel="stylesheet" type="text/css">
+
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png?v=5.1.4">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon.png?v=5.1.4">
+
+
+
+
+
+
+  <meta name="keywords" content="k8s,Rocky Linux,rancher2.7.9,">
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="rancher2.7.9官网有好几种安装方式，目前不推荐使用docker安装的方式了，但是作为个人学习使用，使用docker方式安装是最方便快捷的了。  当前采用的系统是Rocky Linux 9.3,已装好docker。 打开rancher官网：https://www.rancher.cn/quick-start    拷贝图中的命令执行即可： 1sudo docker run --privi">
+<meta name="keywords" content="k8s,Rocky Linux,rancher2.7.9">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RockyLinux安装rancher2-7-9导入k8s集群">
+<meta property="og:url" content="http://jackyting825.github.io/2024/01/20/RockyLinux安装rancher2-7-9导入k8s集群/index.html">
+<meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
+<meta property="og:description" content="rancher2.7.9官网有好几种安装方式，目前不推荐使用docker安装的方式了，但是作为个人学习使用，使用docker方式安装是最方便快捷的了。  当前采用的系统是Rocky Linux 9.3,已装好docker。 打开rancher官网：https://www.rancher.cn/quick-start    拷贝图中的命令执行即可： 1sudo docker run --privi">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_required.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_not_found.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_ps.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_error.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/cgroupv1.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_error_stop.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_error_solution.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_succ.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/rancher_first_passwd.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import1.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import2.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import3.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import4.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import5.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import6.jpeg">
+<meta property="og:image" content="http://jackyting825.github.io/images/k8s_import7.jpeg">
+<meta property="og:updated_time" content="2024-01-20T06:03:19.791Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="RockyLinux安装rancher2-7-9导入k8s集群">
+<meta name="twitter:description" content="rancher2.7.9官网有好几种安装方式，目前不推荐使用docker安装的方式了，但是作为个人学习使用，使用docker方式安装是最方便快捷的了。  当前采用的系统是Rocky Linux 9.3,已装好docker。 打开rancher官网：https://www.rancher.cn/quick-start    拷贝图中的命令执行即可： 1sudo docker run --privi">
+<meta name="twitter:image" content="http://jackyting825.github.io/images/rancher_required.jpeg">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '5.1.4',
+    sidebar: {"position":"left","display":"post","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":true,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://jackyting825.github.io/2024/01/20/RockyLinux安装rancher2-7-9导入k8s集群/">
+
+
+
+
+
+  <title>RockyLinux安装rancher2-7-9导入k8s集群 | That's all mean to be! - jackyting825</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">That's all mean to be! - jackyting825</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle">不要问我人生怎能没有遗憾,往事总有某一段难堪......</p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<div style="padding-left: 2rem; margin: 0.5rem auto;">
+  <iframe width="384" scrolling="no" height="60" frameborder="0" allowtransparency="true" src="//i.tianqi.com/index.php?c=code&id=12&color=%23002060&bgc=%23FFFFFF&bdc=%23&icon=1&num=1&site=12">
+ </iframe>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br>
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br>
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br>
+            
+            归档
+          </a>
+        </li>
+      
+
+      
+        <li class="menu-item menu-item-search">
+          
+            <a href="javascript:;" class="popup-trigger">
+          
+            
+              <i class="menu-item-icon fa fa-search fa-fw"></i> <br>
+            
+            搜索
+          </a>
+        </li>
+      
+    </ul>
+  
+
+  
+    <div class="site-search">
+      
+  <div class="popup search-popup local-search-popup">
+  <div class="local-search-header clearfix">
+    <span class="search-icon">
+      <i class="fa fa-search"></i>
+    </span>
+    <span class="popup-btn-close">
+      <i class="fa fa-times-circle"></i>
+    </span>
+    <div class="local-search-input-wrapper">
+      <input autocomplete="off" placeholder="搜索..." spellcheck="false" type="text" id="local-search-input">
+    </div>
+  </div>
+  <div id="local-search-result"></div>
+</div>
+
+
+
+    </div>
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://jackyting825.github.io/2024/01/20/RockyLinux安装rancher2-7-9导入k8s集群/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="jackyting825">
+      <meta itemprop="description" content>
+      <meta itemprop="image" content="/avatar/wukong.jpeg">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="That's all mean to be! - jackyting825">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">RockyLinux安装rancher2-7-9导入k8s集群</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2024-01-20T10:07:47+08:00">
+                2024-01-20
+              </time>
+            
+
+            
+              <span class="post-meta-divider">|</span>
+            
+
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-check-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">更新于&#58;</span>
+              
+              <time title="更新于" itemprop="dateModified" datetime="2024-01-20T14:03:19+08:00">
+                2024-01-20
+              </time>
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+            <span class="post-meta-divider">|</span>
+            <span class="page-pv"><i class="fa fa-file-o"></i> 阅读数
+            <span class="busuanzi-value" id="busuanzi_value_page_pv"></span>次
+            </span>
+          
+
+          
+            <div class="post-wordcount">
+              
+                
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-file-word-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">字数统计&#58;</span>
+                
+                <span title="字数统计">
+                  1.3k 字
+                </span>
+              
+
+              
+                <span class="post-meta-divider">|</span>
+              
+
+              
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-clock-o"></i>
+                </span>
+                
+                  <span class="post-meta-item-text">阅读时长 &asymp;</span>
+                
+                <span title="阅读时长">
+                  4 分钟
+                </span>
+              
+            </div>
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p>rancher2.7.9官网有好几种安装方式，目前不推荐使用docker安装的方式了，但是作为个人学习使用，使用docker方式安装是最方便快捷的了。</p>
+</blockquote>
+<p>当前采用的系统是Rocky Linux 9.3,已装好docker。</p>
+<p>打开rancher官网：<a href="https://www.rancher.cn/quick-start" target="_blank" rel="noopener">https://www.rancher.cn/quick-start</a></p>
+<p>  <img src="/images/rancher_required.jpeg" alt></p>
+<p>拷贝图中的命令执行即可：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo docker run --privileged -d --restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>截止目前为止(2024-01-20)，如果把镜像版本更改为rancher:2.7.9，会提示找不到对应镜像的，所以直接拷贝官网的staled</p>
+</blockquote>
+<p>  <img src="/images/rancher_not_found.jpeg" alt></p>
+<p>正常情况下，是能够直接安装并启动成功的（之前在debian12系统上这样就能直接安装成功）；但是在Rocky Linux 9.3系统上，拉取镜像后启动容器会失败，docker logs 容器id查看相关错误信息如下：</p>
+<p>  <img src="/images/rancher_ps.jpeg" alt></p>
+<p>  <img src="/images/rancher_error.jpeg" alt></p>
+<p>从rancher论坛上查询相关错误问题信息，得知是</p>
+<blockquote>
+<p>由于较新版本的docker使用了cgroupv2引起的，使用cgroupv2本身并没有错，一些今年发布的Linux发行版也都开始切换到cgroupv2，这也是大势所趋。不过，Rancher server的docker镜像，还要考虑历史兼容的问题，所以server内置的k3s还不兼容cgroupv2的方式。</p>
+</blockquote>
+<blockquote>
+<p>Cgroup（Control Group）是Linux内核提供的一个重要的资源管理工具，用于在容器化环境中对进程进行资源限制和控制。它可以将一组进程组织在一个层次结构中，并通过资源控制机制对每个层次的进程进行限制和分配资源。Cgroup能够控制CPU、内存、磁盘I/O等资源的使用情况，确保容器中的进程不会无限制地占用系统资源。Docker作为一个流行的容器化平台，也使用了cgroup来进行资源管理。</p>
+</blockquote>
+<p>查看</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mount | grep cgroup</span><br></pre></td></tr></table></figure>
+<p>得到如下信息：cgroup2 on /sys/fs/cgroup type cgroup2 (rw,nosuid,nodev,noexec,relatime,nsdelegate,memory_recursiveprot)</p>
+<p>rocky linux9.3 默认确实是cgroup v2版本</p>
+<p>论坛相关人员提出解决方式可以将docker的cgroup版本切回到v1，但是我在rocky linux上试了无效。具体流程如下：</p>
+<blockquote>
+<p>启动cgroup2的方式，如果系统内核版本 &gt; 4.5 ，那么就可以通过内核参数的形式启用 cgroups v2 ，不过需要注意的是，部分未默认开启的发行版强制开启后，仓库内的软件可能存在不兼容的问题。对于使用 systemd 引导的系统，可以在引导文件 /etc/default/grub 中添加如下一行，启用 v2 版本。GRUB_CMDLINE_LINUX_DEFAULT=”systemd.unified_cgroup_hierarchy=yes”</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">uname -r <span class="comment"># 查看系统内核版本</span></span><br><span class="line">5.14.0-362.8.1.el9_3.x86_64</span><br></pre></td></tr></table></figure>
+<p>rocky linux9.3内核版本为5.14.0-362.8.1.el9_3.x86_64</p>
+<p>打开引导文件/etc/default/grub，在GRUB_CMDLINE_LINUX_DEFAULT项追加：systemd.unified_cgroup_hierarchy=0</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/default/grub</span><br><span class="line">退出保存再执行</span><br><span class="line">/usr/sbin/grub2-mkconfig -o /boot/grub2/grub.cfg</span><br></pre></td></tr></table></figure>
+<p>reboot重启系统,执行mount | grep cgroup 再次查看，cgroup版本</p>
+<p>  <img src="/images/cgroupv1.jpeg" alt></p>
+<p>再次执行docker run –privileged -d –restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable，结果还是会报上面的“Waiting for server to become available: Get “<a href="https://127.0.0.1:6443/version?timeout=15m0s&quot;" target="_blank" rel="noopener">https://127.0.0.1:6443/version?timeout=15m0s&quot;</a>: dial tcp 127.0.0.1:6443: connect: connection refused”错误。</p>
+<p>最终在git hub上找到了相关问题，并提出了一个方法，试了下确实可以解决，链接如下：</p>
+<blockquote>
+<p><a href="https://github.com/rancher/rancher/issues/36238" target="_blank" rel="noopener">https://github.com/rancher/rancher/issues/36238</a></p>
+</blockquote>
+<p>先停止掉启动失败的容器</p>
+<p>  <img src="/images/rancher_error_stop.jpeg" alt></p>
+<p>  <img src="/images/rancher_error_solution.jpeg" alt></p>
+<p>  不需要安装iptables,只需要将缺失的iptables模块加载到内核中：</p>
+<pre><code class="bash">  sudo cat&lt;&lt;EOF &gt;/etc/modules-load.d/modules.conf
+iptable_nat
+iptable_filter
+EOF
+</code></pre>
+<p>然后reboot重启系统，再次执行docker run –privileged -d –restart=unless-stopped -p 80:80 -p 443:443 rancher/rancher:stable，等候几十秒后，成功启动rancher容器。</p>
+<p>打开浏览器，访问地址<a href="https://192.168.56.110" target="_blank" rel="noopener">https://192.168.56.110</a>  (192.168.56.110我虚拟机的ip地址)，看到如下页面：</p>
+<p>  <img src="/images/rancher_succ.jpeg" alt></p>
+<p>打开终端，输入图中圈着的命令，将container-id替换为实际的容器id</p>
+<p>  <img src="/images/rancher_first_passwd.jpeg" alt></p>
+<p>将得到的密码复制到rancher的登陆密码框中登陆即可，然后重新设置自己的新密码。至此，rancher2.7.9安装成功。下一步导入之前创建好的k8s集群即可。</p>
+<p>下面是具体的导入步骤：</p>
+<p>  rancher集群管理界面进入导入</p>
+<p>  <img src="/images/k8s_import1.jpeg" alt></p>
+<p>  选择通用</p>
+<p>  <img src="/images/k8s_import2.jpeg" alt></p>
+<p>  输入集群相关名称信息，点击创建</p>
+<p>  <img src="/images/k8s_import3.jpeg" alt>  </p>
+<p>  在k8s集群master节点输入如下命令，将k8s集群导入到rancher中</p>
+<p>  <img src="/images/k8s_import4.jpeg" alt>    </p>
+<p>  等待k8s拉取相关镜像，通过kubectl命令查看pod状态，与rancher相关的pod都是running状态的时候就代表导入成功了。</p>
+<p>  <img src="/images/k8s_import5.jpeg" alt>  </p>
+<p>  回到rancher界面，查看集群此时的状态，应该就是active,至此导入k8s集群到rancher成功。</p>
+<p>  <img src="/images/k8s_import6.jpeg" alt>    </p>
+<p>  接下来就可以在rancher中管理k8s集群了。</p>
+<p>  <img src="/images/k8s_import7.jpeg" alt>      </p>
+<p>进入到集群内部，左侧的工作负载下面的菜单分别按照名称对应k8s中的定时任务，守护进程，有状态应用，无状态应用等；服务发现对应k8s中的NodePort，Ingress等；存储对应k8s中的ConfigMap，存储卷等。</p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/k8s/" rel="tag"># k8s</a>
+          
+            <a href="/tags/Rocky-Linux/" rel="tag"># Rocky Linux</a>
+          
+            <a href="/tags/rancher2-7-9/" rel="tag"># rancher2.7.9</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2024/01/18/k8s初窥之实战集群搭建/" rel="next" title="k8s初窥之实战集群搭建">
+                <i class="fa fa-chevron-left"></i> k8s初窥之实战集群搭建
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      
+  <script src="https://utteranc.es/client.js" repo="jackyting825/jackyting825.github.io" issue-term="title" theme="github-light" crossorigin="anonymous" async>
+  </script>
+
+    </div>
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image" src="/avatar/wukong.jpeg" alt="jackyting825">
+            
+              <p class="site-author-name" itemprop="name">jackyting825</p>
+              <p class="site-description motion-element" itemprop="description">我们快忘了,你说呢,如果回忆先忘了.如果还记得......</p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">44</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">32</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/jackyting825" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:jackyting825@gmail.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; 2018 &mdash; <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-snowflake-o"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">jackyting825</span>
+
+  
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-area-chart"></i>
+    </span>
+    
+      <span class="post-meta-item-text">Site words total count&#58;</span>
+    
+    <span title="Site words total count">44.2k</span>
+  
+</div>
+
+
+
+
+
+
+
+
+
+        
+<div class="busuanzi-count">
+  <script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+  
+    <span class="site-uv">
+      <i class="fa fa-user"></i> 访客数
+      <span class="busuanzi-value" id="busuanzi_value_site_uv"></span>
+      人次
+    </span>
+  
+
+  
+    <span class="site-pv">
+      <i class="fa fa-eye"></i> 总访问量
+      <span class="busuanzi-value" id="busuanzi_value_site_pv"></span>
+      次
+    </span>
+  
+</div>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/canvas-nest/canvas-nest.min.js"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=5.1.4"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=5.1.4"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=5.1.4"></script>
+
+
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v=5.1.4"></script>
+<script type="text/javascript" src="/js/src/post-details.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=5.1.4"></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  <script type="text/javascript">
+    // Popup Window;
+    var isfetched = false;
+    var isXml = true;
+    // Search DB path;
+    var search_path = "./public/search.xml";
+    if (search_path.length === 0) {
+      search_path = "search.xml";
+    } else if (/json$/i.test(search_path)) {
+      isXml = false;
+    }
+    var path = "/" + search_path;
+    // monitor main search box;
+
+    var onPopupClose = function (e) {
+      $('.popup').hide();
+      $('#local-search-input').val('');
+      $('.search-result-list').remove();
+      $('#no-result').remove();
+      $(".local-search-pop-overlay").remove();
+      $('body').css('overflow', '');
+    }
+
+    function proceedsearch() {
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay"></div>')
+        .css('overflow', 'hidden');
+      $('.search-popup-overlay').click(onPopupClose);
+      $('.popup').toggle();
+      var $localSearchInput = $('#local-search-input');
+      $localSearchInput.attr("autocapitalize", "none");
+      $localSearchInput.attr("autocorrect", "off");
+      $localSearchInput.focus();
+    }
+
+    // search function;
+    var searchFunc = function(path, search_id, content_id) {
+      'use strict';
+
+      // start loading animation
+      $("body")
+        .append('<div class="search-popup-overlay local-search-pop-overlay">' +
+          '<div id="search-loading-icon">' +
+          '<i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>' +
+          '</div>' +
+          '</div>')
+        .css('overflow', 'hidden');
+      $("#search-loading-icon").css('margin', '20% auto 0 auto').css('text-align', 'center');
+
+      $.ajax({
+        url: path,
+        dataType: isXml ? "xml" : "json",
+        async: true,
+        success: function(res) {
+          // get the contents from search data
+          isfetched = true;
+          $('.popup').detach().appendTo('.header-inner');
+          var datas = isXml ? $("entry", res).map(function() {
+            return {
+              title: $("title", this).text(),
+              content: $("content",this).text(),
+              url: $("url" , this).text()
+            };
+          }).get() : res;
+          var input = document.getElementById(search_id);
+          var resultContent = document.getElementById(content_id);
+          var inputEventFunction = function() {
+            var searchText = input.value.trim().toLowerCase();
+            var keywords = searchText.split(/[\s\-]+/);
+            if (keywords.length > 1) {
+              keywords.push(searchText);
+            }
+            var resultItems = [];
+            if (searchText.length > 0) {
+              // perform local searching
+              datas.forEach(function(data) {
+                var isMatch = false;
+                var hitCount = 0;
+                var searchTextCount = 0;
+                var title = data.title.trim();
+                var titleInLowerCase = title.toLowerCase();
+                var content = data.content.trim().replace(/<[^>]+>/g,"");
+                var contentInLowerCase = content.toLowerCase();
+                var articleUrl = decodeURIComponent(data.url);
+                var indexOfTitle = [];
+                var indexOfContent = [];
+                // only match articles with not empty titles
+                if(title != '') {
+                  keywords.forEach(function(keyword) {
+                    function getIndexByWord(word, text, caseSensitive) {
+                      var wordLen = word.length;
+                      if (wordLen === 0) {
+                        return [];
+                      }
+                      var startPosition = 0, position = [], index = [];
+                      if (!caseSensitive) {
+                        text = text.toLowerCase();
+                        word = word.toLowerCase();
+                      }
+                      while ((position = text.indexOf(word, startPosition)) > -1) {
+                        index.push({position: position, word: word});
+                        startPosition = position + wordLen;
+                      }
+                      return index;
+                    }
+
+                    indexOfTitle = indexOfTitle.concat(getIndexByWord(keyword, titleInLowerCase, false));
+                    indexOfContent = indexOfContent.concat(getIndexByWord(keyword, contentInLowerCase, false));
+                  });
+                  if (indexOfTitle.length > 0 || indexOfContent.length > 0) {
+                    isMatch = true;
+                    hitCount = indexOfTitle.length + indexOfContent.length;
+                  }
+                }
+
+                // show search results
+
+                if (isMatch) {
+                  // sort index by position of keyword
+
+                  [indexOfTitle, indexOfContent].forEach(function (index) {
+                    index.sort(function (itemLeft, itemRight) {
+                      if (itemRight.position !== itemLeft.position) {
+                        return itemRight.position - itemLeft.position;
+                      } else {
+                        return itemLeft.word.length - itemRight.word.length;
+                      }
+                    });
+                  });
+
+                  // merge hits into slices
+
+                  function mergeIntoSlice(text, start, end, index) {
+                    var item = index[index.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    var hits = [];
+                    var searchTextCountInSlice = 0;
+                    while (position + word.length <= end && index.length != 0) {
+                      if (word === searchText) {
+                        searchTextCountInSlice++;
+                      }
+                      hits.push({position: position, length: word.length});
+                      var wordEnd = position + word.length;
+
+                      // move to next position of hit
+
+                      index.pop();
+                      while (index.length != 0) {
+                        item = index[index.length - 1];
+                        position = item.position;
+                        word = item.word;
+                        if (wordEnd > position) {
+                          index.pop();
+                        } else {
+                          break;
+                        }
+                      }
+                    }
+                    searchTextCount += searchTextCountInSlice;
+                    return {
+                      hits: hits,
+                      start: start,
+                      end: end,
+                      searchTextCount: searchTextCountInSlice
+                    };
+                  }
+
+                  var slicesOfTitle = [];
+                  if (indexOfTitle.length != 0) {
+                    slicesOfTitle.push(mergeIntoSlice(title, 0, title.length, indexOfTitle));
+                  }
+
+                  var slicesOfContent = [];
+                  while (indexOfContent.length != 0) {
+                    var item = indexOfContent[indexOfContent.length - 1];
+                    var position = item.position;
+                    var word = item.word;
+                    // cut out 100 characters
+                    var start = position - 20;
+                    var end = position + 80;
+                    if(start < 0){
+                      start = 0;
+                    }
+                    if (end < position + word.length) {
+                      end = position + word.length;
+                    }
+                    if(end > content.length){
+                      end = content.length;
+                    }
+                    slicesOfContent.push(mergeIntoSlice(content, start, end, indexOfContent));
+                  }
+
+                  // sort slices in content by search text's count and hits' count
+
+                  slicesOfContent.sort(function (sliceLeft, sliceRight) {
+                    if (sliceLeft.searchTextCount !== sliceRight.searchTextCount) {
+                      return sliceRight.searchTextCount - sliceLeft.searchTextCount;
+                    } else if (sliceLeft.hits.length !== sliceRight.hits.length) {
+                      return sliceRight.hits.length - sliceLeft.hits.length;
+                    } else {
+                      return sliceLeft.start - sliceRight.start;
+                    }
+                  });
+
+                  // select top N slices in content
+
+                  var upperBound = parseInt('1');
+                  if (upperBound >= 0) {
+                    slicesOfContent = slicesOfContent.slice(0, upperBound);
+                  }
+
+                  // highlight title and content
+
+                  function highlightKeyword(text, slice) {
+                    var result = '';
+                    var prevEnd = slice.start;
+                    slice.hits.forEach(function (hit) {
+                      result += text.substring(prevEnd, hit.position);
+                      var end = hit.position + hit.length;
+                      result += '<b class="search-keyword">' + text.substring(hit.position, end) + '</b>';
+                      prevEnd = end;
+                    });
+                    result += text.substring(prevEnd, slice.end);
+                    return result;
+                  }
+
+                  var resultItem = '';
+
+                  if (slicesOfTitle.length != 0) {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + highlightKeyword(title, slicesOfTitle[0]) + "</a>";
+                  } else {
+                    resultItem += "<li><a href='" + articleUrl + "' class='search-result-title'>" + title + "</a>";
+                  }
+
+                  slicesOfContent.forEach(function (slice) {
+                    resultItem += "<a href='" + articleUrl + "'>" +
+                      "<p class=\"search-result\">" + highlightKeyword(content, slice) +
+                      "...</p>" + "</a>";
+                  });
+
+                  resultItem += "</li>";
+                  resultItems.push({
+                    item: resultItem,
+                    searchTextCount: searchTextCount,
+                    hitCount: hitCount,
+                    id: resultItems.length
+                  });
+                }
+              })
+            };
+            if (keywords.length === 1 && keywords[0] === "") {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-search fa-5x" /></div>'
+            } else if (resultItems.length === 0) {
+              resultContent.innerHTML = '<div id="no-result"><i class="fa fa-frown-o fa-5x" /></div>'
+            } else {
+              resultItems.sort(function (resultLeft, resultRight) {
+                if (resultLeft.searchTextCount !== resultRight.searchTextCount) {
+                  return resultRight.searchTextCount - resultLeft.searchTextCount;
+                } else if (resultLeft.hitCount !== resultRight.hitCount) {
+                  return resultRight.hitCount - resultLeft.hitCount;
+                } else {
+                  return resultRight.id - resultLeft.id;
+                }
+              });
+              var searchResultList = '<ul class=\"search-result-list\">';
+              resultItems.forEach(function (result) {
+                searchResultList += result.item;
+              })
+              searchResultList += "</ul>";
+              resultContent.innerHTML = searchResultList;
+            }
+          }
+
+          if ('auto' === 'auto') {
+            input.addEventListener('input', inputEventFunction);
+          } else {
+            $('.search-icon').click(inputEventFunction);
+            input.addEventListener('keypress', function (event) {
+              if (event.keyCode === 13) {
+                inputEventFunction();
+              }
+            });
+          }
+
+          // remove loading animation
+          $(".local-search-pop-overlay").remove();
+          $('body').css('overflow', '');
+
+          proceedsearch();
+        }
+      });
+    }
+
+    // handle and trigger popup window;
+    $('.popup-trigger').click(function(e) {
+      e.stopPropagation();
+      if (isfetched === false) {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+      } else {
+        proceedsearch();
+      };
+    });
+
+    $('.popup-btn-close').click(onPopupClose);
+    $('.popup').click(function(e){
+      e.stopPropagation();
+    });
+    $(document).on('keyup', function (event) {
+      var shouldDismissSearchPopup = event.which === 27 &&
+        $('.search-popup').is(':visible');
+      if (shouldDismissSearchPopup) {
+        onPopupClose();
+      }
+    });
+  </script>
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+
+  
+
+  <script type="text/javascript" src="/js/src/clicklove.js"></script>
+</body>
+</html>
