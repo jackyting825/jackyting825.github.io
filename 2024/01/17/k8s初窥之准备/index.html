@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_req.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/virtual_host_only_global_cfg.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/cluster_net_cfg.jpeg">
-<meta property="og:updated_time" content="2024-01-20T03:40:10.468Z">
+<meta property="og:updated_time" content="2024-08-20T13:10:24.429Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s初窥之准备">
 <meta name="twitter:description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-01-20T11:40:10+08:00">
-                2024-01-20
+              <time title="更新于" itemprop="dateModified" datetime="2024-08-20T21:10:24+08:00">
+                2024-08-20
               </time>
             
           </span>
@@ -366,7 +366,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.5k 字
+                  1.8k 字
                 </span>
               
 
@@ -382,7 +382,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  6 分钟
+                  8 分钟
                 </span>
               
             </div>
@@ -460,12 +460,26 @@
 <h3 id="安装docker"><a href="#安装docker" class="headerlink" title="安装docker"></a>安装docker</h3><p>对3台机器进行docker安装。Rocky Linux兼容了Centos，所以安装docker的方法和Centos一致。详细过程可参考docker官网地址：<a href="https://docs.docker.com/engine/install/centos" target="_blank" rel="noopener">https://docs.docker.com/engine/install/centos</a></p>
 <h4 id="Set-up-the-repository-设置添加docker仓库"><a href="#Set-up-the-repository-设置添加docker仓库" class="headerlink" title="Set up the repository 设置添加docker仓库"></a>Set up the repository 设置添加docker仓库</h4><p>Install the yum-utils package (which provides the yum-config-manager utility) and set up the repository.</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install -y yum-utils</span></span><br><span class="line">[root@master ~]<span class="comment"># yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo</span></span><br></pre></td></tr></table></figure>
-<h4 id="Install-Docker-Engine-安装docker引擎"><a href="#Install-Docker-Engine-安装docker引擎" class="headerlink" title="Install Docker Engine 安装docker引擎"></a>Install Docker Engine 安装docker引擎</h4><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  # 安装docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl start docker  # 启动docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl enable docker # 设置docker自启动</span></span><br><span class="line">[root@master ~]<span class="comment"># usermod -aG docker $USER  # 将当前用户加入docker用户组，这样当前用户就可以直接使用docker命令了</span></span><br><span class="line">[root@master ~]<span class="comment"># newgrp docker # 更新用户组docker,立即生效</span></span><br><span class="line">[root@master ~]<span class="comment"># docker version  # 查看docker版本</span></span><br><span class="line">[root@master ~]<span class="comment"># docker run hello-world  # 测试docker是否安装成功</span></span><br></pre></td></tr></table></figure>
+<h4 id="Install-Docker-Engine-安装docker引擎"><a href="#Install-Docker-Engine-安装docker引擎" class="headerlink" title="Install Docker Engine 安装docker引擎"></a>Install Docker Engine 安装docker引擎</h4><blockquote>
+<p>注： 自2024年6月起，docker官方地址已经完全被墙了，国内安装docker需要添加国内的docker仓库源了</p>
+</blockquote>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum-config-manager --add--repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo //  阿里镜像源</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  # 安装docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl start docker  # 启动docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl enable docker # 设置docker自启动</span></span><br><span class="line">[root@master ~]<span class="comment"># usermod -aG docker $USER  # 将当前用户加入docker用户组，这样当前用户就可以直接使用docker命令了</span></span><br><span class="line">[root@master ~]<span class="comment"># newgrp docker # 更新用户组docker,立即生效</span></span><br><span class="line">[root@master ~]<span class="comment"># docker version  # 查看docker版本</span></span><br><span class="line">[root@master ~]<span class="comment"># docker run hello-world  # 测试docker是否安装成功</span></span><br></pre></td></tr></table></figure>
 <blockquote>
-<p>为了后续下载镜像时方便，可以将docker镜像仓库地址设置为阿里云的镜像仓库，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"registry-mirrors"</span>: [<span class="string">"https://registry.cn-hangzhoualiyuncs.com"</span>]</span><br><span class="line">              &#125;</span><br></pre></td></tr></table></figure></p>
+<p>为了后续下载镜像时方便，可以将docker镜像仓库地址设置为阿里云的镜像仓库，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"registry-mirrors"</span>: [<span class="string">"https://xxxx.mirror.aliyuncs.com"</span>] // xxxx替换为自己的镜像仓库地址</span><br><span class="line">              &#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
 <p>重启docker</p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># systemctl daemon-reload</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl restart docker</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注： 自2024年6月起，国内各大docker镜像仓库都不能访问了，拉取镜像需要科学上网；Docker容器和守护进程运行在一个隔离的环境中，默认情况下不会继承主机系统的代理设置，所以需要对其进行设置；docker代理分为docker-client的代理和docker-daemon的代理;</p>
+</blockquote>
+<p>client的代理可直接在/etc/docker/daemon.json文件中直接配置:<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">"proxies"</span>: &#123;</span><br><span class="line">      <span class="attr">"default"</span>: &#123;</span><br><span class="line">        <span class="attr">"httpProxy"</span>:<span class="string">""</span>,</span><br><span class="line">        "httpsProxy"："",</span><br><span class="line">        "noproxy"; "localhost,127.0.0.1,.example.com"</span><br><span class="line">      &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>daemon的代理需要在系统服务中进行配置:</p>
+<p>创建一个 Docker 配置文件（如果不存在），并在其中添加代理设置<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># mkdir  /etc/systemd/system/docker.service.d </span></span><br><span class="line">[root@master ~]<span class="comment"># vim /etc/systemd/system/docker.service.d/proxy.conf</span></span><br></pre></td></tr></table></figure></p>
+<p>在文件中添加以下内容：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[Service]</span><br><span class="line">Environment=<span class="string">"HTTP_PROXY=http://proxy_server:port"</span></span><br><span class="line">Environment=<span class="string">"HTTPS_PROXY=http://proxy_server:port"</span></span><br><span class="line">Environment=<span class="string">"NO_PROXY=localhost,127.0.0.1"</span></span><br></pre></td></tr></table></figure></p>
+<p>重启docker即可</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># systemctl daemon-reload</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl restart docker</span></span><br><span class="line">[root@master ~]<span class="comment"># docker info // 查看代理配置是否生效</span></span><br></pre></td></tr></table></figure>
+
       
     </div>
     
@@ -693,7 +707,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.2k</span>
+    <span title="Site words total count">46.5k</span>
   
 </div>
 
