@@ -90,7 +90,7 @@
 <meta property="og:site_name" content="That&#39;s all mean to be! - jackyting825">
 <meta property="og:description" content="deepin linux 安装最新版 docker可以参考官放 wiki 文档进行安装,地址如下: https://wiki.deepin.org/wiki/Docker#.E5.9C.A8_Deepin_.E4.B8.AD.E5.AE.89.E8.A3.85_Docker_.E6.9C.80.E6.96.B0.E7.89.88.E7.9A.84.E6.96.B9.E6.B3.95 但官网打开速度">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2019-12-26T01:39:37.989Z">
+<meta property="og:updated_time" content="2024-09-04T13:29:15.101Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="deepin linux下初识docker">
 <meta name="twitter:description" content="deepin linux 安装最新版 docker可以参考官放 wiki 文档进行安装,地址如下: https://wiki.deepin.org/wiki/Docker#.E5.9C.A8_Deepin_.E4.B8.AD.E5.AE.89.E8.A3.85_Docker_.E6.9C.80.E6.96.B0.E7.89.88.E7.9A.84.E6.96.B9.E6.B3.95 但官网打开速度">
@@ -328,8 +328,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2019-12-26T09:39:37+08:00">
-                2019-12-26
+              <time title="更新于" itemprop="dateModified" datetime="2024-09-04T21:29:15+08:00">
+                2024-09-04
               </time>
             
           </span>
@@ -361,7 +361,7 @@
                   <span class="post-meta-item-text">字数统计&#58;</span>
                 
                 <span title="字数统计">
-                  1.4k 字
+                  1.5k 字
                 </span>
               
 
@@ -377,7 +377,7 @@
                   <span class="post-meta-item-text">阅读时长 &asymp;</span>
                 
                 <span title="阅读时长">
-                  5 分钟
+                  6 分钟
                 </span>
               
             </div>
@@ -482,6 +482,12 @@
 <p><code>docker start nginx1.0</code> // 启动 nginx1.0 容器</p>
 <p><code>docker stop nginx1.0</code> // 停止 nginx1.0 容器</p>
 <p><code>docker rm nginx1.0</code> // 删除 nginx1.0 容器</p>
+<h5 id="docker常用清除相关缓存命令"><a href="#docker常用清除相关缓存命令" class="headerlink" title="docker常用清除相关缓存命令"></a>docker常用清除相关缓存命令</h5><p><code>docker image prune</code> // 清除悬空镜像（没有标签的镜像，通常是构建过程中的中间层）</p>
+<p><code>docker image prune -a</code> // 清除所有未使用的镜像</p>
+<p><code>docker network prune</code> // 清除未使用的网络</p>
+<p><code>docker volume prune</code> // 清除未使用的卷</p>
+<p><code>docker container prune</code> // 清除所有停止的容器</p>
+<p><code>docker builder prune</code> // 清除所有未使用的构建缓存</p>
 <h4 id="docker-网络"><a href="#docker-网络" class="headerlink" title="docker 网络"></a>docker 网络</h4><p>linux 使用 namespace 来进行资源的隔离 ，docker 的隔离性</p>
 <p>1.docker 的网路类型分为：</p>
 <p>Bridge 模式：桥接（默认的模式）</p>
@@ -688,7 +694,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepin-linux-安装最新版-docker"><span class="nav-number">1.</span> <span class="nav-text">deepin linux 安装最新版 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-使用初识"><span class="nav-number">2.</span> <span class="nav-text">docker 使用初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-入门命令"><span class="nav-number">2.1.</span> <span class="nav-text">docker 入门命令</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-网络"><span class="nav-number">2.2.</span> <span class="nav-text">docker 网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-镜像备份和导入镜像"><span class="nav-number">2.3.</span> <span class="nav-text">docker 镜像备份和导入镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker挂载物理机本地目录"><span class="nav-number">2.4.</span> <span class="nav-text">docker挂载物理机本地目录</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#deepin-linux-安装最新版-docker"><span class="nav-number">1.</span> <span class="nav-text">deepin linux 安装最新版 docker</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#docker-使用初识"><span class="nav-number">2.</span> <span class="nav-text">docker 使用初识</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-入门命令"><span class="nav-number">2.1.</span> <span class="nav-text">docker 入门命令</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#docker常用清除相关缓存命令"><span class="nav-number">2.1.1.</span> <span class="nav-text">docker常用清除相关缓存命令</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-网络"><span class="nav-number">2.2.</span> <span class="nav-text">docker 网络</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker-镜像备份和导入镜像"><span class="nav-number">2.3.</span> <span class="nav-text">docker 镜像备份和导入镜像</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#docker挂载物理机本地目录"><span class="nav-number">2.4.</span> <span class="nav-text">docker挂载物理机本地目录</span></a></li></ol></li></ol></div>
             
 
           </div>
@@ -722,7 +728,7 @@
     
       <span class="post-meta-item-text">Site words total count&#58;</span>
     
-    <span title="Site words total count">46.5k</span>
+    <span title="Site words total count">46.6k</span>
   
 </div>
 
