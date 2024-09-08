@@ -94,7 +94,7 @@
 <meta property="og:image" content="http://jackyting825.github.io/images/k8s_req.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/virtual_host_only_global_cfg.jpeg">
 <meta property="og:image" content="http://jackyting825.github.io/images/cluster_net_cfg.jpeg">
-<meta property="og:updated_time" content="2024-08-20T13:10:24.429Z">
+<meta property="og:updated_time" content="2024-09-08T08:12:29.217Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="k8s初窥之准备">
 <meta name="twitter:description" content="摘要:   最近在学习了解k8s，将学习动手的过程记录下。首先需要一个集群环境，便使用virtualbox模拟集群环境；   由于centos停更（改为滚动更新的Stream版），所以系统采用Rocky Linux (9.3)。 下面是对Rocky Linux的介绍，摘选自Rocky Linux的百度百科。  Rocky Linux是一个开源、社区拥有和管理、免费的企业Linux发行版，提供强大的">
@@ -333,8 +333,8 @@
               
                 <span class="post-meta-item-text">更新于&#58;</span>
               
-              <time title="更新于" itemprop="dateModified" datetime="2024-08-20T21:10:24+08:00">
-                2024-08-20
+              <time title="更新于" itemprop="dateModified" datetime="2024-09-08T16:12:29+08:00">
+                2024-09-08
               </time>
             
           </span>
@@ -463,8 +463,10 @@
 <h4 id="Install-Docker-Engine-安装docker引擎"><a href="#Install-Docker-Engine-安装docker引擎" class="headerlink" title="Install Docker Engine 安装docker引擎"></a>Install Docker Engine 安装docker引擎</h4><blockquote>
 <p>注： 自2024年6月起，docker官方地址已经完全被墙了，国内安装docker需要添加国内的docker仓库源了</p>
 </blockquote>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum-config-manager --add--repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo //  阿里镜像源</span></span><br></pre></td></tr></table></figure>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  # 安装docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl start docker  # 启动docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl enable docker # 设置docker自启动</span></span><br><span class="line">[root@master ~]<span class="comment"># usermod -aG docker $USER  # 将当前用户加入docker用户组，这样当前用户就可以直接使用docker命令了</span></span><br><span class="line">[root@master ~]<span class="comment"># newgrp docker # 更新用户组docker,立即生效</span></span><br><span class="line">[root@master ~]<span class="comment"># docker version  # 查看docker版本</span></span><br><span class="line">[root@master ~]<span class="comment"># docker run hello-world  # 测试docker是否安装成功</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo //  阿里镜像源</span></span><br></pre></td></tr></table></figure>
+<pre><code>yum安装包指定版本的命令
+yum install [package-name]-[version].[architecture] // 如：yum install docker-ce-27.2.0
+</code></pre><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># yum install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin  # 安装docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl start docker  # 启动docker</span></span><br><span class="line">[root@master ~]<span class="comment"># systemctl enable docker # 设置docker自启动</span></span><br><span class="line">[root@master ~]<span class="comment"># usermod -aG docker $USER  # 将当前用户加入docker用户组，这样当前用户就可以直接使用docker命令了</span></span><br><span class="line">[root@master ~]<span class="comment"># newgrp docker # 更新用户组docker,立即生效</span></span><br><span class="line">[root@master ~]<span class="comment"># docker version  # 查看docker版本</span></span><br><span class="line">[root@master ~]<span class="comment"># docker run hello-world  # 测试docker是否安装成功</span></span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>为了后续下载镜像时方便，可以将docker镜像仓库地址设置为阿里云的镜像仓库，如下：<br><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@master ~]<span class="comment"># vim /etc/docker/daemon.json</span></span><br><span class="line">              &#123;</span><br><span class="line">                <span class="string">"registry-mirrors"</span>: [<span class="string">"https://xxxx.mirror.aliyuncs.com"</span>] // xxxx替换为自己的镜像仓库地址</span><br><span class="line">              &#125;</span><br></pre></td></tr></table></figure></p>
 </blockquote>
